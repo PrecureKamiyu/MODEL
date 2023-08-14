@@ -1,11 +1,10 @@
-\NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{cumcmthesis}
-              [2017/09/16 v2.6 Standard LaTeX Template for CUMCM]
+\ProvidesClass{myclass}
+              [myclass]
 %% Inital Code
 \newif\if@mcm@bwprint\@mcm@bwprintfalse
 \newif\if@mcm@preface\@mcm@prefacetrue
 % tokens definition
-%%%% 承诺书
+%%%% 承诺书 %% this line is some new commands
 \newcommand\mcm@tokens@keywords{}
 \newcommand*\mcm@tokens@tihao{}
 \newcommand*\mcm@tokens@baominghao{}
@@ -28,17 +27,25 @@
 %% Executing of Options
 \ExecuteOptions{colorprint}
 \ProcessOptions\relax
+
 %% Loading Class
-\LoadClass[a4paper,12pt]{article}
+%%% we change the require document class to ctexart
+\LoadClass[a4paper,12pt]{ctexart}
+
 %% Loading Package
 \RequirePackage{ifxetex}
-\RequireXeTeX
-\ifxetex\else
-\ClassError{mcmthesis}{You must use the `xelatex' driver\MessageBreak Please choose `xelatex'}{%
-Just choose `xelatex', no `pdflatex' or `latex' and so on.}
-\fi
-% 支持中文的 ctex 宏包
-\RequirePackage{ctex}
+%% next is a for error message. completely useless
+
+%%%%\RequireXeTeX
+%%%%\ifxetex\else
+%%%%\ClassError{mcmthesis}{You must use the `xelatex' driver\MessageBreak Please choose `xelatex'}{%
+%%%%Just choose `xelatex', no `pdflatex' or `latex' and so on.}
+%%%%\fi
+
+%% no one use ctex package
+%%%%% 支持中文的 ctex 宏包
+%%%%\RequirePackage{ctex}
+
 % 页面布局
 \RequirePackage{geometry}
 % 数学宏包
@@ -71,9 +78,6 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \RequirePackage{xcolor}
 % 插入链接
 \RequirePackage{url}
-% 绘图的包
-%\RequirePackage{tikz}
-%\usetikzlibrary{snakes}
 
 % 字图与子标题
 \RequirePackage{subcaption}
@@ -87,7 +91,6 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \renewcommand{\cftsecfont}{\bfseries\zihao{-4}\heiti}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsecaftersnumb}{\hskip.4em}
-
 
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -113,6 +116,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
   breakatwhitespace=true,
   tabsize=3,
 }
+
 % 首行缩进
 \RequirePackage{indentfirst}
 % 设置浮动体的标题
@@ -133,10 +137,13 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
     \phantomsection
     \addcontentsline{toc}{section}{\refname}
     }
+    
+%%% TODO be careful with the position of the hyperref
 % 超链接 hyperref 的设置
 \RequirePackage{hyperref}
 % 智能自动化交叉引用
 \RequirePackage{cleveref}
+
 %% Document Layout
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
@@ -152,19 +159,26 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 % 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
-\setmainfont{Times New Roman}
+%%% TODO here we need to install the times new roman font
+%\setmainfont{Times New Roman}
 %\setmonofont{Courier New}
-\setsansfont{Arial}
-\setCJKfamilyfont{kai}[AutoFakeBold]{simkai.ttf}
-\newcommand*{\kai}{\CJKfamily{kai}}
-\setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
-\newcommand*{\song}{\CJKfamily{song}}
+%\setsansfont{Arial}
+
+%%% TODO we have to deal the the font problem here
+%%% and we can not use the command provided by ctex package
+%% \setCJKfamilyfont{kai}[AutoFakeBold]{simkai.ttf} %% should be removed 
+%% \newcommand*{\kai}{\CJKfamily{kai}}
+\newcommand{\kai}[1]{{\kaishu #1}} %% here is the temporary version of the command
+%% \setCJKfamilyfont{song}[AutoFakeBold]{SimSun} %% should be removed
+%% \newcommand*{\song}{\CJKfamily{song}}
+\newcommand{\song}[1]{{\songti #1}}
 
 \renewcommand\normalsize{%
 	\@setfontsize\normalsize{12.05}{14.45}%
 	\abovedisplayskip 12\p@ \@plus3\p@ \@minus7\p@
 	\abovedisplayshortskip \z@ \@plus3\p@
 	\belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@}
+
 % 数学环境, 定理等设置
 \newtheorem{definition}{\mcm@cap@definition}
 \newtheorem{theorem}{\mcm@cap@theorem}
@@ -179,7 +193,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \newtheorem{proof}{\mcm@cap@proof}
 \newtheorem{solution}{\mcm@cap@solution}
 
-% 浮动环境设置
+% 浮动环境设置 TODO when dealing with the postion of figures and tablurs.
 % 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,否则该页就只单独放置一个浮动环境,
 % 而这通常不是我们想要的, 我们将这个要求降低到 5%.
  \renewcommand*{\textfraction}{0.05}
@@ -200,6 +214,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \graphicspath{{figures/}{figure/}{pictures/}%
   {picture/}{pic/}{pics/}{image/}{images/}}
 % 图表标题
+
 \DeclareCaptionFont{song}{\songti}
 \DeclareCaptionFont{minusfour}{\zihao{-4}}
 \captionsetup[figure]{%
@@ -214,6 +229,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 	font={song,minusfour,bf}, % 表的字体, 宋体小四
 	position=top % position=bottom, 不代表标题放在下面, 标题仍放在你放\caption的位置.
 }
+
 % 列表环境设置
 \setlist{%
 	topsep=0.3em, % 列表顶端的垂直空白
@@ -462,34 +478,36 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 % 中文标题格式设置
 % 目录深度
 \setcounter{secnumdepth}{3}
+
+%%% TODO the counter just went wrong we have to fix that
 % 节标题格式, 居中, 使用\chinese命令修改计数器
-\def\@seccntformat#1{\csname the#1\endcsname\ }
-\renewcommand\thesection{\chinese{section}、}
-\renewcommand\thesubsection{\arabic{section}\thinspace.\thinspace\arabic{subsection}}
-\renewcommand\thesubsubsection{\thesubsection\thinspace.\thinspace\arabic{subsubsection}}
-\renewcommand\section{\@startsection{section}{1}{\z@}%
- 	{-3.5ex \@plus -1ex \@minus -.2ex}%
-	{2.3ex \@plus.2ex}%
-	{\centering\normalfont\Large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-	{-3.25ex\@plus -1ex \@minus -.2ex}%
-	{1.5ex \@plus .2ex}%
-	{\normalfont\large\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-	{-3.25ex\@plus -1ex \@minus -.2ex}%
-	{1.5ex \@plus .2ex}%
-	{\normalfont\normalsize\bfseries}}
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-	{3.25ex \@plus1ex \@minus.2ex}%
-	{-1em}%
-	{\normalfont\normalsize\bfseries}}
-\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-	 {3.25ex \@plus1ex \@minus .2ex}%
-	 {-1em}%
-	 {\normalfont\normalsize\bfseries}}
+%\def\@seccntformat#1{\csname the#1\endcsname\ }
+%\renewcommand\thesection{\chinese{section}、}
+%\renewcommand\thesubsection{\arabic{section}\thinspace.\thinspace\arabic{subsection}}
+%\renewcommand\thesubsubsection{\thesubsection\thinspace.\thinspace\arabic{subsubsection}}
+%\renewcommand\section{\@startsection{section}{1}{\z@}%
+ 	%{-3.5ex \@plus -1ex \@minus -.2ex}%
+	%{2.3ex \@plus.2ex}%
+	%{\centering\normalfont\Large\bfseries}}
+%\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+	%{-3.25ex\@plus -1ex \@minus -.2ex}%
+	%{1.5ex \@plus .2ex}%
+	%{\normalfont\large\bfseries}}
+%\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+	%{-3.25ex\@plus -1ex \@minus -.2ex}%
+	%{1.5ex \@plus .2ex}%
+	%{\normalfont\normalsize\bfseries}}
+%\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+	%{3.25ex \@plus1ex \@minus.2ex}%
+	%{-1em}%
+	%{\normalfont\normalsize\bfseries}}
+%\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+	 %{3.25ex \@plus1ex \@minus .2ex}%
+	 %{-1em}%
+	 %{\normalfont\normalsize\bfseries}}
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Define new environment and command
 %% 摘要两个字设置为 4 号.
 %% 定义摘要环境
 \renewenvironment{abstract}{%
@@ -567,9 +585,9 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 	\renewcommand{\mcm@tokens@dayinput}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% some constants
 %% Initialization
- %%%数学定理相关的常量
+%%%数学定理相关的常量
 \newcommand*{\mcm@cap@definition}{定义}
 \newcommand*{\mcm@cap@theorem}{定理}
 \newcommand*{\mcm@cap@lemma}{引理}
@@ -582,7 +600,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \newcommand*{\mcm@cap@example}{例}
 \newcommand*{\mcm@cap@proof}{证明}
 \newcommand*{\mcm@cap@solution}{解}
- %%%  中文标题名称
+%%%  中文标题名称
 \newcommand*{\mcm@cap@contentsname}{目录}
 \newcommand*{\mcm@cap@listfigurename}{插图清单}
 \newcommand*{\mcm@cap@listtablename}{附表清单}
@@ -592,10 +610,10 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \newcommand*{\mcm@cap@tablename}{表}
 \newcommand*{\mcm@cap@appendixname}{附录}
 \newcommand*{\mcm@cap@abstractname}{摘要}
- %%%  中文关键字
+%%%  中文关键字
 \newcommand*{\mcm@cap@keywordsname}{关键字}
 
- %%% 承诺书中的常量
+%%% 承诺书中的常量
 \newcommand*\mcm@commit@string@headname{赛区评阅编号（由赛区组委会填写）：}
 \newcommand*\mcm@commit@string@titlea{\the\year 高教社杯全国大学生数学建模竞赛}
 \newcommand*\mcm@commit@string@titleb{承\hspace{1em}诺\hspace{1em}书}
@@ -611,6 +629,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 我们授权全国大学生数学建模竞赛组委会，可将我们的论文以任何形式进行公开展示（包括进行网上公示，在书籍、期刊和其他媒体进行正式或非正式发表等）。
 \endquotation
 }
+
 \newcommand*\mcm@commit@string@problemnum{我们参赛选择的题号（从A/B/C/D/E中选择一项填写）：}
 \newcommand*\mcm@commit@string@signupnum{我们的报名参赛队号（12位数字全国统一编号）：}
 \newcommand*\mcm@commit@string@schoolname{参赛学校（完整的学校全称，不含院系名）：}
@@ -627,7 +646,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \newcommand*\mcm@commit@string@day{日}
 \newcommand*\mcm@commit@string@appraisenum{赛区评阅编号（由赛区组委会评阅前进行编号）：}
 
- %%% 编号专用页中的常量
+%%% 编号专用页中的常量
 \newcommand*\mcm@numberpage@string@headname{赛区评阅编号：}
 \newcommand*\mcm@numberpage@string@headnameb{（由赛区填写）}
 \newcommand*\mcm@numberpage@string@allcountrynum{全国评阅编号：}
