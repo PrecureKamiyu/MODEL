@@ -1,0 +1,102 @@
+\documentclass{cumcmthesis}
+%\documentclass[withoutpreface,bwprint]{cumcmthesis} %去掉封面与编号页
+\title{TITLE}
+\tihao{A}            % 题号
+\baominghao{4321}    % 报名号
+\schoolname{你的大学}
+\membera{成员A}
+\memberb{成员B}
+\memberc{成员C}
+\supervisor{指导老师}
+\yearinput{2017}     % 年
+\monthinput{08}      % 月
+\dayinput{22}        % 日
+\usepackage{float}
+\usepackage{listings}
+\usepackage{tikz}
+
+\begin{document}
+	\maketitle
+	\begin{abstract}
+
+
+		\keywords{关键词1\quad  关键词2\quad   关键词3}
+	\end{abstract}
+
+	\section{问题重述}
+
+
+	\section{问题分析}
+
+	
+	\section{符号说明}
+	\begin{center}
+		\begin{tabular}{ccc}
+			\hline
+			\makebox[0.3\textwidth][c]{符号}	& 
+			\makebox[0.4\textwidth][c]{说明}	&
+			\makebox[0.3\textwidth][c]{单位} \\ \hline
+			$x$	    	&   振子位移          &   $m$ \\ 
+			$\dot{x}$	&   振子速度          &   $m/s$  \\ 
+			$\ddot{x}$	&   振子加速度        &   $m/s^2$ \\ 
+			$y$	    	&   浮子位移          &   $m$ \\ 
+			$\dot{y}$	&   浮子速度          &   $m/s$ \\ 
+			$\ddot{y}$	&   浮子加速度        &   $m/s^2$   \\
+			$m$	    	&   振子质量          &   $kg$     \\ 
+			$M$	    	&   浮子质量          &   $kg$    \\ 
+			$M^{\prime}$&   垂荡浮子附加惯性质量&  $kg$  \\ 
+			$J^{\prime}$&	纵摇浮子附加转动惯量&  $kg \cdot m^2 $ \\
+			$f$	    	&   垂荡激励力振幅     &   $N$  \\ 
+			$L$         &   纵摇激励力距振幅   &   $N \cdot m $ \\
+			$\omega$	&   波浪频率          &   $s^{-1}$ \\ 
+			$R$	    	&   浮子底面半径       &   $m$ \\ 
+			$\rho$	    &   海水密度          &   $kg/m^3$ \\ 
+			$g$	    	&   重力加速度         &  $m/s^2$  \\\hline
+		\end{tabular}
+		\newpage
+		\begin{tabular}{ccc}
+			\hline
+			\makebox[0.3\textwidth][c]{符号}	& 
+			\makebox[0.4\textwidth][c]{说明}	&
+			\makebox[0.3\textwidth][c]{单位} \\ \hline
+			$k_1$	    &   弹簧刚度          &   $N/m$  \\
+			$k_2$		&   直线阻尼器阻尼系数 &   $N \cdot s/m$    \\
+			$k_3$	    &   垂荡兴波阻尼系数   &   $N \cdot s/m$    \\ 
+			$d$         &   弹簧原长		  &   $m$     \\
+			$a_1$       &   扭转弹簧刚度       &   $ N \cdot m $ \\
+			$a_2$       &   旋转阻尼系数       &   $ N \cdot m \cdot s $\\
+			$a_3$		&   纵摇兴波阻尼系数   &   $ N \cdot m \cdot s $\\
+			$a_4$		&   静水恢复力矩系数   &   $ N \cdot m $ \\  
+			$\alpha$    &	振子角位移		  &   $ rad $ \\
+			$\dot{\alpha}$& 振子角速度		  &   $ rad/s $ \\ 
+			$\ddot{\alpha}$&振子角加速度		 &   $ rad/s^2 $ \\ 
+			$\beta$     &   浮子角位移		  &   $ rad $  \\
+			$\dot{\beta}$&  浮子角速度		  &   $ rad/s $ \\ 
+			$\ddot{\beta}$& 浮子角加速度		 &   $ rad/s^2 $ \\ 
+			\hline
+		\end{tabular}
+	\end{center}
+	
+
+	\section{模型假设}
+	
+	
+	\section{模型建立与求解}
+	
+	
+	\section{模型评价}
+	
+
+	\newpage
+	\begin{thebibliography}{9} % 参考文献
+		\bibitem{bib:one}
+		writer.
+		\newblock bookname\allowbreak [J].
+		\newblock xx出版社，Beijing，2017.
+	\end{thebibliography}
+	\begin{appendices}  
+		\begin{lstlisting}[language={python}]  
+			print("hello world")
+		\end{lstlisting}  % 此处粘贴python代码
+	\end{appendices}
+\end{document}
