@@ -160,7 +160,7 @@
 \setlength\parindent{2em}
 % 设置字体
 %%% TODO here we need to install the times new roman font
-%\setmainfont{Times New Roman}
+\setmainfont{Times New Roman}
 %\setmonofont{Courier New}
 %\setsansfont{Arial}
 
