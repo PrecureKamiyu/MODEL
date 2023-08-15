@@ -133,7 +133,6 @@
 % 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
-%\setmainfont{Times New Roman}
 \RequirePackage{newtxtext}
 \RequirePackage{newtxmath}
 %\setmonofont{Courier New}
