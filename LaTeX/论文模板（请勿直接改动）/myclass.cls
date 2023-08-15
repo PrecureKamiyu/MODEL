@@ -477,7 +477,15 @@
 
 % 中文标题格式设置
 % 目录深度
+<<<<<<< HEAD
 \setcounter{secnumdepth}{3}
+=======
+%% what is this?
+\setcounter{secnumdepth}{3}
+
+%%% TODO the counter just went wrong we have to fix that
+\renewcommand{\thesection}{\zhnum{section}}
+>>>>>>> parent of 7da4703 (Update myclass.cls)
 
 %%% TODO the counter just went wrong we have to fix that
 % 节标题格式, 居中, 使用\chinese命令修改计数器
