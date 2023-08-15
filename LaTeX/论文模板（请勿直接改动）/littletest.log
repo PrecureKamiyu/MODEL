@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.6.1)  15 AUG 2023 08:46
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2023.6.1)  14 AUG 2023 20:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,12 +786,12 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 \c@example=\count345
 \c@proof=\count346
 \c@solution=\count347
-Package hyperref Info: Option `CJKbookmarks' set `true' on input line 255.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 255.
+Package hyperref Info: Option `CJKbookmarks' set `true' on input line 256.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 256.
 
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 255.
-Package hyperref Info: Option `colorlinks' set `true' on input line 255.
-Package hyperref Info: Option `breaklinks' set `true' on input line 255.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 256.
+Package hyperref Info: Option `colorlinks' set `true' on input line 256.
+Package hyperref Info: Option `breaklinks' set `true' on input line 256.
 )
 (/usr/share/texlive/texmf-dist/tex/xelatex/xecjk/xeCJK-listings.sty
 Package: xeCJK-listings 2020/02/14 v3.8.1 xeCJK patch file for listings
@@ -963,45 +963,35 @@ Package fontspec Info: Font family 'FandolKai-Regular(0)' created for font
 (fontspec)             <->"[FandolKai-Regular.otf]/OT:language=dflt;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
-
-LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/b/n' undefined
-(Font)              using `TU/TimesNewRoman(0)/m/n' instead on input line 7.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 10.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6.
 
 LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/m/sl' undefined
-(Font)              using `TU/TimesNewRoman(0)/m/it' instead on input line 10.
+(Font)              using `TU/TimesNewRoman(0)/m/it' instead on input line 6.
 
 
 LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/m/it' undefined
-(Font)              using `TU/TimesNewRoman(0)/m/n' instead on input line 10.
+(Font)              using `TU/TimesNewRoman(0)/m/n' instead on input line 6.
 
 [1
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 10.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 6.
  (./littletest.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 10.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 10.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6.
+Package rerunfilecheck Info: File `littletest.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
-
-Package rerunfilecheck Warning: File `littletest.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `littletest.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  3262B041C37A4166416824C0B1B3B33B;289.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 22371 strings out of 479819
- 444450 string characters out of 5895847
- 756611 words of memory out of 5000000
- 39188 multiletter control sequences out of 15000+600000
- 532972 words of font info for 47 fonts, out of 8000000 for 9000
+ 22361 strings out of 479819
+ 444135 string characters out of 5895847
+ 755611 words of memory out of 5000000
+ 39180 multiletter control sequences out of 15000+600000
+ 532956 words of font info for 45 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  63i,5n,76p,830b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
 
