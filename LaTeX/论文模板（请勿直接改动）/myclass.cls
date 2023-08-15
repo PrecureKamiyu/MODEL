@@ -159,18 +159,11 @@
 % 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
-%%% TODO here we need to install the times new roman font
 \setmainfont{Times New Roman}
 %\setmonofont{Courier New}
 %\setsansfont{Arial}
 
-%%% TODO we have to deal the the font problem here
-%%% and we can not use the command provided by ctex package
-%% \setCJKfamilyfont{kai}[AutoFakeBold]{simkai.ttf} %% should be removed 
-%% \newcommand*{\kai}{\CJKfamily{kai}}
-\newcommand{\kai}[1]{{\kaishu #1}} %% here is the temporary version of the command
-%% \setCJKfamilyfont{song}[AutoFakeBold]{SimSun} %% should be removed
-%% \newcommand*{\song}{\CJKfamily{song}}
+\newcommand{\kai}[1]{{\kaishu #1}}
 \newcommand{\song}[1]{{\songti #1}}
 
 \renewcommand\normalsize{%
@@ -196,17 +189,17 @@
 % 浮动环境设置 TODO when dealing with the postion of figures and tablurs.
 % 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,否则该页就只单独放置一个浮动环境,
 % 而这通常不是我们想要的, 我们将这个要求降低到 5%.
- \renewcommand*{\textfraction}{0.05}
+\renewcommand*{\textfraction}{0.05}
 % 有时如果多个浮动环境连续放在一起, \LaTeX{}
 % 会将它们分在几个不同页，即使它们可在同一页放
 % 得下. 我们可以通过修改 |\topfraction| 和 |\bottomfraction| 分别设置顶端和底端的浮
 % 动环境的最大比例.
- \renewcommand*{\topfraction}{0.9}
- \renewcommand*{\bottomfraction}{0.8}
+\renewcommand*{\topfraction}{0.9}
+\renewcommand*{\bottomfraction}{0.8}
 % 有时\LaTeX{}会把一个浮动环境单独放在一页,
 % 我们要求这个环境至少要占据 85% 才能单独放在一页.
 % 注意:  |\floatpagefraction| 的数值必须小于 |\topfraction|.
- \renewcommand*{\floatpagefraction}{0.85}
+\renewcommand*{\floatpagefraction}{0.85}
 % 关于图片 graphicx
  % 如果图片没有指定后缀, 依次按下列顺序搜索
 \DeclareGraphicsExtensions{.pdf,.eps,.jpg,.png}
@@ -474,20 +467,9 @@
 \renewcommand\tablename{\mcm@cap@tablename}
 \renewcommand\appendixname{\mcm@cap@appendixname}
 \renewcommand\abstractname{\mcm@cap@abstractname}
-
 % 中文标题格式设置
 % 目录深度
-<<<<<<< HEAD
-\setcounter{secnumdepth}{3}
-=======
-%% what is this?
-\setcounter{secnumdepth}{3}
-
-%%% TODO the counter just went wrong we have to fix that
 \renewcommand{\thesection}{\zhnum{section}}
->>>>>>> parent of 7da4703 (Update myclass.cls)
-
-%%% TODO the counter just went wrong we have to fix that
 % 节标题格式, 居中, 使用\chinese命令修改计数器
 %\def\@seccntformat#1{\csname the#1\endcsname\ }
 %\renewcommand\thesection{\chinese{section}、}
