@@ -5,3 +5,7 @@
 *.xdv
 *.aux
 *.log
+*.gz
+*.out
+*.swp
+*.synctex(busy)
