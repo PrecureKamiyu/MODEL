@@ -135,8 +135,6 @@
 % 设置字体
 \RequirePackage{newtxtext}
 \RequirePackage{newtxmath}
-%\setmonofont{Courier New}
-%\setsansfont{Arial}
 %% these are for the shit mount by the cumcmthesis
 \newcommand{\kai}[1]{{\kaishu #1}}
 \newcommand{\song}[1]{{\songti #1}}
@@ -164,14 +162,8 @@
 % 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,否则该页就只单独放置一个浮动环境,
 % 而这通常不是我们想要的, 我们将这个要求降低到 5%.
 \renewcommand*{\textfraction}{0.05}
-% 有时如果多个浮动环境连续放在一起, \LaTeX{}
-% 会将它们分在几个不同页，即使它们可在同一页放
-% 得下. 我们可以通过修改 |\topfraction| 和 |\bottomfraction| 分别设置顶端和底端的浮
-% 动环境的最大比例.
 \renewcommand*{\topfraction}{0.9}
 \renewcommand*{\bottomfraction}{0.8}
-% 有时\LaTeX{}会把一个浮动环境单独放在一页,
-% 我们要求这个环境至少要占据 85% 才能单独放在一页.
 % 注意:  |\floatpagefraction| 的数值必须小于 |\topfraction|.
 \renewcommand*{\floatpagefraction}{0.85}
 % 关于图片 graphicx
@@ -306,11 +298,11 @@
 
 % 生成封面, 使用\maketitle
 \renewcommand{\maketitle}{\par
-	\begingroup
-      \newpage
-      \global\@topnum\z@   % Prevents figures from going at top of page.
-      \@maketitle
-    \endgroup
+  \begingroup
+  \newpage
+  \global\@topnum\z@   % Prevents figures from going at top of page.
+  \@maketitle
+  \endgroup
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@maketitle\relax
@@ -472,7 +464,7 @@
 	\par
 	\vskip1ex
 	{\noindent\zihao{-4}\heiti\mcm@cap@keywordsname：}~{\mcm@tokens@keywords}
-	}
+}
 % 定义附录
 
 % \renewcommand{\setthesection}{\appendixname\Alph{section}}
