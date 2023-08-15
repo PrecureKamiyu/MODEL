@@ -149,6 +149,7 @@
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 \renewcommand*{\baselinestretch}{1.38}
+\setlength{\parskip}{5pt}
 % 修改tabular 环境, 设置表格中的行间距为正文行间距.
 \let\mcm@oldtabular\tabular
 \let\mcm@endoldtabular\endtabular
@@ -477,10 +478,11 @@
 % 中文标题格式设置
 % 目录深度
 %% what is this?
-\setcounter{secnumdepth}{3}
+%\setcounter{secnumdepth}{3}
 
-%%% TODO the counter just went wrong we have to fix that
 \renewcommand{\thesection}{\zhnum{section}}
+%%% TODO fix the subsection counter
+%\renewcommand{\thesubsection}{\zhnum{subsection}}
 
 % 节标题格式, 居中, 使用\chinese命令修改计数器
 %\def\@seccntformat#1{\csname the#1\endcsname\ }
@@ -539,6 +541,7 @@
 	}
 % 定义附录
 
+%% TODO apppendix
 % \renewcommand{\setthesection}{\appendixname\Alph{section}}
 % \renewcommand\appendix{\par
 	% \setcounter{section}{0}%
