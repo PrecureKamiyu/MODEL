@@ -23,7 +23,7 @@
 \DeclareOption{colorprint}{\@mcm@bwprintfalse}
 \DeclareOption{bwprint}{\@mcm@bwprinttrue}
 \DeclareOption{withoutpreface}{\@mcm@prefacefalse}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\DeclareOption*{\ToClass{\CurrentOption}{article}}
 %% Executing of Options
 \ExecuteOptions{colorprint}
 \ProcessOptions\relax
@@ -46,48 +46,31 @@
 %%%%% 支持中文的 ctex 宏包
 %%%%\RequirePackage{ctex}
 
-% 页面布局
 \RequirePackage{geometry}
-% 数学宏包
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 \RequirePackage{bm}
-%\RequirePackage{titletoc}
-% 设置颜色
 \RequirePackage{xcolor}
-% 插入图片
 \RequirePackage{graphicx}
 \RequirePackage{float}
-% 表格
 \RequirePackage{array}
-%% 长表格
 \RequirePackage{longtable}
-%% booktabs 提供了\toprule 等命令.
 \RequirePackage{booktabs,tabularx}
-%% multirow 支持在表格中跨行
 \RequirePackage{multirow}
-%% 调整间隔, 让表格更好看些
 \RequirePackage{bigstrut}
-%% 在跨行表格中输入定界符
 \RequirePackage{bigdelim}
-% 保护脆落命令
 \RequirePackage{cprotect}
-% 设置代码环境
 \RequirePackage{listings}
 \RequirePackage{xcolor}
-% 插入链接
 \RequirePackage{url}
 
 % 字图与子标题
 \RequirePackage{subcaption}
 \RequirePackage[titles]{tocloft}
-%\renewcommand{\cftdot}{$\cdot$}
-%\renewcommand{\cftsecdotsep}{1.5}
 \renewcommand{\cftsecdotsep}{4.5}
 \setlength{\cftbeforesecskip}{7pt}
 \setlength{\cftbeforesubsecskip}{3pt}
-%\setlength{\cftbeforesubsecskip}{5pt}
 \renewcommand{\cftsecfont}{\bfseries\zihao{-4}\heiti}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsecaftersnumb}{\hskip.4em}
@@ -117,21 +100,13 @@
   tabsize=3,
 }
 
-% 首行缩进
 \RequirePackage{indentfirst}
-% 设置浮动体的标题
 \RequirePackage{caption}
-% 定制列表环境
 \RequirePackage{enumitem}
-% 下划线
 \RequirePackage{ulem}
-% 尺寸计算
 \RequirePackage{calc}
 
 \RequirePackage[titletoc,title]{appendix}
-
-%\RequirePackage[title,toc,titletoc]{appendix}
-
 \RequirePackage{etoolbox}
 \AtBeginEnvironment{thebibliography}{%
     \phantomsection
@@ -139,14 +114,13 @@
     }
     
 %%% TODO be careful with the position of the hyperref
-% 超链接 hyperref 的设置
 \RequirePackage{hyperref}
-% 智能自动化交叉引用
 \RequirePackage{cleveref}
 
 %% Document Layout
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
+\setlength{\parskip}{4pt}
 \renewcommand*{\baselinestretch}{1.38}
 % 修改tabular 环境, 设置表格中的行间距为正文行间距.
 \let\mcm@oldtabular\tabular
@@ -159,10 +133,12 @@
 % 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
-\setmainfont{Times New Roman}
+%\setmainfont{Times New Roman}
+\RequirePackage{newtxtext}
+\RequirePackage{newtxmath}
 %\setmonofont{Courier New}
 %\setsansfont{Arial}
-
+%% these are for the shit mount by the cumcmthesis
 \newcommand{\kai}[1]{{\kaishu #1}}
 \newcommand{\song}[1]{{\songti #1}}
 
@@ -172,7 +148,6 @@
 	\abovedisplayshortskip \z@ \@plus3\p@
 	\belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@}
 
-% 数学环境, 定理等设置
 \newtheorem{definition}{\mcm@cap@definition}
 \newtheorem{theorem}{\mcm@cap@theorem}
 \newtheorem{lemma}{\mcm@cap@lemma}
@@ -469,34 +444,8 @@
 \renewcommand\abstractname{\mcm@cap@abstractname}
 % 中文标题格式设置
 % 目录深度
-\renewcommand{\thesection}{\zhnum{section}}
-% 节标题格式, 居中, 使用\chinese命令修改计数器
-%\def\@seccntformat#1{\csname the#1\endcsname\ }
-%\renewcommand\thesection{\chinese{section}、}
-%\renewcommand\thesubsection{\arabic{section}\thinspace.\thinspace\arabic{subsection}}
-%\renewcommand\thesubsubsection{\thesubsection\thinspace.\thinspace\arabic{subsubsection}}
-%\renewcommand\section{\@startsection{section}{1}{\z@}%
- 	%{-3.5ex \@plus -1ex \@minus -.2ex}%
-	%{2.3ex \@plus.2ex}%
-	%{\centering\normalfont\Large\bfseries}}
-%\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-	%{-3.25ex\@plus -1ex \@minus -.2ex}%
-	%{1.5ex \@plus .2ex}%
-	%{\normalfont\large\bfseries}}
-%\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-	%{-3.25ex\@plus -1ex \@minus -.2ex}%
-	%{1.5ex \@plus .2ex}%
-	%{\normalfont\normalsize\bfseries}}
-%\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-	%{3.25ex \@plus1ex \@minus.2ex}%
-	%{-1em}%
-	%{\normalfont\normalsize\bfseries}}
-%\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-	 %{3.25ex \@plus1ex \@minus .2ex}%
-	 %{-1em}%
-	 %{\normalfont\normalsize\bfseries}}
-%
-
+%% \renewcommand{\thesection}{\zhnum{section}}
+%% \renewcommand{\thesubsection}{\zhnum{section}.\zhnum{subsection}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 摘要两个字设置为 4 号.
 %% 定义摘要环境
