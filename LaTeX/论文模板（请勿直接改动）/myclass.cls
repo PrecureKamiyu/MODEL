@@ -137,8 +137,9 @@
     \phantomsection
     \addcontentsline{toc}{section}{\refname}
     }
+
+\RequirePackage{zhnumber}
     
-%%% TODO be careful with the position of the hyperref
 % 超链接 hyperref 的设置
 \RequirePackage{hyperref}
 % 智能自动化交叉引用
@@ -148,6 +149,7 @@
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 \renewcommand*{\baselinestretch}{1.38}
+\setlength{\parskip}{5pt}
 % 修改tabular 环境, 设置表格中的行间距为正文行间距.
 \let\mcm@oldtabular\tabular
 \let\mcm@endoldtabular\endtabular
@@ -158,14 +160,12 @@
 	{\mcm@endoldtabular\egroup}
 % 每行缩进两个汉字
 \setlength\parindent{2em}
+
 % 设置字体
-%%% TODO here we need to install the times new roman font
 \setmainfont{Times New Roman}
 %\setmonofont{Courier New}
 %\setsansfont{Arial}
 
-%%% TODO we have to deal the the font problem here
-%%% and we can not use the command provided by ctex package
 %% \setCJKfamilyfont{kai}[AutoFakeBold]{simkai.ttf} %% should be removed 
 %% \newcommand*{\kai}{\CJKfamily{kai}}
 \newcommand{\kai}[1]{{\kaishu #1}} %% here is the temporary version of the command
@@ -477,9 +477,13 @@
 
 % 中文标题格式设置
 % 目录深度
-\setcounter{secnumdepth}{3}
+%% what is this?
+%\setcounter{secnumdepth}{3}
 
-%%% TODO the counter just went wrong we have to fix that
+\renewcommand{\thesection}{\zhnum{section}}
+%%% TODO fix the subsection counter
+%\renewcommand{\thesubsection}{\zhnum{subsection}}
+
 % 节标题格式, 居中, 使用\chinese命令修改计数器
 %\def\@seccntformat#1{\csname the#1\endcsname\ }
 %\renewcommand\thesection{\chinese{section}、}
@@ -537,6 +541,7 @@
 	}
 % 定义附录
 
+%% TODO apppendix
 % \renewcommand{\setthesection}{\appendixname\Alph{section}}
 % \renewcommand\appendix{\par
 	% \setcounter{section}{0}%
@@ -624,7 +629,7 @@
 
 我们完全清楚，在竞赛中必须合法合规地使用文献资料和软件工具，不能有任何侵犯知识产权的行为。否则我们将失去评奖资格，并可能受到严肃处理。
 
-{\bfseries\song 我们以中国大学生名誉和诚信郑重承诺，严格遵守竞赛章程和参赛规则，以保证竞赛的公正、公平性。如有违反竞赛章程和参赛规则的行为，我们将受到严肃处理。}
+{\bfseries\songti 我们以中国大学生名誉和诚信郑重承诺，严格遵守竞赛章程和参赛规则，以保证竞赛的公正、公平性。如有违反竞赛章程和参赛规则的行为，我们将受到严肃处理。}
 
 我们授权全国大学生数学建模竞赛组委会，可将我们的论文以任何形式进行公开展示（包括进行网上公示，在书籍、期刊和其他媒体进行正式或非正式发表等）。
 \endquotation
