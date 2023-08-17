@@ -28,12 +28,12 @@ def func(k, x0, y0, *theta):
     Ik = np.zeros_like(k)
 
     for i in range(0, 180):
-        temp1 = ((k[k // 180 == i] % 180 - 255.5)*d + (x0 - 45)*np.sin(theta[i]) - y0 * np.cos(theta[i]))**2
+        temp1 = ((k[k // 512 == i] % 512 - 255.5)*d + (x0 - 45)*np.sin(theta[i]) - y0 * np.cos(theta[i]))**2
         temp2 = m**2 * (np.sin(theta[i]))**2 + n**2 * (np.cos(theta[i]))**2
-        temp3 = ((k[k // 180 == i] % 180 - 255.5)*d + x0*np.sin(theta[i]) - y0 * np.cos(theta[i]))**2
+        temp3 = ((k[k // 512 == i] % 512 - 255.5)*d + x0*np.sin(theta[i]) - y0 * np.cos(theta[i]))**2
         res1 = 2*lamb*((np.clip(r**2 - temp1, 0, np.inf))**0.5)
         res2 = 2*lamb*m*n*(np.clip(temp2 - temp3, 0, np.inf))**0.5 / temp2
-        Ik[k // 180 == i] = res1 + res2
+        Ik[k // 512 == i] = res1 + res2
     return Ik
 
 xyt = [-9, 6]
