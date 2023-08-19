@@ -115,9 +115,12 @@ X, U = np.meshgrid(tspan, xspan)
 
 ax = plt.axes(projection = '3d')
 ax.plot_surface(U, X, T, linewidth = 0, cmap = plt.cm.coolwarm)
-ax.set_xticks([0, 0.003,0.006,0.009,0.012,0.015])
+ax.set_xticks([0, 0.003,0.006,0.009,0.012,0.015, 0.018])
 ax.set_xlabel('$x$')
 ax.set_ylabel('$t$')
 ax.set_zlabel('$T$')
 plt.tight_layout()
 plt.show()
+
+
+print((T[1520, 5400] - T[1519, 5400]))
