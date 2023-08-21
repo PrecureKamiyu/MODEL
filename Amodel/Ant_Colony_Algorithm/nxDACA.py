@@ -3,7 +3,7 @@ import random as rd
 
 
 def optimizefunc(x):
-    return (x[0] - 0.396)**2 + (x[1] - 0.4782)**2 + (x[2] - 0.86436)**2
+    return (x[0] - 0.396)**2 
 
 
 def bet(T, ant):
@@ -235,4 +235,4 @@ def DACA(optfunc, p, num_ant, loop_times, K, Q, J, rho):
             print("")
 
 
-DACA(optimizefunc, p=[4, 5, 6], num_ant=1000, loop_times=30, K=5, Q=0.8, J=1000, rho=0.4)
+DACA(optimizefunc, p=[4], num_ant=1000, loop_times=30, K=5, Q=0.8, J=1000, rho=0.4)
