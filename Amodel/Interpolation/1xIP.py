@@ -1,7 +1,6 @@
 # 一维插值（经过样本点）
 
 import numpy as np
-import pylab as pl
 from scipy import interpolate
 import pylab as plt
 
@@ -26,5 +25,5 @@ plt.ylabel('$y$', rotation = 0)
 plt.plot(x, y, 'o')  # 显示原始点数据
 plt.plot(x_new, f_liner(x_new), label="linear_IP")  # 显示线性插值
 plt.plot(x_new, y_bspline, label="Bspline_IP")  # 显示样条插值
-pl.legend()
-pl.show()
+plt.legend()
+plt.show()
