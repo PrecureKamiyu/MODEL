@@ -102,7 +102,7 @@
 %% Document Layout
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
-\setlength{\parskip}{4pt}
+%\setlength{\parskip}{4pt}
 \renewcommand*{\baselinestretch}{1.38}
 
 % table line skip
