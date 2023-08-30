@@ -30,10 +30,7 @@
 %%% we change the require document class to ctexart
 \LoadClass[a4paper,12pt]{ctexart}
 
-%% Loading Package
 \RequirePackage{ifxetex}
-%% next is a for error message. completely useless
-
 \RequirePackage{geometry}
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
@@ -61,7 +58,6 @@
 \renewcommand{\cftsecfont}{\bfseries\zihao{-4}\heiti}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsecaftersnumb}{\hskip.4em}
-
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -124,6 +120,7 @@
 % 设置字体
 \RequirePackage{newtxtext}
 \RequirePackage{newtxmath}
+
 %% these are for the shit mount by the cumcmthesis
 \newcommand{\kai}[1]{{\kaishu #1}}
 \newcommand{\song}[1]{{\songti #1}}
@@ -202,9 +199,6 @@
          pdfborder=001,   %注释掉此项则交叉引用为彩色边框
 		 allcolors=black,
 		 breaklinks=true}%
-% \if@mcm@bwprint
-% \AtBeginDocument{\hypersetup{hidelinks}}
-% \else\relax\fi
 \pdfstringdefDisableCommands{%
 	\def\cftdotfill{ }%
 }
