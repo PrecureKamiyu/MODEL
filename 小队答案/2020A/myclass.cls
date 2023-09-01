@@ -30,7 +30,6 @@
 %%% we change the require document class to ctexart
 \LoadClass[a4paper,12pt]{ctexart}
 
-\RequirePackage{ifxetex}
 \RequirePackage{geometry}
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
@@ -52,9 +51,11 @@
 
 \RequirePackage{subcaption}
 \RequirePackage[titles]{tocloft}
-\renewcommand{\cftsecdotsep}{4.5}
-\setlength{\cftbeforesecskip}{7pt}
-\setlength{\cftbeforesubsecskip}{3pt}
+%\renewcommand{\cftsecdotsep}{4.5}
+
+%\setlength{\cftbeforesecskip}{7pt}
+%\setlength{\cftbeforesubsecskip}{2pt}
+
 \renewcommand{\cftsecfont}{\bfseries\zihao{-4}\heiti}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsecaftersnumb}{\hskip.4em}
@@ -63,25 +64,6 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{
-  frame=tb,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  framerule=1pt,
-  rulecolor=\color{gray!35},
-  backgroundcolor=\color{gray!5},
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3,
-}
 
 \RequirePackage{indentfirst}
 \RequirePackage{caption}
@@ -103,7 +85,8 @@
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 %\setlength{\parskip}{4pt}
-\renewcommand*{\baselinestretch}{1.38}
+% this one change the line height or line spacing
+\renewcommand*{\baselinestretch}{1.1}
 
 % table line skip
 % 修改tabular 环境, 设置表格中的行间距为正文行间距.
@@ -118,8 +101,9 @@
 % 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
-\RequirePackage{newtxtext}
-\RequirePackage{newtxmath}
+% \RequirePackage{newtxtext}
+% \RequirePackage{newtxmath}
+\setlength{\parskip}{4pt}
 
 %% these are for the shit mount by the cumcmthesis
 \newcommand{\kai}[1]{{\kaishu #1}}

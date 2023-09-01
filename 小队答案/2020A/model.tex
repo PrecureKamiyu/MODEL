@@ -1,2 +1,130 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
 \section{模型建立和求解}
 
+\subsection{问题1}
+\paragraph{复原间隙温度} 先是复原间隙以及炉前后区域之中的温度。
+对于两个温区之间的间隙，采用一维热传导方程，也就是只考虑间隙两边的温区对间隙的作用
+\begin{equation}
+\frac{\partial u}{\partial t} = k \frac{\partial ^{2} u}{ \partial x ^{2}}
+\end{equation}
+考虑到温度已经稳定，也就是温度不再变化，也就是 \(\frac{\partial u}{ \partial t} = 0\), 于是有
+\begin{equation}
+\frac{\partial ^{2} u}{\partial x ^{2}} = 0
+\end{equation}
+也即，间隙中的温度关于 \(x\) 是线性变化的。于是说给定了两边温区的温度之后，假设是 \((x_1, T_1), (x_2, T_2)\), 就能够得出间隙中的温度关于距离 \(x\) 的表达式：
+\[
+u(x)  = T_{1} + \frac{T_2 - T_1}{x_2 - x_1} \cdot x
+\]
+能够根据温区的温度给出炉内上下表面的温度曲线。对于附件所描述的某次实验，\(T _{1 \sim 5} = 17 5 ^{\circ}\mathrm{C}\), \(T _{6} = 195 ^{\circ}\mathrm{C}\), \(T _{7} = 235 ^{\circ}\mathrm{C}\), \(T _{8 \sim 9} = 255 ^{\circ}\mathrm{C}\)，以炉前区域最左端为\(x\)起点，能够得到图~\ref{fig:1}。
+\input pic.tex
+
+%%%%%%% par one
+\paragraph{差分形式} 对于中间部分的焊接材料，其只受到上下两面的加热，满足一维热传导方程
+\begin{equation}
+\frac{\partial v}{\partial y} = a \frac{\partial ^{2} v}{ \partial y ^{2}} \label{equ:one-dim}
+\end{equation}
+初始时，其温度为车间温度，也即，当时刻为零的时候，\(v\) 的值为 \(25 ^{\circ}\mathrm{C}\)。
+\begin{equation}
+v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}]
+\end{equation}
+考虑焊接材料收到上下两边的加热，于是有边界条件：
+\begin{equation}
+\begin{cases}
+\displaystyle- k \left.\frac{\partial v}{\partial y}\right|_{y = 0} =  h (u(t) - v(0, t)) \\
+\\
+\displaystyle- k \left.\frac{\partial v}{\partial y}\right|_{y = {\it height}} = h (v({\it height}, t) - u(t))
+\end{cases}
+\end{equation}
+其中\(u\) 是对应时刻，焊接材料表面的空气温度。
+
+将边界条件差分化，对于任意时刻，有
+\begin{equation}
+\begin{cases}
+\displaystyle - H \cdot \frac{v _{1, t}  - v _{0, t}}{\mathrm{dy}} + v_{0 ,t} = u (t) \\
+\\
+\displaystyle H \cdot\frac{v_{M , t} - v _{M-1, t}}{\mathrm{dy}} + v_{M,t} = u (t)
+\end{cases}
+\end{equation}
+其中 \(H = \dfrac{k}{h}\)。其中 \(\mathrm{dy}\) 是距离步长，\(v_{i,j}\) 是焊接材料温度 \(v\) 离散化后的结果，\(i\) 为距离指标 \(i = 0,  1,  2 , \dots , M\), \(j\) 是时间指标 \(j = 0 , 1 , 2 , \dots, N\)。对上式子进行化简能够得到：
+\begin{equation}
+\begin{cases}
+\displaystyle v_{0,t} = \frac{H}{H + \mathrm{dy}} v_{1 ,t} + \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t}\\
+\\
+\displaystyle v_{M,t} = \frac{H}{H + \mathrm{dy}} v _{M-1, t} + \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t}
+\end{cases}
+\end{equation}
+而对于焊接材料的一维热传导方程~\ref{equ:one-dim}进行差分化，能够得到一个半差分形式：
+\begin{equation}
+\frac{\partial v _{i}}{\partial t} = a \cdot \frac{u_{i+1, t} - 2 u_{i, t} + u_{i- 1 , t}}{h ^{2}}
+\end{equation}
+在这里时间差分采用向后欧拉法，得到全差分格式如下：
+\begin{equation}\label{equ:all}
+\frac{\mathbf{v}_{t+1}  - \mathbf{v}_{t}}{\tau}= \frac{a}{\mathrm{dy}^{2}} (\mathbf{A}\mathbf{v} _{t+1} + \mathbf{b})
+\end{equation}
+其中 \(\tau\) 是时间步长，\(\mathbf{v}_{t}\) 是一个向量，其值为 \([v _{1, t}, v_{2, t}, \dots, v_{M, t}]^{\dagger}\)，也即，时间指标为 \(t\) 的时候焊接材料上面各个点温度所组成的向量，其中矩阵\(\mathbf A\) 满足
+\begin{equation}
+\mathbf{A} = 
+\begin{bmatrix}
+\frac{H}{H + \mathrm{dy}} - 2 & 1 &&\\
+\\[-10pt]
+1 & -2 & 1 &\\
+& & 1 & -2 & 1 \\
+\hdotsfor{6}\\
+\\[-10pt]
+&& & 1 & -2 & 1 \\
+\\[-10pt]
+&& &  & 1 &\frac{H}{1 + \mathrm{dy}} -2 
+\end{bmatrix}
+\end{equation}
+并且 \(\mathbf{b} = \displaystyle \bigg[ \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t} , 0 ,\dots, 0 , \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t} \bigg] ^{\dagger}\)。
+令 \(r = \displaystyle \frac{a \tau}{h ^{2}}\)，随后根据全差分形式~\ref{equ:all}，化简得到
+\begin{equation}
+(\mathbf{I} - r\mathbf{A} ) \mathbf{v} _{t+1} = \mathbf{v}_{t} + r \mathbf{b}
+\end{equation}
+
+对于 \(\mathbf{I} - r \mathbf{A}\)，其值为
+\begin{equation}
+\mathbf{I} - r \mathbf{A} =
+\begin{bmatrix}
+1 - \big(\frac{H}{H + \mathrm{dy}}\big) r & -r \\
+-r & 1 + 2r & -r \\
+\hdotsfor{5}\\
+&&-r & 1 + 2r & -r \\
+&&& -r & 1 - \big(\frac{ H }{ H + \mathrm{dy}}- 2\big) r
+\end{bmatrix}
+\end{equation}
+
+%%%%%%%%%% par three
+\paragraph{分段拟合} 考虑到焊接材料的性质会根据材料本身的温度发生改变，在不同区域内部焊接材料的热扩散系数\(A\)和焊接材料和空气之间的热对流交换系数\(h\)也不同，本文将整个加热过程分为三段，假设每一段之中热扩散系数和热对流交换系数不发生改变，这三段的系数表示为 \(A_{i}, h_{i}\), \(i = 1 , 2 ,3 \)，并进行分段拟合求出 \(A_{i} ,h_{i}\)。
+
+本文将加热过程按照炉温的高低分为三段：低温区、高温区和冷却区：
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+编号&区域 & 范围 / cm \\ \hline \hline
+\\ [-1em]
+I&低温区& \([0 , 200]\) \\
+II&高温区& \([200, 342]\) \\
+III&冷却区& \([342, 435.5]\) 
+\\ [-1em]
+\\ \hline
+\end{tabular}\caption{根据炉温划分的区域}
+\end{table}
+低温区是炉前区域的最左端到第五个小温区和第六个小温区之间的间隙的中点，高温区是低温区末端到第九个小温区和第十个小温区之间的间隙的中点，剩余部分便是冷却区。
+
+本文先是对低温区域进行拟合，得出低温区的焊接材料的参数，也就是 \(A_{1}, h_{1}\)。得到的低温区域末端的温度作为高温区的初始条件，同样进行拟合，得到高温区的焊接材料的参数 \(A_{2}, h_{2}\)。同理得到 \(A_{3}, h_{3}\)。拟合得到的结果如下表
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+& \(A\) & \(h\) \\ \hline \hline
+\\[-1em]
+I & \(5 \times 10 ^{-11}\) & \(5 \times 10 ^{-6}\) \\ 
+II & \(6 \times 10 ^{-11}\) & \(4 \times 10 ^{-7}\) \\
+III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\) 
+\\[-1em]
+\\ \hline
+\end{tabular}\caption{焊接材料在不同区域内拟合出的参数}
+\end{table}
+\end{document}

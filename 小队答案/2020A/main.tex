@@ -13,15 +13,16 @@
 \usepackage{float}
 \usepackage{listings}
 \usepackage{tikz}
+\usepackage{subfiles}
 \begin{document}
 \maketitle
 \begin{abstract}
 这里是摘要
 \end{abstract}
-\input prob_retell.tex
-\input prob_anal.tex
-\input symb.tex
-\input assump.tex
-\input model.tex
-\input comment.tex
+\subfile{prob_retell.tex}
+\subfile{prob_anal.tex}
+\subfile{symb.tex}
+\subfile{assump.tex}
+\subfile{model.tex}
+\subfile{comment.tex}
 \end{document}
