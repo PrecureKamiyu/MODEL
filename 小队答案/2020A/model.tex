@@ -2,12 +2,11 @@
 \begin{document}
 
 \section{模型建立和求解}
-
 \subsection{问题1}
 \paragraph{复原间隙温度} 先是复原间隙以及炉前后区域之中的温度。
 对于两个温区之间的间隙，采用一维热传导方程，也就是只考虑间隙两边的温区对间隙的作用
 \begin{equation}
-\frac{\partial u}{\partial t} = k \frac{\partial ^{2} u}{ \partial x ^{2}}
+\frac{\partial u}{\partial t} = a \frac{\partial ^{2} u}{ \partial x ^{2}}
 \end{equation}
 考虑到温度已经稳定，也就是温度不再变化，也就是 \(\frac{\partial u}{ \partial t} = 0\), 于是有
 \begin{equation}
@@ -30,7 +29,7 @@ u(x)  = T_{1} + \frac{T_2 - T_1}{x_2 - x_1} \cdot x
 v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}]
 \end{equation}
 考虑焊接材料收到上下两边的加热，于是有边界条件：
-\begin{equation}
+\begin{equation}\label{equ:bian}
 \begin{cases}
 \displaystyle- k \left.\frac{\partial v}{\partial y}\right|_{y = 0} =  h (u(t) - v(0, t)) \\
 \\
@@ -42,9 +41,9 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}]
 将边界条件差分化，对于任意时刻，有
 \begin{equation}
 \begin{cases}
-\displaystyle - H \cdot \frac{v _{1, t}  - v _{0, t}}{\mathrm{dy}} + v_{0 ,t} = u (t) \\
+\displaystyle - H \cdot \frac{v _{1, t}  - v _{0, t}}{\mathrm{dy}} + v_{0 ,t} = u_{t} \\
 \\
-\displaystyle H \cdot\frac{v_{M , t} - v _{M-1, t}}{\mathrm{dy}} + v_{M,t} = u (t)
+\displaystyle H \cdot\frac{v_{M , t} - v _{M-1, t}}{\mathrm{dy}} + v_{M,t} = u_{t}
 \end{cases}
 \end{equation}
 其中 \(H = \dfrac{k}{h}\)。其中 \(\mathrm{dy}\) 是距离步长，\(v_{i,j}\) 是焊接材料温度 \(v\) 离散化后的结果，\(i\) 为距离指标 \(i = 0,  1,  2 , \dots , M\), \(j\) 是时间指标 \(j = 0 , 1 , 2 , \dots, N\)。对上式子进行化简能够得到：
@@ -75,14 +74,15 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}]
 \\[-10pt]
 && & 1 & -2 & 1 \\
 \\[-10pt]
-&& &  & 1 &\frac{H}{1 + \mathrm{dy}} -2 
+&& &  & 1 &\frac{H}{H + \mathrm{dy}} -2 
 \end{bmatrix}
 \end{equation}
 并且 \(\mathbf{b} = \displaystyle \bigg[ \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t} , 0 ,\dots, 0 , \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t} \bigg] ^{\dagger}\)。
 令 \(r = \displaystyle \frac{a \tau}{h ^{2}}\)，随后根据全差分形式~\ref{equ:all}，化简得到
-\begin{equation}
+\begin{equation}\label{equ:iter}
 (\mathbf{I} - r\mathbf{A} ) \mathbf{v} _{t+1} = \mathbf{v}_{t} + r \mathbf{b}
 \end{equation}
+本文使用 \ref{equ:iter} 进行 \(\mathbf{v}_{t}\) 的迭代。
 
 对于 \(\mathbf{I} - r \mathbf{A}\)，其值为
 \begin{equation}
@@ -92,7 +92,7 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}]
 -r & 1 + 2r & -r \\
 \hdotsfor{5}\\
 &&-r & 1 + 2r & -r \\
-&&& -r & 1 - \big(\frac{ H }{ H + \mathrm{dy}}- 2\big) r
+&&& -r & 1 - \big(\frac{H}{H + \mathrm{dy}}- 2\big)r
 \end{bmatrix}
 \end{equation}
 
@@ -118,7 +118,7 @@ III&冷却区& \([342, 435.5]\)
 \begin{table}[H]
 \centering
 \begin{tabular}{ccc}
-& \(A\) & \(h\) \\ \hline \hline
+& \(A_{i}\) \(\mathrm{W}/ (\mathrm{m}\cdot \mathrm{K})\) & \(h_{i}\) \(\mathrm{W} / (\mathrm{m}^{2} \cdot \mathrm{K})\) \\ \hline \hline
 \\[-1em]
 I & \(5 \times 10 ^{-11}\) & \(5 \times 10 ^{-6}\) \\ 
 II & \(6 \times 10 ^{-11}\) & \(4 \times 10 ^{-7}\) \\
@@ -127,4 +127,49 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 \\ \hline
 \end{tabular}\caption{焊接材料在不同区域内拟合出的参数}
 \end{table}
+
+\subsection{问题2}
+根据题意，找到的最大的过炉速度 \(V\) 需要满足下面条件，焊接材料的中心位置的温度 \(v\)是关于时间\(t\)的函数，有：
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+编号&限制 & min & max 	& 单位
+\\ [-1em]
+\\ \hline \hline
+\\ [-1em]
+1&\(\vert v '\vert\) & 0 & 3 & \(^{\circ}\mathrm{C} / \mathrm{s}\)\\
+2&处于 \(150 ^{\circ}\mathrm{C}\sim 190 ^{\circ}\mathrm{C}\) 的时间 & 60 & 120 & \(\mathrm{s}\)\\
+3&大于 \(217 ^{\circ}\mathrm{C}\) 的时间 & 40 & 90 & \(\mathrm{s}\)\\
+4&\(\max {v}\) & 240 & 250 & \(^{\circ}\mathrm{C}\) 
+\\ [-1em]
+\\ \hline
+\end{tabular}
+\end{table}
+为了使用二分搜索进行边界值的查找，需要验证上面四个限制条件能够使用二分法。
+\begin{enumerate}
+\item 
+对于焊接材料两边的表面的空气温度 \(u\)，其能够写为关于时间 \(t\) 的函数：
+\[
+u (t) = u^{\dagger} ( Vt)
+\]
+在这里 \(u ^{\dagger}\) 炉内温度关于与炉前区域最左侧的距离的函数，\(V\) 是过炉速度。于是有：
+\begin{equation}
+\frac{\mathrm{d} u}{\mathrm{d} t} = V \frac{\mathrm{d} u ^{\dagger}}{\mathrm{d} x}
+\end{equation}
+根据问题一之中已经求出的炉内空气在焊接材料所在的中心线上的温度曲线，在低温区以及高温区之中，\(\mathrm{d} u ^{\dagger}/ \mathrm{d} x\) 的值始终大于等于\(0\)。于是根据上式，在某一个时刻，\(V\) 越大则 \(\mathrm{d} u / \mathrm{d} t\) 越大。根据边界条件 Equ~\ref{equ:bian}，在低温区或者是高温区内部焊接材料的温度变化率 \(\vert v' \vert\)和其所在的炉内的空气温度成正相关。于是得出焊接材料的温度变化率 \(\vert v'\vert\)是和过炉速度 \(V\)成正相关的，过炉速度越快，温度的变化速率就越快。那么对于限制条件 1 对应的边界值，能够使用二分搜索进行查找。
+
+\item 
+作为上述结论的推论，\(v\) 处于 \(150 ^{\circ}\mathrm{C}\sim 190 ^{\circ}\mathrm{C}\) 的时间，和过炉速度成负相关，左边界值和右边界值都能使用二分搜索进行查找。
+
+\item 
+若使焊接材料的温度大于 \(217 ^{\circ}\mathrm{C}\)，其周边的空气温度应当大于 \(217 ^{\circ}\mathrm{C}\)，根据温区表面的温度曲线~\ref{fig:1}，得知，焊接材料
+% TODO
+\item
+对于限制条件 4 
+% TODO
+\end{enumerate}
+
+\subsection{问题 3}
+
 \end{document}
