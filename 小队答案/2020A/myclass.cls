@@ -34,9 +34,10 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
+\RequirePackage{unicode-math}
 \RequirePackage{bm}
 \RequirePackage{xcolor}
-\RequirePackage{graphicx}
+\RequirePackage[dvipdfmx]{graphicx}
 \RequirePackage{float}
 \RequirePackage{array}
 \RequirePackage{longtable}
