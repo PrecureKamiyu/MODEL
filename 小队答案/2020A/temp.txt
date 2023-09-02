@@ -1,0 +1,39 @@
+由图可知：这四个指标与过炉速度满足单调函数关系，因此本文拟通过二分法求解最大过炉速度，二分法的递归伪代码如下给出：
+
+def  BinarySerach(Tlist, Vlist, low, high):
+	if  high > low:
+		mid = (low + high) // 2
+		
+		# 当最大斜率过大时，向慢速搜索
+		maxK = searchMaxK(Tlist, Vlist[mid])
+		if maxK > 3:
+			return BinarySerach(Tlist, Vlist, low, mid-1)
+		
+		# 当峰值温度过小时，向慢速搜索
+		maxTemp = searchMaxTemp(Tlist, Vlist[mid])
+		if maxTemp < 240:
+			return BinarySerach(Tlist, Vlist, low, mid-1)
+		if maxTemp > 250:
+			return BinarySerach(Tlist, Vlist, mid+1, high)
+		
+		# 当超过217摄氏度的时间越短时，向慢速搜索
+		Lt217times = searchLt217times(Tlist, Vlist[mid])
+		if  Lt217times < 40:
+			return BinarySerach(Tlist, Vlist, low, mid-1)
+		if  Lt217times > 90:
+			return BinarySerach(Tlist, Vlist, mid+1, high)
+		
+		# 当从150度上升至190度的时间越短时，向慢速搜索
+		Uptimes = searchUptimes(Tlist, Vlist[mid])
+		if  Uptimes < 60:
+			return BinarySerach(Tlist, Vlist, low, mid-1)
+		if  Uptimes > 120:
+			return BinarySerach(Tlist, Vlist, mid+1, high)
+		
+		# 满足问题需要，当满足所有条件时，向快速搜索
+		# 便于获得最大过炉速度
+		return BinarySerach(Tlist, Vlist, mid, high)
+	else:
+		return Vlist[low]
+		
+通过二分搜索模型，本文最终确定的最大过炉速度为82.47cm/min。

@@ -5,8 +5,7 @@
 \subsection{模型准备}
 % TODO 可以放一个table of contents
 
-% para one
-\paragraph{三维热传导方程的推导}
+\subsubsection{三维热传导方程的推导}
 热传导源自温度的不均匀分布，热传导的强弱程度可以用热流强度 \(\vec{q}\)，也就是单位时间内通过单位横截面积的热量来进行刻画，温度的不均匀程度可以用温度梯度 \(\nabla u\) 来进行刻画，其中 \(u\) 指的是温度。
 
 傅里叶定律指出，热流强度和温度梯度 \(\nabla u\) 成正比，也就是
@@ -33,8 +32,8 @@ u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 \end{equation}
 % TODO 其中 \(k\) 是什么？
 
-% para two
-\paragraph{牛顿冷却定律} 牛顿冷却定律指出，两个不同温度的介质之间发生热对流的时候，热流强度和两个介质之间的温度差成正比，也即
+\subsubsection{牛顿冷却定律}
+牛顿冷却定律指出，两个不同温度的介质之间发生热对流的时候，热流强度和两个介质之间的温度差成正比，也即
 \begin{equation}
 \vec q = h (u_1 - u_2)
 \end{equation}
@@ -42,6 +41,81 @@ u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 \begin{equation}\label{equ:len}
 {-k} \nabla u = h ( u_1 - u_2)
 \end{equation}
+
+\subsubsection{十进制蚁群算法的原理}
+针对问题3中最优炉温曲线的求解，易知是一个多元连续函数优化问题。以理想的炉温曲线应使超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积最小的目标函数如下：
+\begin{equation}
+\min S = \mathrm{getSquare} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
+\end{equation}
+约束条件为
+\begin{equation}{\it s.t.}
+\begin{cases}
+v = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
+165 \le T_{1 {\sim} 5} \le 175\\
+185 \le T _{6} \le 205 \\
+225 \le T _{7} \le 245 \\
+245 \le T _{8 {\sim} 9} \le 265
+\end{cases}
+\end{equation}
+本文拟采取十进制蚁群算法，对各温区温度进行搜索。
+
+以下本文将以一元连续函数为例，说明十进制蚁群算法的原理。设一元连续函数优化的数学模型如下：
+\begin{equation}
+\min f(x), \quad x \in [x_1 , x_2]
+\end{equation}
+\begin{enumerate}
+\item 转换决策变量区间\\
+通过一个映射函数将\(x\)的变化区间从\([x1,x2]\)变换到\([0,1]\)区间上，设决策变量的精度是\(d\)，即变换后的\(x\)具有\(d\)位十进制小数。
+\item 构建城市群\\
+对于变换后的决策变量\(x\)，构建规格为 \(1+10\times d\) 的城市群。其中``1''代表个位数``0''，第``d''列代表小数点后第\(d\)位有效数字，``10''行表示每位小数有\(0 {\sim} 9\)这十个十进制数的取值。城市群示意图如下：
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale = 0.5]{cities.png}
+\caption{十进制蚁群算法城市群示意图}\label{fig:cities}
+\end{figure}
+
+\item 蚂蚁移动路径通过解码获得可行解\\
+规定每一只蚂蚁的移动路径遵循以下原则：
+\begin{itemize}
+\item 蚂蚁只能从最左端的起点出发；
+\item 蚂蚁必须从左向右移动，每一次路径选择，也就是在选择下一列城市时只允许在一个城市上落脚；
+\item 当蚂蚁移动到最后一列的时候，其从第0列移动到第\(d\)列一共移动了 \(1 + d\) 个城市，通过这些城市各自所在的列 \((0 {\sim} 9)\) 和编号 \(( 0 {\sim} 9)\)获得 \([0,1]\)上的十进制可行解。
+\end{itemize}
+%
+\item 路径转移以及信息素更新
+\begin{enumerate}
+\item 路径转移\\
+记第 \(r\) 列第 \(i\) 城市到第 \(r+ 1\) 列第 \(j\) 城市之间的路径为 \(\mathrm{Path} _{ij} ^{r}\)，第 \(r\) 列第 \(i\) 城市到第 \(r+ 1\) 列第 \(j\) 城市之间的信息素浓度 \(\tau ^{r} _{ij}\)，其中 \(r = 1, 2, \dots , d\); \(i = 0, 1 , \dots , 9\); \(j = 0 , 1 , \dots , 9\)。通过生物学中对于蚂蚁习性的研究，十进制蚁群算法中将蚂蚁从第 \(r\) 列第 \(i\) 城市转移到第 \(r+1\) 列第 \(j\) 城市的概率简化为以下形式：
+\begin{equation}\label{equ:pass1}
+\rho _{ij} ^{r} = \frac{\tau ^{r} _{ij}}{\sum\limits_{s\in \{0 , \dots , 9\}} \kern -2pt\tau ^{r} _{is}}
+\end{equation}
+城市转移到第r+1列中的10个城市中，路径 \(\mathrm{Path}_{ij} ^{r}\)的信息素浓度越高，转移到城市 \(j\) 的概率就越大。在没有完全排除其余路径的基础上，这样的转移方式不仅保证了更多的蚂蚁样本将被聚集到当前的最优路径，符合最优搜索策略的原则，还有利于帮助小部分蚂蚁寻找其他更有路径，在有其他更好的选择的情况之下跳出局部最优的限制
+\item 信息素更新\\
+当第 \(N\) 轮次的循环结束时，所有蚂蚁将在自身移动过的路径上留下信息素增量，与前一轮次挥发后剩余的信息素叠加获得该轮次的信息素矩阵：
+\begin{equation}\label{equ:shit}
+T_{N} = (1 - \rho) T _{(N- 1)} + \Delta T
+\end{equation}
+\(T_{i}\) 是一个三维信息素矩阵，存放着\(d\) 个从第 \(0{\sim} d -1\) 列的当前 \(i\) 转移到下一列第\(j\)城市的二维信息矩阵 \(S_{ij}\)；\(N\) 代表当前循环轮次；\(\rho\) 表示挥发系数，其取值越大，会发强度就越高，前一轮次留下的信息素残余量对当前轮次蚂蚁的路径转移影响就越小，项最优解收敛的速度就越快。
+\(\Delta T\) 代表当前轮次的信息素增量，本文采用精英策略对每一只蚂蚁留下的信息素进行取值： 
+
+\begin{itemize}
+\item[\textbf{I}] 在一轮次循环结束之后，通过排序取得前 \(\alpha \%\)的精英蚂蚁，这些精英蚂蚁各自路径上的信息素增量为
+\begin{equation}\label{equ:pass2}
+\Delta \tau _{ij} = K Q ^{J \cdot [f (x_{k}) - f (x _{\mathrm{best}})]} , \quad (k \le \alpha \% , \mathrm{num}_{\mathrm{ant}} , k \in \mathbf{Z})
+\end{equation}
+其中\(\mathrm{num}_{\mathrm{ant}}\)为蚂蚁总数量，\(K\)为信息素权值系数，同时也是最优解路径对应的增量值；\(J\)为放缩系数，可以把函数值差值进行无量纲化到一个合理的区间内；\(x_{\mathrm{best}}\)是这些精英解中的最优解，\(Q\)系数的取值为\((0,1)\)，这个幂项将根据每个可行解与最优解的目标函数值距离，降低其信息素增量值。函数值越接近最优解值，降低的幅度就越小，对应的信息素增量就越大。
+\item[\textbf{II}] \(\alpha \%\)后的蚂蚁，其信息素增量置为0。
+同时，为了增强该模型的局部搜索能力（local search ability），提高搜索效率和精度，当在最优路径上的信息素增量为\(\Delta \tau\)时，其相邻的路径上也对应着增加\(\Delta \tau / 4\)的信息素增量。
+例如当最优解是 0.40 时，即\(\Delta \tau _{0 4} ^{0} = \Delta \tau ^{1} _{4 0} = \Delta \tau\)时，局部搜索模型将对0.3，0.5，0.39，0.41处的信息素增量\(\Delta \tau ^{0} _{03}, \Delta \tau_{05} ^{0} , \Delta \tau _{39} ^{1} , \Delta\tau _{41}^{01}\)加上\(\Delta \tau / 4\)。
+通过这样的方法，当前最优路径附近上的更优路径将有更大的概率被搜索到。
+\end{itemize}
+
+\end{enumerate}
+\item 从一元连续函数推广到多元连续函数优化的十进制蚁群算法\\
+对于含有\(k\)个决策变量的多元连续函数，构建含有
+\(\sum_{i = 1} ^{k} (1+ 10 d_{i})\)个城市的城市群，每个决策变量对应一个子城市群，每个子城市群的最后一列城市上的蚂蚁将转移到下一子城市群的第0列的城市上。其余路径转移与信息素更新规则都与一元连续函数保持一致。
+\end{enumerate}
 % subsection:模型准备
 \subsection{问题1}
 
@@ -270,35 +344,63 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 \\ \hline
 \end{tabular}
 \end{table}
-为了使用二分搜索进行边界值的查找，需要验证上面四个限制条件能够使用二分法。
-\begin{enumerate}
-\item 
-对于焊接材料两边的表面的空气温度 \(u\)，其能够写为关于时间 \(t\) 的函数：
-\[
-u (t) = u^{\dagger} ( Vt)
-\]
-在这里 \(u ^{\dagger}\) 炉内温度关于与炉前区域最左侧的距离的函数，\(V\) 是过炉速度。于是有：
-\begin{equation}
-\frac{\mathrm{d} u}{\mathrm{d} t} = V \frac{\mathrm{d} u ^{\dagger}}{\mathrm{d} x}
-\end{equation}
-根据问题一之中已经求出的炉内空气在焊接材料所在的中心线上的温度曲线，在低温区以及高温区之中，\(\mathrm{d} u ^{\dagger}/ \mathrm{d} x\) 的值始终大于等于\(0\)。于是根据上式，在某一个时刻，\(V\) 越大则 \(\mathrm{d} u / \mathrm{d} t\) 越大。根据边界条件 Equ~\ref{equ:bian}，在低温区或者是高温区内部焊接材料的温度变化率 \(\vert v' \vert\)和其所在的炉内的空气温度成正相关。于是得出焊接材料的温度变化率 \(\vert v'\vert\)是和过炉速度 \(V\)成正相关的，过炉速度越快，温度的变化速率就越快。那么对于限制条件 1 对应的边界值，能够使用二分搜索进行查找。
+以下本文分析四个限制指标与过炉速度之间的关系，得到四张函数图像，见图~\ref{fig:four}。
 
-\item 
-作为上述结论的推论，\(v\) 处于 \(150 ^{\circ}\mathrm{C}\sim 190 ^{\circ}\mathrm{C}\) 的时间，和过炉速度成负相关，左边界值和右边界值都能使用二分搜索进行查找。
-
-\item 
-若使焊接材料的温度大于 \(217 ^{\circ}\mathrm{C}\)，其周边的空气温度应当大于 \(217 ^{\circ}\mathrm{C}\)，根据温区表面的温度曲线~\ref{fig:1}，得知，焊接材料
-% TODO
-\item
-对于限制条件 4 
-% TODO
-\end{enumerate}
+\begin{figure}[H]
+\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{k.pdf}
+		\caption{\(\vert v' \vert\) 的最值}
+	\end{subfigure}
+	%
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{190170.pdf}
+		\caption{处于\(150 ^{\circ}\mathrm{C}\)\(\sim\)\(190 ^{\circ}\mathrm{C}\)的时间}
+	\end{subfigure}
+	%
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{217.pdf}
+		\caption{大于 \(217 ^{\circ}\mathrm{C}\)的时间}
+	\end{subfigure}
+	%
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{max.pdf}
+		\caption{\(v\) 的峰值}
+	\end{subfigure}
+	\caption{四个限制指标和过炉速度之间的关系}\label{fig:four}
+\end{figure}
 
 \subsection{问题 3}
-针对问题3中最优炉温曲线的求解，易知是一个多元连续函数优化问题。小温区1~5、小温区6、小温区7、小温区8~9这四个决策变量分别对应着四个取值区间\([165 ^{\circ}\mathrm{C}, 185^{\circ}\mathrm{C}]\)\([185 ^{\circ}\mathrm{C}, 205 ^{\circ}\mathrm{C}]\), \([225 ^{\circ}\mathrm{C}, 245 ^{\circ}\mathrm{C}]\), \([245 ^{\circ}\mathrm{C} , 265 ^{\circ}\mathrm{C}]\)，根据目标函数（）以及最终的优化目标，即理想的炉温曲线应使超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积最小，本文拟采取十进制蚁群算法，对各温区温度进行搜索。
-
-以下本文将以一元连续函数为例，说明十进制蚁群算法的原理。设一元连续函数优化的数学模型如下：
-\begin{equation}
-\min f(x), \quad x \in [x_1 , x_2]
-\end{equation}
+以下给出蚁群算法的具体实现步骤：
+\begin{enumerate}
+	\item 设置初始参数：
+	蚂蚁数量 \(\mathrm{num}_{\mathrm{ant}}\); 循环次数\(\mathrm{loop}_{\mathrm{times}}\); 各个参数的精度\(d_i\); 挥发系数\(\rho\); 调节系数\(J\)、\(Q\)、\(K\); 精英占比\(\alpha  \%\); 所有路径信息素初值\(τ_0\)。
+	\item 对于每一只蚂蚁，根据公式Equ~(\ref{equ:pass1})计算每只蚂蚁的转移概率，根据转轮盘法确定蚂蚁所选择的下一路径城市。重复该操作直到所有蚂蚁完成一次循环。
+	\item 对于蚂蚁路径进行解码获得可行解，通过计算目标函数值，确定精英策略下的精英蚂蚁较优解，根据公式Equ~(\ref{equ:pass2})和局部搜索增强策略获得对应的信息素增量矩阵，再由Equ~(\ref{equ:shit})更新获得新一轮的信息素矩阵。
+	\item 当循环结束时，返回每一个决策变量所对应的子城市群中信息素浓度最高的路径即获得十进制蚁群算法的最优解。
+\end{enumerate}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{cc} 
+	\makebox[5em][c]{参数名称} & \makebox[5em][c]{参数值} \\	\hline \hline
+	\\[-1em]
+	\(\mathrm{num}_{\mathrm{ant}}\) & \(50\) \\
+	\(\mathrm{loop}_{\mathrm{times}}\) & \(10\)\\
+	\(K\) & 5\\
+	\(Q\) & 0.8\\
+	\(J\) & 100\\
+	\(\rho\) & 0.4 \\
+	\(\alpha\) & 10\%\\
+	\(d_{i}\) & 1 
+	\\[-1em]
+	\\ \hline
+	\end{tabular}
+	\caption{parameters for DACA}
+\end{table}
+最终确定的最佳温度控制为 \(T _{1 \sim 5}= 183 ^{\circ}\mathrm{C}\)，\(T6 = 187^{\circ}\mathrm{C}\)，
+\(T_{7} = 235^{\circ}\mathrm{C}\)，\(T_8 = 255\)，最佳过炉速度为 \(90\,\mathrm{cm}/\mathrm{min}\)，面积为435。
 \end{document}

@@ -39,6 +39,8 @@
 \RequirePackage{xcolor}
 \RequirePackage[dvipdfmx]{graphicx}
 \RequirePackage{float}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
 \RequirePackage{array}
 \RequirePackage{longtable}
 \RequirePackage{booktabs,tabularx}
@@ -129,18 +131,15 @@
 \newtheorem{proof}{\mcm@cap@proof}
 \newtheorem{solution}{\mcm@cap@solution}
 
-% 浮动环境设置 TODO when dealing with the postion of figures and tablurs.
-% 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,否则该页就只单独放置一个浮动环境,
-% 而这通常不是我们想要的, 我们将这个要求降低到 5%.
 \renewcommand*{\textfraction}{0.05}
 \renewcommand*{\topfraction}{0.9}
 \renewcommand*{\bottomfraction}{0.8}
 % 注意:  |\floatpagefraction| 的数值必须小于 |\topfraction|.
 \renewcommand*{\floatpagefraction}{0.85}
 % 关于图片 graphicx
- % 如果图片没有指定后缀, 依次按下列顺序搜索
+% 如果图片没有指定后缀, 依次按下列顺序搜索
 \DeclareGraphicsExtensions{.pdf,.eps,.jpg,.png}
- % 设置图表搜索路径, 可以给图表文件夹取如下名字
+% 设置图表搜索路径, 可以给图表文件夹取如下名字
 \graphicspath{{figures/}{figure/}{pictures/}%
   {picture/}{pic/}{pics/}{image/}{images/}}
 % 图表标题
