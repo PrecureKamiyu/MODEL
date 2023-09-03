@@ -30,7 +30,6 @@
 \begin{equation}\label{equ:cond}
 u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 \end{equation}
-% TODO 其中 \(k\) 是什么？
 
 \paragraph{牛顿冷却定律}
 牛顿冷却定律指出，两个不同温度的介质之间发生热对流的时候，热流强度和两个介质之间的温度差成正比，也即
@@ -45,20 +44,19 @@ u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 
 \subsubsection{模型建立}
 % para one
-\paragraph{复原间隙温度} 先是复原间隙以及炉前后区域之中的温度，用 \(u\) 表示。
-
-对于两个温区之间的间隙，其只受到两边温区的加热，并且间隙之中并没有热源，三维热传导方程Equ~(\ref{equ:cond})中 \(F ( x , y , z ,t) = 0\)，且退化为一维热传导方程：
-\begin{equation}
-\frac{\partial u}{\partial t} = a^{2} \frac{\partial ^{2} u}{ \partial x ^{2}}
-\end{equation}
-% TODO 在这里 \(a\) 是什么？
-考虑到温度已经稳定，也就是温度不再变化，也就是 \(\frac{\partial u}{ \partial t} = 0\), 于是有 \(\frac{\partial ^{2} u}{\partial x ^{2}} = 0 \)，
-也即，间隙中的温度关于 \(x\) 是线性变化的。于是说给定了两边温区的温度之后，假设是 \((x_1, T_1), (x_2, T_2)\), 就能够得出间隙中的温度关于距离 \(x\) 的表达式：
-\[
-u(x)  = T_{1} + \frac{T_2 - T_1}{x_2 - x_1} \cdot x
-\]
-能够根据温区的温度给出炉内上下表面的温度曲线。对于附件所描述的某次实验，\(T _{1 \sim 5} = 17 5 ^{\circ}\mathrm{C}\), \(T _{6} = 195 ^{\circ}\mathrm{C}\), \(T _{7} = 235 ^{\circ}\mathrm{C}\), \(T _{8 \sim 9} = 255 ^{\circ}\mathrm{C}\)，以炉前区域最左端为\(x\)起点，能够得到温度 \(u\) 关于距离 \(x\) 的函数图像，见图~\ref{fig:1}，温度 \(u\) 关于距离 \(x\) 的函数记为 \(u ^{\dagger}\)。
-\input pic.tex
+% \paragraph{复原间隙温度} 先是复原间隙以及炉前后区域之中的温度，用 \(u\) 表示。
+% 
+% 对于两个温区之间的间隙，其只受到两边温区的加热，并且间隙之中并没有热源，三维热传导方程Equ~(\ref{equ:cond})中 \(F ( x , y , z ,t) = 0\)，且退化为一维热传导方程：
+% \begin{equation}
+% \frac{\partial u}{\partial t} = a^{2} \frac{\partial ^{2} u}{ \partial x ^{2}}
+% \end{equation}
+% 考虑到温度已经稳定，也就是温度不再变化，也就是 \(\frac{\partial u}{ \partial t} = 0\), 于是有 \(\frac{\partial ^{2} u}{\partial x ^{2}} = 0 \)，
+% 也即，间隙中的温度关于 \(x\) 是线性变化的。于是说给定了两边温区的温度之后，假设是 \((x_1, T_1), (x_2, T_2)\), 就能够得出间隙中的温度关于距离 \(x\) 的表达式：
+% \[
+% u(x)  = T_{1} + \frac{T_2 - T_1}{x_2 - x_1} \cdot x
+% \]
+% 能够根据温区的温度给出炉内上下表面的温度曲线。对于附件所描述的某次实验，\(T _{1 \sim 5} = 17 5 ^{\circ}\mathrm{C}\), \(T _{6} = 195 ^{\circ}\mathrm{C}\), \(T _{7} = 235 ^{\circ}\mathrm{C}\), \(T _{8 \sim 9} = 255 ^{\circ}\mathrm{C}\)，以炉前区域最左端为\(x\)起点，能够得到温度 \(u\) 关于距离 \(x\) 的函数图像，见图~\ref{fig:1}，温度 \(u\) 关于距离 \(x\) 的函数记为 \(u ^{\dagger}\)。
+% \input pic.tex
 
 % para
 \paragraph{温度分布方程的导出}
@@ -95,6 +93,10 @@ u|_{x = 0} = 25 ^{\circ}\mathrm{C}\\
 u|_{x = l_{0}} =  25 ^{\circ}\mathrm{C}
 \end{cases}
 \end{equation}
+
+根据温度\(u\)在\(y=\pm l/2\)处的边界条件，可作温度 \(u\) 关于距离 \(x\) 的函数图像如图~\ref{fig:1}
+\input pic.tex
+
 综上，回焊炉内部的温度分布方程为
 \begin{equation}
 \begin{cases}
@@ -108,7 +110,6 @@ u|_{x = 0} = 25 ^{\circ}\mathrm{C}\\
 u|_{x = l_{0}} =  25 ^{\circ}\mathrm{C}
 \end{cases}
 \end{equation}
-% TODO
 
 %% para
 \paragraph{拉普拉斯方程的数值求解} 根据逐次超松弛迭代法，使用网格化分割方法，可以列出如下迭代方程
@@ -119,16 +120,13 @@ u_{k,j} ^{(i)} = \frac{\beta}{4} \bigg( u_{k-1, j} ^{(i)} + u_{k,j-1} ^{(i)} + u
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale = 0.5]{fig1.pdf}\caption{什么图像}
+\includegraphics[scale = 0.5]{fig1.pdf}\caption{回焊炉内温度分布图像}
 \end{figure}
-% TODO
 
-%% para
 \paragraph{确定热传导方程} 对于中间部分的焊接材料，设其在受到加热的时候温度为 \(v\)，热传导率为 \(k\)，密度为 \(\rho\)，比热容为 \(c\)，此时空气和焊锡之间的热对流系数为 \(h\)，于是三维热传导方程Equ~(\ref{equ:cond})之中的 \(F (x, y , z, t)\) 满足 \(F ( x , y , z ,t ) = 0\)，由于焊接材料只在厚度这一个方向上传热，于是三维热传导方程退化为在 \(y\) 轴方向上传热的热传导方程，也即
 \begin{equation}\label{equ:one-dim}
 \frac{\partial v}{\partial t} - a ^{2} \frac{\partial^{2} v }{\partial y ^{2}} = 0
 \end{equation}
-% TODO 其中 \(a\) 是？
 
 初始时，其温度为车间温度，也即，当时刻为零的时候，\(v\) 的值为 \(25 ^{\circ}\mathrm{C}\)。
 \begin{equation}
@@ -136,11 +134,11 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}\kern 1pt]
 \end{equation}
 在这里将 \(v\) 视为两个参数的函数，接收 \(y\) 轴方向上的坐标\(y\)以及时间 \(t\)。
 
-由于焊接材料仅在 \(y\) 轴一个方向上传热，傅里叶热传导方程 Equ~\ref{equ:fou} 可以退化为
+由于焊接材料仅在 \(y\) 轴一个方向上传热，傅里叶热传导方程 Equ~(\ref{equ:fou}) 可以退化为
 \begin{equation}
 \vec q = {-} k \frac{\partial v}{ \partial y}
 \end{equation}
-将 \(\vec q\) 代入牛顿冷却定律Equ~\ref{equ:len}，并对焊接材料两端和空气之间的热对流过程进行分析，可得边界条件：
+将 \(\vec q\) 代入牛顿冷却定律Equ~(\ref{equ:len})，并对焊接材料两端和空气之间的热对流过程进行分析，可得边界条件：
 \begin{equation}\label{equ:bian}
 \begin{cases}
 \displaystyle- k \left.\frac{\partial v}{\partial y}\right|_{y = 0} =  h \Big[ u(t) - v(0, t)\Big] \\
@@ -158,13 +156,11 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}\kern 1pt]
 \end{cases}
 \end{equation}
 
-%%
 \paragraph{差分形式}
 将边界条件差分化，对于任意时刻，有
 \begin{equation}
 \begin{cases}
 \displaystyle - H \cdot \frac{v _{1, t}  - v _{0, t}}{\mathrm{dy}} + v_{0 ,t} = u_{t} \\
-\\
 \displaystyle H \cdot\frac{v_{M , t} - v _{M-1, t}}{\mathrm{dy}} + v_{M,t} = u_{t}
 \end{cases}
 \end{equation}
@@ -172,7 +168,6 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}\kern 1pt]
 \begin{equation}
 \begin{cases}
 \displaystyle v_{0,t} = \frac{H}{H + \mathrm{dy}} v_{1 ,t} + \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t}\\
-\\
 \displaystyle v_{M,t} = \frac{H}{H + \mathrm{dy}} v _{M-1, t} + \frac{\mathrm{dy}}{H + \mathrm{dy}} \cdot u_{t}
 \end{cases}
 \end{equation}
@@ -189,13 +184,10 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}\kern 1pt]
 \mathbf{A} =
 \begin{bmatrix}
 \frac{H}{H + \mathrm{dy}} - 2 & 1 &&\\
-\\[-10pt]
 1 & -2 & 1 &\\
 & & 1 & -2 & 1 \\
 \hdotsfor{6}\\
-\\[-10pt]
 && & 1 & -2 & 1 \\
-\\[-10pt]
 && &  & 1 &\frac{H}{H + \mathrm{dy}} -2
 \end{bmatrix}
 \end{equation}
@@ -218,7 +210,6 @@ v (y, 0) = 25 ^{\circ}\mathrm{C}, \quad y \in [0, {\it height}\kern 1pt]
 \end{bmatrix}
 \end{equation}
 
-%% par
 \paragraph{分段拟合} 考虑到焊接材料的性质会根据材料本身的温度发生改变，在不同区域内部焊接材料的热扩散系数\(A\)和焊接材料和空气之间的热对流交换系数\(h\)也不同，本文将整个加热过程分为三段，假设每一段之中热扩散系数和热对流交换系数不发生改变，这三段的系数表示为 \(A_{i}, h_{i}\), \(i = 1 , 2 ,3 \)，并进行分段拟合求出 \(A_{i} ,h_{i}\)。
 
 本文将加热过程按照炉温的高低分为三段：低温区、高温区和冷却区：
@@ -250,7 +241,24 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 \end{tabular}\caption{焊接材料在不同区域内拟合出的参数}
 \end{table}
 
-% subsubsection:模型建立
+对于拟合得到的参数，本文对其进行回代并求出该组参数下对应的炉温曲线以及焊接区域温度随时间和位置变化的函数图像如下：
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{same.pdf}
+		\caption{拟合的炉温曲线与原曲线对比}
+	\end{subfigure}
+	%
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{rainbow.pdf}
+		\caption{焊接区域的温度分布图}
+	\end{subfigure}
+	\caption{拟合效果}\label{fig:four}
+\end{figure}
+通过分析两组炉温曲线的吻合度可以看出，拟合参数对应的炉温曲线与所给的附件数据的基本一致，因此本次拟合的效果较好，可以做到很好的参数还原。分析温度分布图可知，越靠近边缘的位置，温度变化与环境温度变化曲线越接近，越靠近中心的区域，其表现出的``滞后性''就越明显，与实际情况相符，所以这组参数具有足够的合理性。	
+
 \subsection{问题2}
 根据题意，找到的最大的过炉速度 \(V\) 需要满足下面条件，焊接材料的中心位置的温度 \(v\)是关于时间\(t\)的函数，有：
 
@@ -340,24 +348,25 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 通过二分搜索模型，本文最终确定的最大过炉速度为\(82.47 \mathrm{cm}/\mathrm{min}\)。
 
 \subsection{问题 3}
+
 \subsubsection{模型准备}
-% para
+
 \paragraph{十进制蚁群算法的原理}
-针对问题3中最优炉温曲线的求解，易知是一个多元连续函数优化问题。以理想的炉温曲线应使超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积最小的目标函数如下：
-\begin{equation}
-\min S = \mathrm{getSquare} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
-\end{equation}
-约束条件为
-\begin{equation}{\it s.t.}
-\begin{cases}
-V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
-165 \le T_{1 {\sim} 5} \le 185\\
-185 \le T _{6} \le 205 \\
-225 \le T _{7} \le 245 \\
-245 \le T _{8 {\sim} 9} \le 265
-\end{cases}
-\end{equation}
-本文拟采取十进制蚁群算法，对各温区温度进行搜索。
+% 针对问题3中最优炉温曲线的求解，易知是一个多元连续函数优化问题。以理想的炉温曲线应使超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积最小的目标函数如下：
+% \begin{equation}
+% \min S = \mathrm{getSquare} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
+% \end{equation}
+% 约束条件为
+% \begin{equation}{\it s.t.}
+% \begin{cases}
+% V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
+% 165 \le T_{1 {\sim} 5} \le 185\\
+% 185 \le T _{6} \le 205 \\
+% 225 \le T _{7} \le 245 \\
+% 245 \le T _{8 {\sim} 9} \le 265
+% \end{cases}
+% \end{equation}
+% 本文拟采取十进制蚁群算法，对各温区温度进行搜索。
 
 以下本文将以一元连续函数为例，说明十进制蚁群算法的原理。设一元连续函数优化的数学模型如下：
 \begin{equation}
@@ -433,6 +442,30 @@ V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
 % subsubsection:模型准备
 
 \subsubsection{模型建立}
+针对问题3中最优炉温曲线的求解，易知是一个多元连续函数优化问题。以理想的炉温曲线应使超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积最小的目标函数如下：
+\begin{equation}
+\min S = \mathrm{getSquare} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
+\end{equation}
+约束条件为
+\begin{equation}{\it s.t.}
+	\begin{cases}
+		V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
+		165 \le T_{1 {\sim} 5} \le 185\\
+		185 \le T _{6} \le 205 \\
+		225 \le T _{7} \le 245 \\
+		245 \le T _{8 {\sim} 9} \le 265
+	\end{cases}
+\end{equation}
+	
+设炉温曲线方程为$f(x)$，$f(x)$与直线$y=217$的左交点的横坐标为$x_0$，$f(x)$顶点的横坐标为$x_1$，则超过$217^{\circ}\mathrm{C}$到峰值温度所覆盖的面积可表示为
+
+\begin{equation}
+S = \int _{x_0} ^{x_1} {(f(x)-f(x_0)) \mathrm{d} x}
+\end{equation}
+
+本文采用梯形法来近似求解该积分，并调用\texttt{python}的\texttt{numpy.trapz}函数进行计算
+	
+本文拟采取十进制蚁群算法，对各温区温度进行搜索。
 以下给出蚁群算法的具体实现步骤：
 \begin{enumerate}
 	\item 设置初始参数：
@@ -461,20 +494,17 @@ V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
 % subsubsection:模型建立
 
 \subsection{问题4}
-针对问题4，首先本文必须先得到关于以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线的对称度指标\(R\)。
+针对问题4，首先本文必须先得到关于以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线的对称度指标\(R\)，就必须确定刻画曲线对称性的指标，本文采用下图所示方式进行度量。
 
-度量炉温曲线对称性的指标确定
+%度量炉温曲线对称性的指标确定
 
-依题意，要使得以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线应尽量对称，就必须确定度量对称性的指标，本文采用下图所示方式进行度量
-
-如图，任取位于峰值左右两侧且纵坐标相同的两点\((x_1,y_0 ),(x_2,y_0 )\)，当满足\(217≤y_0<y′\)，即纵坐标处在\(217^{\circ}\mathrm{C}\)至峰值温度区间内时，比较这两点横坐标到峰值温度横坐标的距离\(d_1,d_2\)：如果这两点关于峰值温度严格对称，则\(\vert d_1−d_2 \vert =0\)。因此度量对称性的指标可确定为\(\vert d_1−d_2 \vert\)，且得到的差值越小，曲线关于峰值越对称。由图知
+如图，任取位于峰值左右两侧且纵坐标相同的两点\((x_1,y_0 ),(x_2,y_0 )\)，当满足\(217≤y_0<y′\)，即纵坐标处在\(217^{\circ}\mathrm{C}\)至峰值温度区间内时，比较这两点横坐标到峰值温度横坐标的距离\(d_1,d_2\)：如果这两点关于峰值温度严格对称，则\(\vert d_1−d_2 \vert =0\)。因此度量对称性的指标可确定为\(\vert d_1−d_2 \vert\)，且得到的差值越小，曲线关于峰值越对称。
 
 \begin{figure}[H]
-				\centering
-				\includegraphics[scale = 0.4]{lu_symmetric.jpg}
-				\caption{TODO}\label{fig:lu_symmetric}
+		\centering
+		\includegraphics[scale = 0.4]{lu_symmetric.jpg}
+		\caption{TODO}\label{fig:lu_symmetric}
 \end{figure}
-% TODO size could be revised to fit in the article
 
 \[
 \begin{aligned}
@@ -488,16 +518,15 @@ d_2=x_2−x′
 \end{equation}
 综上，可确定如下算法来判定对称性：
 \begin{enumerate}
-\item  按一定步长对\(217^{\circ}\mathrm{C}\)至峰值温度进行分割，得到列表L
-\item  令res \({} = 0\)，用以记录度量指标的残差总和
-\item  依次取出L中的每一个元素，求出其在炉温曲线上对应的左右两个横坐标\(x_1,x_2\) （求解方法与问题2中求制程界限中时间界限的处理相同）
-\item  计算\(\vert 2x'−(x_1+x_2 )\vert\)，并叠加在res上
-\item  当L中所有元素取尽后即可得到对应炉温曲线的对称性指标res
+	\item  按一定步长对\(217^{\circ}\mathrm{C}\)至峰值温度进行分割，得到列表L
+	\item  令\(R = 0\)，用以记录度量指标的残差总和
+	\item  依次取出L中的每一个元素，求出其在炉温曲线上对应的左右两个横坐标\(x_1,x_2\) （求解方法与问题2中求制程界限中时间界限的处理相同）
+	\item  计算\(\vert 2x'−(x_1+x_2 )\vert\)，并叠加在\(R\)上
+	\item  当L中所有元素取尽后即可得到对应炉温曲线的对称性指标\(R\)
 \end{enumerate}
 
 根据题意知，需要结合问题3的目标函数面积进行考量，所以该问题是一个双目标规划问题，此时需要用一个综合评价函数对两个目标函数值进行赋权。
 
-% Insert   熵权值法，，，
 本文引入熵权值法，计算两个指标对应的权重系数并获得综合评价函数：
 1.取具有代表性的6个可行解点
 \[
@@ -515,7 +544,7 @@ T_{8 \sim 9}
 255 & 245 & 265 & 245 & 265 & 245
 \end{bmatrix}
 \]
-计算其对应的\(S\)与对称系数\(R\)获得指标\(A\)如下：
+计算这6个点对应的面积\(S\)与对称系数\(R\)获得初始指标矩阵\(A\)：
 \begin{equation}
 A = [S,R] =
 \begin{bmatrix}
@@ -528,13 +557,13 @@ A = [S,R] =
 \end{bmatrix}
 \end{equation}
 
-2.由于这两个指标的单位不一致，上一步骤获得的矩阵\(A\)，需要经过无量纲化处理，消除单位和数量级的影响，此处采用向量归一法：
+	由于这两个指标的单位不一致，上一步骤获得的矩阵\(A\)，需要经过无量纲化处理，消除单位和数量级的影响，此处采用向量归一法，对\(A\)中的每个元素进行处理：
 
 \begin{equation}
 a_{ij} ^{*} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{n} a _{ij} ^{2}}}
 \end{equation}
 
-3.得到标准观测值矩阵\(A^∗\)，其放缩系数\(K\)为\([1/1424.3,  1 / 168.1]\)
+处理后得到标准观测值矩阵\(A^∗\)，其放缩系数\(K\)为\([1/1424.3,  1 / 168.1]\)
 \[
 A ^{*}
 =
@@ -548,10 +577,11 @@ A ^{*}
 \end{bmatrix}
 \]
 
-4.计算特征比重矩阵\(P\)
+（1）利用公式
 \begin{equation}
 p_{ij} = \frac{a^{*}_{ij}}{\sum_{i=1}^{6}a ^{*}_{ij}}, \quad i = 1,2 ,\dots, 6; j = 1,2;
 \end{equation}
+求各指标的特征比重为
 \[
 P =
 \begin{bmatrix}
@@ -564,42 +594,68 @@ P =
 \end{bmatrix}
 \]
 
-5.获得熵值\(e\)以及差异系数\(g\)
+（2）利用公式
 \begin{equation}
 e_{j} = - \frac{1}{ \ln 6} \sum_{i=1} ^{6} p_{ij} \ln p_{ij}, \quad j = 1 ,2
 \end{equation}
-得
+计算各指标的熵值为
 \[
 e = [0.990327, 0.992311]
 \]
 
+（3）再利用公式
 \begin{equation}
 g _{j} = 1 - e_{j} , \quad j =  1, 2
 \end{equation}
 
+计算各指标的差异系数为
 \[
 g=[0.009673, 0.007689]
 \]
 
-6.获得权重系数
+（4）由公式
 \begin{equation}
 w_{j} = \frac{g_{j}}{\sum_{k=1}^{2} g _{k}} , \quad j = 1, 2
 \end{equation}
+求得各指标的权重向量为
 \[
 w=[0.5571   0.4429]
 \]
 
-7.最终获得综合评价函数
+（5）结合放缩系数\(K\)向量，最终获得综合评价函数
 \[
 f = \frac{w_0 \cdot K_0 \cdot S + w_1 \cdot K_1 \cdot R}{w_0 \cdot K_0 + w_1 \cdot K_1}
 \]
-得
+即
 \[
 f=0.129 S+0.871 R
 \]
-从而获得了双目标优化模型：
-\[
-\min f = ks  S + kr  R
-\]
+所以针对问题4的目标函数完整表述如下：
+\begin{equation}
+\min f = 0.129 S+0.871 R
+\end{equation}
+约束条件为
+\begin{equation}{\it s.t.}
+\begin{cases}
+V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
+S = \mathrm{getSquare} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
+R = \mathrm{getRes} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
+165 \le T_{1 {\sim} 5} \le 185\\
+185 \le T _{6} \le 205 \\
+225 \le T _{7} \le 245 \\
+245 \le T _{8 {\sim} 9} \le 265
+\end{cases}
+\end{equation}
+同样通过蚁群算法求解后，最终本文确定的最佳温度控制为\(T _{1 \sim 5}= 183 ^{\circ}\mathrm{C}\)，\(T6 = 186^{\circ}\mathrm{C}\)，
+\(T_{7} = 225^{\circ}\mathrm{C}\)，\(T_8 = 265^{\circ}\mathrm{C}\)，最佳过炉速度为 \(95.34\,\mathrm{cm}/\mathrm{min}\)，炉温曲线超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积为\(449\,^{\circ}\mathrm{C} \cdot \mathrm{min}\)。
+
+以下对最优解进行合理性分析：
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.3]{Figure_1.pdf}\caption{问题4最优解对应的炉温曲线}
+\end{figure}
+	
+上图绿线为直线$y=217$，蓝线为峰值右侧曲线的镜像。将蓝色曲线与峰值左侧曲线进行对比，不难发现在$y\ge217$的范围内镜像曲线与原曲线在贴合紧密，很好地满足了题目中在以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线应尽量对称的要求。
 % subsection:问题4
 \end{document}
