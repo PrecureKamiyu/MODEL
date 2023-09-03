@@ -50,8 +50,8 @@ u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 约束条件为
 \begin{equation}{\it s.t.}
 \begin{cases}
-v = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
-165 \le T_{1 {\sim} 5} \le 175\\
+V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
+165 \le T_{1 {\sim} 5} \le 185\\
 185 \le T _{6} \le 205 \\
 225 \le T _{7} \le 245 \\
 245 \le T _{8 {\sim} 9} \le 265
@@ -90,23 +90,23 @@ v = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
 \begin{equation}\label{equ:pass1}
 \rho _{ij} ^{r} = \frac{\tau ^{r} _{ij}}{\sum\limits_{s\in \{0 , \dots , 9\}} \kern -2pt\tau ^{r} _{is}}
 \end{equation}
-城市转移到第r+1列中的10个城市中，路径 \(\mathrm{Path}_{ij} ^{r}\)的信息素浓度越高，转移到城市 \(j\) 的概率就越大。在没有完全排除其余路径的基础上，这样的转移方式不仅保证了更多的蚂蚁样本将被聚集到当前的最优路径，符合最优搜索策略的原则，还有利于帮助小部分蚂蚁寻找其他更有路径，在有其他更好的选择的情况之下跳出局部最优的限制
+城市转移到第r+1列中的10个城市中，路径 \(\mathrm{Path}_{ij} ^{r}\)的信息素浓度越高，转移到城市 \(j\) 的概率就越大。在没有完全排除其余路径的基础上，这样的转移方式不仅保证了更多的蚂蚁样本将被聚集到当前的最优路径，符合最优搜索策略的原则，还有利于帮助小部分蚂蚁寻找其他更优路径，在有其他更好的选择的情况之下跳出局部最优的限制。
 \item 信息素更新\\
 当第 \(N\) 轮次的循环结束时，所有蚂蚁将在自身移动过的路径上留下信息素增量，与前一轮次挥发后剩余的信息素叠加获得该轮次的信息素矩阵：
 \begin{equation}\label{equ:shit}
 T_{N} = (1 - \rho) T _{(N- 1)} + \Delta T
 \end{equation}
-\(T_{i}\) 是一个三维信息素矩阵，存放着\(d\) 个从第 \(0{\sim} d -1\) 列的当前 \(i\) 转移到下一列第\(j\)城市的二维信息矩阵 \(S_{ij}\)；\(N\) 代表当前循环轮次；\(\rho\) 表示挥发系数，其取值越大，会发强度就越高，前一轮次留下的信息素残余量对当前轮次蚂蚁的路径转移影响就越小，项最优解收敛的速度就越快。
+\(T_{k}\) 是一个三维信息素矩阵，存放着\(d\) 个从第 \(0{\sim} d -1\) 列的第 \(i\) 城市转移到下一列第\(j\)城市的二维信息矩阵 \(S_{ij}\)；\(N\) 代表当前循环轮次；\(\rho\) 表示挥发系数，其取值越大，会发强度就越高，前一轮次留下的信息素残余量对当前轮次蚂蚁的路径转移影响就越小，项最优解收敛的速度就越快。
 \(\Delta T\) 代表当前轮次的信息素增量，本文采用精英策略对每一只蚂蚁留下的信息素进行取值： 
 
 \begin{itemize}
 \item[\textbf{I}] 在一轮次循环结束之后，通过排序取得前 \(\alpha \%\)的精英蚂蚁，这些精英蚂蚁各自路径上的信息素增量为
 \begin{equation}\label{equ:pass2}
-\Delta \tau _{ij} = K Q ^{J \cdot [f (x_{k}) - f (x _{\mathrm{best}})]} , \quad (k \le \alpha \% , \mathrm{num}_{\mathrm{ant}} , k \in \mathbf{Z})
+\Delta \tau _{ij} = K Q ^{J [f (x_{k}) - f (x _{\mathrm{best}})]} , \quad (k \le \alpha \% \cdot \mathrm{num}_{\mathrm{ant}} , k \in \mathbf{Z})
 \end{equation}
 其中\(\mathrm{num}_{\mathrm{ant}}\)为蚂蚁总数量，\(K\)为信息素权值系数，同时也是最优解路径对应的增量值；\(J\)为放缩系数，可以把函数值差值进行无量纲化到一个合理的区间内；\(x_{\mathrm{best}}\)是这些精英解中的最优解，\(Q\)系数的取值为\((0,1)\)，这个幂项将根据每个可行解与最优解的目标函数值距离，降低其信息素增量值。函数值越接近最优解值，降低的幅度就越小，对应的信息素增量就越大。
 \item[\textbf{II}] \(\alpha \%\)后的蚂蚁，其信息素增量置为0。
-同时，为了增强该模型的局部搜索能力（local search ability），提高搜索效率和精度，当在最优路径上的信息素增量为\(\Delta \tau\)时，其相邻的路径上也对应着增加\(\Delta \tau / 4\)的信息素增量。
+\item[\textbf{III}] 同时，为了增强该模型的局部搜索能力（local search ability），提高搜索效率和精度，当在最优路径上的信息素增量为\(\Delta \tau\)时，其相邻的路径上也对应着增加\(\Delta \tau / 4\)的信息素增量。\\
 例如当最优解是 0.40 时，即\(\Delta \tau _{0 4} ^{0} = \Delta \tau ^{1} _{4 0} = \Delta \tau\)时，局部搜索模型将对0.3，0.5，0.39，0.41处的信息素增量\(\Delta \tau ^{0} _{03}, \Delta \tau_{05} ^{0} , \Delta \tau _{39} ^{1} , \Delta\tau _{41}^{01}\)加上\(\Delta \tau / 4\)。
 通过这样的方法，当前最优路径附近上的更优路径将有更大的概率被搜索到。
 \end{itemize}
@@ -385,22 +385,20 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 \end{enumerate}
 \begin{table}[H]
 	\centering
-	\begin{tabular}{cc} 
-	\makebox[5em][c]{参数名称} & \makebox[5em][c]{参数值} \\	\hline \hline
+	\begin{tabular}{cccccccc} 
+	\hline 	\hline
 	\\[-1em]
-	\(\mathrm{num}_{\mathrm{ant}}\) & \(50\) \\
-	\(\mathrm{loop}_{\mathrm{times}}\) & \(10\)\\
-	\(K\) & 5\\
-	\(Q\) & 0.8\\
-	\(J\) & 100\\
-	\(\rho\) & 0.4 \\
-	\(\alpha\) & 10\%\\
-	\(d_{i}\) & 1 
+
+	\(\mathrm{num}_{\mathrm{ant}}\) & \(\mathrm{loop}_{\mathrm{times}}\) & \(K\) & \(Q\) & \(J\) & \(\rho\) & \(\alpha\%\) & \(d_{i}\) \\
+	\\[-1em]
+	\hline
+	\\[-1em]
+	 \(100\)  & \(10\)  & 5  & 0.8  & 100  & 0.4  & 10\%  & 1 
 	\\[-1em]
 	\\ \hline
 	\end{tabular}
-	\caption{parameters for DACA}
+	\caption{十进制蚁群算法参数设置}
 \end{table}
 最终确定的最佳温度控制为 \(T _{1 \sim 5}= 183 ^{\circ}\mathrm{C}\)，\(T6 = 187^{\circ}\mathrm{C}\)，
-\(T_{7} = 235^{\circ}\mathrm{C}\)，\(T_8 = 255\)，最佳过炉速度为 \(90\,\mathrm{cm}/\mathrm{min}\)，面积为435。
+\(T_{7} = 235^{\circ}\mathrm{C}\)，\(T_8 = 255^{\circ}\mathrm{C}\)，最佳过炉速度为 \(90\,\mathrm{cm}/\mathrm{min}\)，炉温曲线超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积为\(435\,^{\circ}\mathrm{C} \cdot \mathrm{min}\)。
 \end{document}
