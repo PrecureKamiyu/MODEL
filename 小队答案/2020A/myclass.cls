@@ -28,7 +28,7 @@
 
 %% Loading Class
 %%% we change the require document class to ctexart
-\LoadClass[a4paper,12pt]{ctexart}
+\LoadClass[a4paper,10pt]{ctexart}
 
 \RequirePackage{geometry}
 \RequirePackage{amsmath}
@@ -86,7 +86,7 @@
 
 %% Document Layout
 % 页面布局
-\geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
+\geometry{top=20mm,bottom=20mm,left=25mm,right=25mm}
 %\setlength{\parskip}{4pt}
 % line height
 \renewcommand*{\baselinestretch}{1.1}
