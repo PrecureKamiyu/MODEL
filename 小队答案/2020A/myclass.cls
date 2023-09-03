@@ -51,13 +51,13 @@
 \RequirePackage{listings}
 \RequirePackage{xcolor}
 \RequirePackage{url}
-
 \RequirePackage{subcaption}
 \RequirePackage[titles]{tocloft}
-%\renewcommand{\cftsecdotsep}{4.5}
 
 %\setlength{\cftbeforesecskip}{7pt}
 %\setlength{\cftbeforesubsecskip}{2pt}
+
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 
 \renewcommand{\cftsecfont}{\bfseries\zihao{-4}\heiti}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
