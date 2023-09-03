@@ -281,7 +281,7 @@ def getAll(T1, T6, T7, T8, v):
                 break
         res += abs(tR + tL - 2 * max_index)
 
-    return 1 * S + 10 * res
+    return 0.129 * S + 0.871 * res
 
 
 

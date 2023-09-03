@@ -174,15 +174,29 @@ step3 = []
 for k in range(0, N3):
     step3.append(U3[round(M/2), k])
 
+
+
 tspan3 = np.arange(293.5, 373, 0.5)
 # plt.plot(tspan3, step3)
 # plt.plot(tspan3, perfect_U[len(step1) + len(step2): -1])
 # plt.show()
 
 
-tspan = np.concatenate((tspan,tspan2,tspan3), axis = 0)
+tspan = np.arange(0, 373, 0.5)
 step = np.concatenate((step1,step2, step3), axis=0)
-
-plt.plot(tspan, step)
-plt.plot(tspan, perfect_U[: -1])
+yspan = np.arange(0.001, 0.150, 0.001)
+U_all = np.concatenate((U[1:], U2[1:], U3[1:]), axis = 1)
+T, Y = np.meshgrid(tspan, yspan)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(T, Y, U_all, cmap='rainbow')
+plt.xlabel('t/s')
+plt.ylabel('y/mm', rotation= 45)
 plt.show()
+
+
+
+
+# plt.plot(tspan, step)
+# plt.plot(tspan, perfect_U[: -1])
+# plt.show()
