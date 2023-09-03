@@ -86,7 +86,7 @@
 
 %% Document Layout
 % 页面布局
-\geometry{top=20mm,bottom=20mm,left=25mm,right=25mm}
+\geometry{top=20mm,bottom=20mm,left=22mm,right=22mm}
 %\setlength{\parskip}{4pt}
 % line height
 \renewcommand*{\baselinestretch}{1.1}
