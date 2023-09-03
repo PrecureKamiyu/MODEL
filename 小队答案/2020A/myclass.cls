@@ -80,7 +80,7 @@
     \phantomsection
     \addcontentsline{toc}{section}{\refname}
     }
-    
+
 \RequirePackage{hyperref}
 \RequirePackage{cleveref}
 
@@ -88,20 +88,9 @@
 % 页面布局
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 %\setlength{\parskip}{4pt}
-% this one change the line height or line spacing
+% line height
 \renewcommand*{\baselinestretch}{1.1}
 
-% table line skip
-% 修改tabular 环境, 设置表格中的行间距为正文行间距.
-%\let\mcm@oldtabular\tabular
-%\let\mcm@endoldtabular\endtabular
-%\renewenvironment{tabular}%
-%	{\bgroup%
-%	\renewcommand{\arraystretch}{1.38}%
-%	\mcm@oldtabular}%
-%	{\mcm@endoldtabular\egroup}
-
-% 每行缩进两个汉字
 \setlength\parindent{2em}
 % 设置字体
 % \RequirePackage{newtxtext}
@@ -172,17 +161,16 @@
 }
 
 % 超链接
-	 \hypersetup{%
-%         xetex,
-		% unicode=false, % hyperref 和 xetex 同时使用时不能开启 Unicode 选项.
-         pdfstartview=FitH,
-         CJKbookmarks=true,
-         bookmarksnumbered=true,
-         bookmarksopen=true,
-         colorlinks, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
-         pdfborder=001,   %注释掉此项则交叉引用为彩色边框
-		 allcolors=black,
-		 breaklinks=true}%
+\hypersetup{%
+				% unicode=false, % hyperref 和 xetex 同时使用时不能开启 Unicode 选项.
+								pdfstartview=FitH,
+								CJKbookmarks=true,
+								bookmarksnumbered=true,
+								bookmarksopen=true,
+								colorlinks, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
+								pdfborder=001,   %注释掉此项则交叉引用为彩色边框
+								allcolors=black,
+								breaklinks=true}%
 \pdfstringdefDisableCommands{%
 	\def\cftdotfill{ }%
 }
@@ -307,9 +295,9 @@
     % 不这样做右边难以对齐!
     \mcm@commit@string@membername
     \begin{minipage}[t]{\mcm@lenB}
-   	1.\uline{\mbox{\kern1em}\mcm@tokens@membera\hfill} \makebox[0.46em]{}\par
-   	2.\uline{\mbox{\kern1em}\mcm@tokens@memberb\hfill} \makebox[0.46em]{}\par
-   	3.\uline{\mbox{\kern1em}\mcm@tokens@memberc\hfill} \makebox[0.46em]{}\par
+		1.\uline{\mbox{\kern1em}\mcm@tokens@membera\hfill} \makebox[0.46em]{}\par
+		2.\uline{\mbox{\kern1em}\mcm@tokens@memberb\hfill} \makebox[0.46em]{}\par
+		3.\uline{\mbox{\kern1em}\mcm@tokens@memberc\hfill} \makebox[0.46em]{}\par
    \end{minipage}\par\vskip1ex
     \mcm@commit@string@supervisorname\uline{\mbox{\hspace{1em}}\mcm@tokens@supervisor\hfill}\makebox[0.66em]{}\par
     \hspace{0.1cm} （{\kaishu 指导教师签名意味着对参赛队的行为和论文的真实性负责}）
@@ -411,18 +399,18 @@
 \if@twocolumn
 		\section*{\abstractname}%
 	\else
-	 \begin{center}%
+	\begin{center}%
 	{\zihao{4}\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
-	 \end{center}%
- 	 \quotation
+	\end{center}%
+	\quotation
 	\fi}
 	{\if@twocolumn\else\endquotation\newpage\null\fi}
 \renewenvironment{quotation}
 	{\list{}{\listparindent 2em%
-	 \itemindent \listparindent
-	 \rightmargin\z@
-	 \leftmargin\z@
-	 \parsep \z@ \@plus\p@}%
+	\itemindent \listparindent
+	\rightmargin\z@
+	\leftmargin\z@
+	\parsep \z@ \@plus\p@}%
 	\item\relax}
 	{\endlist}
 
@@ -437,7 +425,7 @@
 % \renewcommand{\setthesection}{\appendixname\Alph{section}}
 % \renewcommand\appendix{\par
 	% \setcounter{section}{0}%
-	 % \setcounter{subsection}{0}%
+	% \setcounter{subsection}{0}%
 	% \gdef\thesection{\appendixname\@Alph\c@section}}
 % 重定义参考文献环境
 \renewenvironment{thebibliography}[1]

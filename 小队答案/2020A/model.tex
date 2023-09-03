@@ -458,4 +458,147 @@ V = \mathrm{binarySearchMaxV} (T _{1{\sim} 5}, T_{6} , T _{7},T_{8{\sim} 9})\\
 最终确定的最佳温度控制为 \(T _{1 \sim 5}= 183 ^{\circ}\mathrm{C}\)，\(T6 = 187^{\circ}\mathrm{C}\)，
 \(T_{7} = 235^{\circ}\mathrm{C}\)，\(T_8 = 255^{\circ}\mathrm{C}\)，最佳过炉速度为 \(90\,\mathrm{cm}/\mathrm{min}\)，炉温曲线超过\(217 ^{\circ}\mathrm{C}\)到峰值温度所覆盖的面积为\(435\,^{\circ}\mathrm{C} \cdot \mathrm{min}\)。
 % subsubsection:模型建立
+
+\subsection{问题4}
+针对问题4，首先本文必须先得到关于以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线的对称度指标\(R\)。
+
+度量炉温曲线对称性的指标确定
+
+依题意，要使得以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线应尽量对称，就必须确定度量对称性的指标，本文采用下图所示方式进行度量
+
+如图，任取位于峰值左右两侧且纵坐标相同的两点\((x_1,y_0 ),(x_2,y_0 )\)，当满足\(217≤y_0<y′\)，即纵坐标处在\(217^{\circ}\mathrm{C}\)至峰值温度区间内时，比较这两点横坐标到峰值温度横坐标的距离\(d_1,d_2\)：如果这两点关于峰值温度严格对称，则\(\vert d_1−d_2 \vert =0\)。因此度量对称性的指标可确定为\(\vert d_1−d_2 \vert\)，且得到的差值越小，曲线关于峰值越对称。由图知
+
+\begin{figure}[H]
+				\centering
+				\includegraphics[scale = 0.4]{lu_symmetric.jpg}
+				\caption{TODO}\label{fig:lu_symmetric}
+\end{figure}
+% TODO size could be revised to fit in the article
+
+\[
+\begin{aligned}
+d_1=x′−x_1
+d_2=x_2−x′
+\end{aligned}
+\]
+则
+\begin{equation}
+\vert d_1−d_2 \vert =\vert 2x′−(x_1+x_2 )\vert
+\end{equation}
+综上，可确定如下算法来判定对称性：
+\begin{enumerate}
+\item  按一定步长对\(217^{\circ}\mathrm{C}\)至峰值温度进行分割，得到列表L
+\item  令res \({} = 0\)，用以记录度量指标的残差总和
+\item  依次取出L中的每一个元素，求出其在炉温曲线上对应的左右两个横坐标\(x_1,x_2\) （求解方法与问题2中求制程界限中时间界限的处理相同）
+\item  计算\(\vert 2x'−(x_1+x_2 )\vert\)，并叠加在res上
+\item  当L中所有元素取尽后即可得到对应炉温曲线的对称性指标res
+\end{enumerate}
+
+根据题意知，需要结合问题3的目标函数面积进行考量，所以该问题是一个双目标规划问题，此时需要用一个综合评价函数对两个目标函数值进行赋权。
+
+% Insert   熵权值法，，，
+本文引入熵权值法，计算两个指标对应的权重系数并获得综合评价函数：
+1.取具有代表性的6个可行解点
+\[
+\begin{bmatrix}
+T_{1 \sim 5} \\
+T_{6}\\
+T_{7}\\
+T_{8 \sim 9}
+\end{bmatrix}
+=
+\begin{bmatrix}
+175 & 165 & 185 & 165 & 185 & 165\\
+195 & 185 & 205 & 185 & 185 & 205\\
+235 & 225 & 225 & 245 & 245 & 225\\
+255 & 245 & 265 & 245 & 265 & 245
+\end{bmatrix}
+\]
+计算其对应的\(S\)与对称系数\(R\)获得指标\(A\)如下：
+\begin{equation}
+A = [S,R] =
+\begin{bmatrix}
+534 & 72.3 \\
+440 & 55.7 \\
+559 & 54.8 \\
+599 & 60.6 \\
+789 & 80.6 \\
+506 & 82.2
+\end{bmatrix}
+\end{equation}
+
+2.由于这两个指标的单位不一致，上一步骤获得的矩阵\(A\)，需要经过无量纲化处理，消除单位和数量级的影响，此处采用向量归一法：
+
+\begin{equation}
+a_{ij} ^{*} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{n} a _{ij} ^{2}}}
+\end{equation}
+
+3.得到标准观测值矩阵\(A^∗\)，其放缩系数\(K\)为\([1/1424.3,  1 / 168.1]\)
+\[
+A ^{*}
+=
+\begin{bmatrix}
+0.3749 & 0.4301 \\
+0.3089 & 0.3314 \\
+0.3925 & 0.3260 \\
+0.4206 & 0.3605 \\
+0.5540 & 0.4795 \\
+0.3552 & 0.4890
+\end{bmatrix}
+\]
+
+4.计算特征比重矩阵\(P\)
+\begin{equation}
+p_{ij} = \frac{a^{*}_{ij}}{\sum_{i=1}^{6}a ^{*}_{ij}}, \quad i = 1,2 ,\dots, 6; j = 1,2;
+\end{equation}
+\[
+P =
+\begin{bmatrix}
+0.1558  &  0.1780 \\
+0.1284  &  0.1371 \\
+0.1631  &  0.1349 \\
+0.1748  &  0.1492 \\
+0.2302  &  0.1984 \\
+0.1476  &  0.2024
+\end{bmatrix}
+\]
+
+5.获得熵值\(e\)以及差异系数\(g\)
+\begin{equation}
+e_{j} = - \frac{1}{ \ln 6} \sum_{i=1} ^{6} p_{ij} \ln p_{ij}, \quad j = 1 ,2
+\end{equation}
+得
+\[
+e = [0.990327, 0.992311]
+\]
+
+\begin{equation}
+g _{j} = 1 - e_{j} , \quad j =  1, 2
+\end{equation}
+
+\[
+g=[0.009673, 0.007689]
+\]
+
+6.获得权重系数
+\begin{equation}
+w_{j} = \frac{g_{j}}{\sum_{k=1}^{2} g _{k}} , \quad j = 1, 2
+\end{equation}
+\[
+w=[0.5571   0.4429]
+\]
+
+7.最终获得综合评价函数
+\[
+f = \frac{w_0 \cdot K_0 \cdot S + w_1 \cdot K_1 \cdot R}{w_0 \cdot K_0 + w_1 \cdot K_1}
+\]
+得
+\[
+f=0.129 S+0.871 R
+\]
+从而获得了双目标优化模型：
+\[
+\min f = ks  S + kr  R
+\]
+% subsection:问题4
 \end{document}
