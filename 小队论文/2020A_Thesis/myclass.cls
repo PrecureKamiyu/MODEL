@@ -29,6 +29,11 @@
 %% Loading Class
 %%% we change the require document class to ctexart
 \LoadClass[a4paper,10pt]{ctexart}
+%% define the font of section
+\ctexset{
+section = {format+=\sffamily\Large,},
+subsection = {format+=\sffamily\zihao{-4},}
+}
 
 \RequirePackage{geometry}
 \RequirePackage{amsmath}
@@ -77,9 +82,8 @@
 \RequirePackage[titletoc,title]{appendix}
 \RequirePackage{etoolbox}
 \AtBeginEnvironment{thebibliography}{%
-    \phantomsection
-    \addcontentsline{toc}{section}{\refname}
-    }
+\phantomsection
+\addcontentsline{toc}{section}{\refname}}
 
 \RequirePackage{hyperref}
 \RequirePackage{cleveref}
