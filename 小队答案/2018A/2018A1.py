@@ -121,6 +121,3 @@ ax.set_ylabel('$t$')
 ax.set_zlabel('$T$')
 plt.tight_layout()
 plt.show()
-
-
-print((T[1520, 5400] - T[1519, 5400]))

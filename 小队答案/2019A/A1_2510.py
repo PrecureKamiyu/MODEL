@@ -29,13 +29,9 @@ for i in range(202, 402):
 
 rho_new = np.arange(0.8043, 0.8825, 0.0001)
 
-coefficients = np.polyfit(rho_list, P, 10)
 
-P_new = np.polyval(coefficients, rho_new)
-
-
-# tck = interpolate.splrep(rho_list, P)
-# P_bspline = interpolate.splev(rho_new, tck)
+tck = interpolate.splrep(rho_list, P)
+P_new = interpolate.splev(rho_new, tck)
 
 
 # plt.rc('text', usetex=True)
@@ -104,7 +100,7 @@ for T in np.arange(0.74, 0.76, 0.002):
         if(rho < rho_new[0]) or (rho > rho_new[-1]):
             flag = 1
             break
-        P_temp = np.polyval(coefficients, rho)
+        P_temp = interpolate.splev(rho, tck)
         tP_dict[t] = P_temp
         rho_prime = (Q_in(rho, T, t, P_temp) * rho0 - Q_out(t) * rho)/V
         rho += rho_prime * dt

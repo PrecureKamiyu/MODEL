@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import sparse
 import csv
+import matplotlib.pyplot as plt
 
 h = 0.2
 M = round(344.5 / h)
@@ -45,11 +46,11 @@ with open("附件.csv", "r") as csvfile:
 
 
 v = 70 / 60
-dy = 0.001 * 0.001
-dt = 0.5
+dy = 0.0002 * 0.001
+dt = 0.1
 
-a = 4.91 * 10 ** -11
-H = 2.54 * 10 ** -6
+a = 4.9 * 10 ** -11
+H = 4 * 10 ** -6
 
 l = 0.15 * 0.001
 t = 171  # 变动项
@@ -59,7 +60,7 @@ N = round(t / dt)   # 变动项
 aHsdict = {}
 for ax in np.linspace(4, 6, 21):
     print(ax)
-    for Hx in np.linspace(4, 6, 11):
+    for Hx in np.linspace(3, 5, 10):
         a = ax * 10 ** -11
         H = Hx * 10 ** -6
 
@@ -89,14 +90,19 @@ for ax in np.linspace(4, 6, 21):
 
 
         step1 = []
-        for k in range(round(19/ dt), N):
+        for k in range(round(19 / dt), N):
             step1.append(U[round(M/2), k])
 
-
+        length = (171 - 19) / 0.5
+        step_true = perfect_U[:round(length)]
         s = 0
-        for i in range(0, len(step1)):
-            s += (step1[i] - perfect_U[i])**2
-        
-        aHsdict[(ax,Hx)] = s
+        for i in range(0, round(length)):
+            s += (step1[round(i * 0.5 / dt)] - step_true[i])**2
 
-print(sorted(aHsdict.items(), key= lambda x: x[1]))
+        aHsdict[(ax, Hx)] = s
+
+print(sorted(aHsdict.items(), key=lambda x: x[1], reverse=True))
+
+# plt.plot(tspan, step1)
+# plt.plot(tspan, perfect_U[:len(tspan)])
+# plt.show()

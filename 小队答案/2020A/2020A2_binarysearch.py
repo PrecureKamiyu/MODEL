@@ -241,4 +241,4 @@ def BinarySearch(T1, T6, T7, T8, vlist, low, high):
 
 
 vspan = np.arange(65 / 60, 100 / 60, 0.01 / 60)
-print(BinarySearch(187, 195, 225, 263, vspan, 0, len(vspan)))
+print(BinarySearch(183, 186, 225, 265, vspan, 0, len(vspan)))

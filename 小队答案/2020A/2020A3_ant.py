@@ -497,4 +497,4 @@ def DACA(optfunc, p, num_ant, loop_times, K, Q, J, rho):
             print("")
 
 
-DACA(optimizefunc, p=[1, 1, 1, 1], num_ant=20, loop_times=5, K=5, Q=0.8, J=100, rho=0.4)
+DACA(optimizefunc, p=[1, 1, 1, 1], num_ant=20, loop_times=8, K=5, Q=0.8, J=100, rho=0.4)
