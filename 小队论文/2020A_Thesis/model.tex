@@ -1,8 +1,7 @@
 \documentclass[../main.tex]{subfiles}
+
 \begin{document}
-
 \section{模型建立和求解}
-
 \subsection{问题1}
 \subsubsection{模型准备}
 \paragraph{三维热传导方程的推导}
@@ -45,7 +44,7 @@ u_{t} c \rho - k\kern 1pt \nabla^{2} u = F (x , y , z, t)
 \subsubsection{模型建立}
 % para one
 % \paragraph{复原间隙温度} 先是复原间隙以及炉前后区域之中的温度，用 \(u\) 表示。
-% 
+%
 % 对于两个温区之间的间隙，其只受到两边温区的加热，并且间隙之中并没有热源，三维热传导方程Equ~(\ref{equ:cond})中 \(F ( x , y , z ,t) = 0\)，且退化为一维热传导方程：
 % \begin{equation}
 % \frac{\partial u}{\partial t} = a^{2} \frac{\partial ^{2} u}{ \partial x ^{2}}
@@ -243,21 +242,21 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 
 对于拟合得到的参数，本文对其进行回代并求出该组参数下对应的炉温曲线以及焊接区域温度随时间和位置变化的函数图像如下：
 \begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{same.pdf}
-		\caption{拟合的炉温曲线与原曲线对比}
-	\end{subfigure}
-	%
-	\begin{subfigure}[b]{0.49\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{rainbow.pdf}
-		\caption{焊接区域的温度分布图}
-	\end{subfigure}
-	\caption{拟合效果}\label{fig:four}
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{same.pdf}
+\caption{拟合的炉温曲线与原曲线对比}
+\end{subfigure}
+%
+\begin{subfigure}[b]{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{rainbow.pdf}
+\caption{焊接区域的温度分布图}
+\end{subfigure}
+\caption{拟合效果}\label{fig:two}
 \end{figure}
-通过分析两组炉温曲线的吻合度可以看出，拟合参数对应的炉温曲线与所给的附件数据的基本一致，因此本次拟合的效果较好，可以做到很好的参数还原。分析温度分布图可知，越靠近边缘的位置，温度变化与环境温度变化曲线越接近，越靠近中心的区域，其表现出的``滞后性''就越明显，与实际情况相符，所以这组参数具有足够的合理性。	
+通过分析两组炉温曲线的吻合度可以看出，拟合参数对应的炉温曲线与所给的附件数据的基本一致，因此本次拟合的效果较好，可以做到很好的参数还原。分析温度分布图可知，越靠近边缘的位置，温度变化与环境温度变化曲线越接近，越靠近中心的区域，其表现出的``滞后性''就越明显，与实际情况相符，所以这组参数具有足够的合理性。
 
 \subsection{问题2}
 根据题意，找到的最大的过炉速度 \(V\) 需要满足下面条件，焊接材料的中心位置的温度 \(v\)是关于时间\(t\)的函数，有：
@@ -281,70 +280,70 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 以下本文分析四个限制指标与过炉速度之间的关系，得到四张函数图像，见图~\ref{fig:four}。
 \begin{figure}[H]
 \centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{k.pdf}
-		\caption{\(\vert v' \vert\) 的最值}
-	\end{subfigure}
-	%
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{190170.pdf}
-		\caption{处于\(150 ^{\circ}\mathrm{C}\)\(\sim\)\(190 ^{\circ}\mathrm{C}\)的时间}
-	\end{subfigure}
-	%
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{217.pdf}
-		\caption{大于 \(217 ^{\circ}\mathrm{C}\)的时间}
-	\end{subfigure}
-	%
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{max.pdf}
-		\caption{\(v\) 的峰值}
-	\end{subfigure}
-	\caption{四个限制指标和过炉速度之间的关系}\label{fig:four}
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{k.pdf}
+\caption{\(\vert v' \vert\) 的最值}
+\end{subfigure}
+%
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{190170.pdf}
+\caption{处于\(150 ^{\circ}\mathrm{C}\)\(\sim\)\(190 ^{\circ}\mathrm{C}\)的时间}
+\end{subfigure}
+%
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{217.pdf}
+\caption{大于 \(217 ^{\circ}\mathrm{C}\)的时间}
+\end{subfigure}
+%
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{max.pdf}
+\caption{\(v\) 的峰值}
+\end{subfigure}
+\caption{四个限制指标和过炉速度之间的关系}\label{fig:four}
 \end{figure}
 
 由图可知，这四个指标与过炉速度满足单调函数关系，因此本文拟通过二分法求解最大过炉速度，二分法的递归伪代码如下给出：
-% \begin{minted}[linenos, fontsize = \footnotesize]{python}
-% def  BinarySerach(Tlist, Vlist, low, high):
-%   if  high > low:
-%     mid = (low + high) // 2
-% 
-%     # 当最大斜率过大时，向慢速搜索
-%     maxK = searchMaxK(Tlist, Vlist[mid])
-%     if maxK > 3:
-%        return BinarySerach(Tlist, Vlist, low, mid-1)
-% 
-%     # 当峰值温度过小时，向慢速搜索
-%     maxTemp = searchMaxTemp(Tlist, Vlist[mid])
-%     if maxTemp < 240:
-%       return BinarySerach(Tlist, Vlist, low, mid-1)
-%     if maxTemp > 250:
-%       return BinarySerach(Tlist, Vlist, mid+1, high)
-% 
-%     # 当超过217摄氏度的时间越短时，向慢速搜索
-%     Lt217times = searchLt217times(Tlist, Vlist[mid])
-%     if  Lt217times < 40:
-%       return BinarySerach(Tlist, Vlist, low, mid-1)
-%     if  Lt217times > 90:
-%       return BinarySerach(Tlist, Vlist, mid+1, high)
-% 
-%     # 当从150度上升至190度的时间越短时，向慢速搜索
-%     Uptimes = searchUptimes(Tlist, Vlist[mid])
-%     if  Uptimes < 60:
-%       return BinarySerach(Tlist, Vlist, low, mid-1)
-%     if  Uptimes > 120:
-%       return BinarySerach(Tlist, Vlist, mid+1, high)
-% 
-%     # 满足问题需要，当满足所有条件时，向快速搜索
-%     # 便于获得最大过炉速度
-%     return BinarySerach(Tlist, Vlist, mid, high)
-%   else:
-%     return Vlist[low]
-% \end{minted}
+\begin{minted}[linenos, fontsize = \footnotesize]{python}
+def  BinarySerach(Tlist, Vlist, low, high):
+  if  high > low:
+    mid = (low + high) // 2
+
+    # 当最大斜率过大时，向慢速搜索
+    maxK = searchMaxK(Tlist, Vlist[mid])
+    if maxK > 3:
+       return BinarySerach(Tlist, Vlist, low, mid-1)
+
+    # 当峰值温度过小时，向慢速搜索
+    maxTemp = searchMaxTemp(Tlist, Vlist[mid])
+    if maxTemp < 240:
+      return BinarySerach(Tlist, Vlist, low, mid-1)
+    if maxTemp > 250:
+      return BinarySerach(Tlist, Vlist, mid+1, high)
+
+    # 当超过217摄氏度的时间越短时，向慢速搜索
+    Lt217times = searchLt217times(Tlist, Vlist[mid])
+    if  Lt217times < 40:
+      return BinarySerach(Tlist, Vlist, low, mid-1)
+    if  Lt217times > 90:
+      return BinarySerach(Tlist, Vlist, mid+1, high)
+
+    # 当从150度上升至190度的时间越短时，向慢速搜索
+    Uptimes = searchUptimes(Tlist, Vlist[mid])
+    if  Uptimes < 60:
+      return BinarySerach(Tlist, Vlist, low, mid-1)
+    if  Uptimes > 120:
+      return BinarySerach(Tlist, Vlist, mid+1, high)
+
+    # 满足问题需要，当满足所有条件时，向快速搜索
+    # 便于获得最大过炉速度
+    return BinarySerach(Tlist, Vlist, mid, high)
+  else:
+    return Vlist[low]
+\end{minted}
 通过二分搜索模型，本文最终确定的最大过炉速度为\(82.47 \mathrm{cm}/\mathrm{min}\)。
 
 \subsection{问题 3}
@@ -456,7 +455,7 @@ III & \(3 \times 10 ^{-11}\) & \(1 \times 10 ^{-5}\)
 		245 \le T _{8 {\sim} 9} \le 265
 	\end{cases}
 \end{equation}
-	
+
 设炉温曲线方程为$f(x)$，$f(x)$与直线$y=217$的左交点的横坐标为$x_0$，$f(x)$顶点的横坐标为$x_1$，则超过$217^{\circ}\mathrm{C}$到峰值温度所覆盖的面积可表示为
 
 \begin{equation}
@@ -464,7 +463,7 @@ S = \int _{x_0} ^{x_1} {(f(x)-f(x_0)) \mathrm{d} x}
 \end{equation}
 
 本文采用梯形法来近似求解该积分，并调用\texttt{python}的\texttt{numpy.trapz}函数进行计算
-	
+
 本文拟采取十进制蚁群算法，对各温区温度进行搜索。
 以下给出蚁群算法的具体实现步骤：
 \begin{enumerate}
@@ -655,7 +654,6 @@ R = \mathrm{getRes} (T _{1 {\sim} 5},T _{6} , T _{7} , T _{8 {\sim} 9}, V) \\
 	\centering
 	\includegraphics[scale = 0.3]{Figure_1.pdf}\caption{问题4最优解对应的炉温曲线}
 \end{figure}
-	
 上图绿线为直线$y=217$，蓝线为峰值右侧曲线的镜像。将蓝色曲线与峰值左侧曲线进行对比，不难发现在$y\ge217$的范围内镜像曲线与原曲线在贴合紧密，很好地满足了题目中在以峰值温度为中心线的两侧超过\(217^{\circ}\mathrm{C}\)的炉温曲线应尽量对称的要求。
 % subsection:问题4
 \end{document}

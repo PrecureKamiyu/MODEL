@@ -89,7 +89,7 @@
 \geometry{top=20mm,bottom=18mm,left=22mm,right=22mm}
 %\setlength{\parskip}{4pt}
 % line height
-\renewcommand*{\baselinestretch}{1.1}
+\renewcommand*{\baselinestretch}{1.2}
 
 \setlength\parindent{2em}
 % 设置字体
