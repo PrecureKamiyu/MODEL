@@ -19,3 +19,6 @@ MaoNote/makefile
 小队答案/2020A/temp.txt
 小队答案/2017A/2.py
 MaoNote
+*.pygtex
+小队论文/2020A_Thesis/main.pdf
+*.pygstyle
