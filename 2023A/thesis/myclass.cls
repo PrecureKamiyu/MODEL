@@ -39,7 +39,7 @@ format+=\sffamily\Large,},%
 %
 subsection={
 aftername={\hspace{1em}},
-format+=\sffamily\zihao{-4},}
+format+=\sffamily\zihao{-4},},
 }
 
 \RequirePackage{geometry}
