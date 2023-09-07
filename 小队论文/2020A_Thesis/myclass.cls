@@ -30,9 +30,16 @@
 %%% we change the require document class to ctexart
 \LoadClass[a4paper,10pt]{ctexart}
 %% define the font of section
+
 \ctexset{
-section = {format+=\sffamily\Large,},
-subsection = {format+=\sffamily\zihao{-4},}
+appendix={name={附录}},
+section={
+aftername={\hspace{1em}},
+format+=\sffamily\Large,},%
+%
+subsection={
+aftername={\hspace{1em}},
+format+=\sffamily\zihao{-4},}
 }
 
 \RequirePackage{geometry}
