@@ -20,11 +20,7 @@
 \end{equation}
 设太阳中心发出的光线的方向向量为 \(\vec\lambda _{i} = (x,  y , z)\)。若将\(\vec \lambda_{i}\)单位化，容易知道
 \begin{equation}
-\begin{cases}
-x = - \cos \alpha_{s} \sin \gamma _{s} \\
-y = - \cos \alpha_{s} \cos \gamma_{s} \\
-z = - \sin \alpha_{s}
-\end{cases}
+\vec \lambda _{i} = ({-} \cos \alpha _{s} \sin \gamma_{s} ,{-} \cos \alpha_{s} \cos \gamma_{s}, {-} \sin \alpha_{s}) 
 \end{equation}
 \paragraph{相关公式}
 法向直接辐射照度 DNI 按照下面公式近似计算：
@@ -54,9 +50,65 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \begin{equation}
 \eta _{\cos} = \cos \big(\arccos (\vec R \cdot \vec S) / 2\big)
 \end{equation}
-% cite Zhang ML 4
-\paragraph{法向量}
-% TODO
+\paragraph{旋转矩阵}
+已知地面坐标系 \(x y z\)以圆形区域的圆心为原点，正北方向为 \(y\) 轴正方向，正东方向为 \(x\) 轴正方向，垂直地面向上的方向为 \(z\) 轴正方向。假设已知一个定日镜的镜面中心在地面坐标系的坐标 \(N = (x_0,  y_0 , d)\)，其中 \(d\) 是安装高度，现在以定日镜镜面中心为坐标原点，镜面法向为 \(z\) 轴，如图所示建立坐标系，记为 \(x'y'z'\)。
+
+设 \(\vec n\) 为该镜面的法向量，方向向外，\(\theta\) 为 \(\vec n\) 和 竖直方向上的夹角，\(\varphi\) 是 \(\vec n\) 水平方向和正东方向的夹角。可以得到坐标变换的公式：
+\begin{equation}
+\begin{pmatrix}
+x_{1}\\
+y_1\\
+z_1
+\end{pmatrix}
+= M
+\begin{pmatrix}
+x_2\\
+y_2\\
+z_2
+\end{pmatrix} +
+\begin{pmatrix}
+x_0\\
+y_0\\
+d
+\end{pmatrix}
+\end{equation}
+其中 \((x_2,y_2,z_2)\) 是镜面坐标系里点的坐标，\((x_1,y_1,z_1)\) 是地面坐标系里点的坐标，\(M\) 是旋转矩阵，其为
+\begin{equation}\label{equ:transM}
+M =
+% \begin{pmatrix}
+% \cos \theta & - \sin \theta & 0 \\
+% \sin \theta & \cos \theta & 0\\
+% 0 & 0 & 1
+% \end{pmatrix} \cdot
+% \begin{pmatrix}
+% 1 & 0 & 0\\
+% 0 & \cos \varphi & - \sin \varphi\\
+% 0 & \sin \varphi & \cos \varphi
+% \end{pmatrix}
+% =
+\begin{pmatrix}
+\cos \theta & - \cos \varphi & \sin \varphi \sin \theta\\
+\sin \theta & \cos \varphi \cos \theta & - \sin \varphi \cos \theta\\
+0 & \sin \varphi & \cos \varphi
+\end{pmatrix}
+\end{equation}
+特别地，当 \(\theta = 0\) 的时候，旋转矩阵 \(M\) 退化为单位矩阵。
+于是使用定日镜 \(A\)上一点在镜面坐标系 \(x'y'z'\) 的坐标 \(N_{A}\) \((x_{A}, y_{A},0)\)，可知其在地面坐标系之中的坐标\(N\) \((x, y , z)\)：
+\begin{equation}
+\begin{pmatrix}
+x\\
+y\\
+z
+\end{pmatrix}
+=
+\begin{pmatrix}
+x_{A} \cos \varphi - y_{A} \cos \varphi \sin \theta + x_0\\
+x_{A} \sin \theta + y_{A} \cos \varphi \cos \theta + y_{0} \\
+y_{A} \sin \varphi + d
+\end{pmatrix}
+\end{equation}
+
+
 \paragraph{阴影遮挡效率的计算}
 阴影遮挡效率 \(\eta _{\mathrm{s b}}\) 在进行定日镜光学效率的计算之中计算比较复杂的部分。为了计算阴影遮挡效率，需要计算定日镜上某点是否有阴影遮挡损失，而阴影遮挡损失分为以下三种情况：
 % TODO cite require
@@ -67,7 +119,9 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \end{enumerate}
 对于定日镜 A，建立相对于定日镜A的坐标系，以镜面中心为原点水平方向为 \(x\) 轴，平行于镜面、垂直于 \(x\) 轴方向为 \(y\) 轴，以垂直于镜面向上为 \(z\) 轴。
 已知定日镜 A 上的一点 \(N_{A} = (x_{A}, y_{A})\)和入射光线 \(\vec {\lambda _{i}}\)。
-判断入射光线是否被中心塔遮挡，需将定日镜 A 坐标系之中的点 \(N_{A}\) 转化为相对于地面的坐标 \(N\)，随后根据 \(\vec {\lambda _{i}}\)，计算入射光线的反向延长线与中心塔是否有交点，
+
+
+Step1. 判断入射光线是否被中心塔遮挡，需将定日镜 A 坐标系之中的点 \(N_{A}\) 转化为相对于地面的坐标 \(N\)，随后根据 \(\vec {\lambda _{i}}\)，计算入射光线的反向延长线与中心塔是否有交点，
 为此，可以直接联立直线方程和中心塔圆柱方程，查看是否有解。
 
 由于直接联立方程计算量大，为了简化计算，本文根据入射光线和中心塔塔顶所在水平面的交点 \(N_{h} = (x _{h} , y_{h}, h)\)判断是否有遮挡。
@@ -86,11 +140,25 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \end{equation}并且 \(N_{h}\) 不在圆内，则不会被遮挡；
 \item 否则入射光线会被遮挡。
 \end{enumerate}
+
+Step2. 判断入射光线是否被相邻定日镜挡住
+为了简化计算，假设发生阴影的两面定日镜相互平行，采用投影法。给定两个定日镜 \(A, B\)，将 \(B\) 镜投影到镜面 \(A\) 上，为此，先计算 \(B\) 的中心投影到 \(A\) 上的关于 \(A\) 镜面系的坐标。
+
+% TODO
+
+Step3. 判断反射光线是否被相邻定日镜挡住
+已知反射光线 \(\vec \lambda _{o} = (x_0,y_0,z_0)\)和镜面 \(A\) 上反射点在地面坐标系的坐标 \(N\)\((x, y, z)\)。联立反射光线的直线方程和B镜面的平面方程，可以解得光线和 B 的交点在地面坐标系下的坐标 \(N'\)。
+
+随后运用 equ~(\ref{equ:transM}) 将 \(N'\) 坐标转换为 \(B\) 镜面系下的坐标 \(N_{B}\):
+\[
+N_{B} = M (N' - O)
+\]
+其中 \(O = (x_{B} , y_{B} , d)\)，也即B镜面的中心。
+
 \paragraph{光锥}
 因为太阳光并不是平行光，在定日镜上的每个点发出的反射光实际是一个光锥，其半角展宽为 \(4.65 \, \mathrm{m}\mathrm{rad}\)，在太阳发散角内均匀追迹若干光线作为入射光。因为定日镜是平面镜，于是入射光和反射光完全对称。
 
 以太阳中心发出的光线的反射光 \(\vec\lambda _{o} \) 为 \(z\) 轴，以镜面上的反射点 \(N\) 为远点，建立关于 \(\vec \lambda _{o}\) 的三维直角坐标系
-% TODO
 
 对于光锥内的一束光线 \(\vec S _{0}\)，记 \(\tau\) 为光线和 \(\vec\lambda _{o}\) 所成的角，其取值范围为 \([0, 4.65]\)，\(\sigma\) 为光线和 \(X\) 轴所成的角，其取值范围为 \([0 , 2\pi ]\)，于是光线的坐标可以表示为：
 \[
@@ -124,4 +192,5 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \item 若是 \(\vert AN'\vert \le \vert AR \vert\)且 \(N'\) 不在圆内，则发生截断损失
 \item 若是 \(N''\) 在圆 \(O\) 内，或是 \(\vert AN'' \vert \ge \vert AR \vert\)
 \end{enumerate}
+
 \end{document}
