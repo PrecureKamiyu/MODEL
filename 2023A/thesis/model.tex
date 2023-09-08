@@ -30,16 +30,16 @@ z = - \sin \alpha_{s}
 法向直接辐射照度 DNI 按照下面公式近似计算：
 \[
 \begin{aligned}
-\mathrm{DNI} = G_{0} \bigg[ a + b \exp{- \frac{c}{\sin \alpha_{s}}}\bigg]\\
-a = 0.4237 = 0.00821 (6 - H) ^{2} \\
+\mathrm{DNI} = G_{0} \bigg[ a + b \cdot \exp\Big\{{-}\frac{c}{\sin \alpha_{s}}\Big\}\bigg]\\
+a = 0.4237 + 0.00821 (6 - H) ^{2} \\
 b = 0.5055 + 0.00595(6.5 - H) ^{2} \\
 c = 0.2711 + 0.01858 (2.5 - H) ^{2}
 \end{aligned}
 \]
-镜场的输出热功率为 \(E_{\mathrm{field}}\) 为
-\[
+其中 \(G_{0}\) 是太阳常数。镜场的输出热功率为 \(E_{\mathrm{field}}\) 为
+\begin{equation}
 E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
-\] 
+\end{equation}
 定日镜光学效率\(\eta\)为
 \begin{equation}
 \eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}}
@@ -54,56 +54,69 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \begin{equation}
 \eta _{\cos} = \cos \big(\arccos (\vec R \cdot \vec S) / 2\big)
 \end{equation}
+% cite Zhang ML 4
 \paragraph{法向量}
 % TODO
 \paragraph{阴影遮挡效率的计算}
 阴影遮挡效率 \(\eta _{\mathrm{s b}}\) 在进行定日镜光学效率的计算之中计算比较复杂的部分。为了计算阴影遮挡效率，需要计算定日镜上某点是否有阴影遮挡损失，而阴影遮挡损失分为以下三种情况：
 % TODO cite require
-\begin{itemize}
+\begin{enumerate}
 \item 入射光线被塔挡住
 \item 入射光线被其他定日镜挡住（阴影）
 \item 反射光线被其他定日镜挡住（挡光）
-\end{itemize}
+\end{enumerate}
 对于定日镜 A，建立相对于定日镜A的坐标系，以镜面中心为原点水平方向为 \(x\) 轴，平行于镜面、垂直于 \(x\) 轴方向为 \(y\) 轴，以垂直于镜面向上为 \(z\) 轴。
-已知定日镜 A 上的一点 \(N_{A} = (x_{A}, y_{A})\)，和入射光线 \(\vec {\lambda _{i}}\)。
-判断入射光线是否被中心塔遮挡，需将定日镜 A 坐标系之中的点 \(N_{A}\) 转化为相对于地面的坐标 \(N\)，随后根据 \(\vec {\lambda _{i}}\)，计算入射光线的反向延长线与中心塔塔顶所在水平面的交点 \(N_{h} = (x _{h} , y_{h}, h)\)，其中 \(h\) 是中心塔塔顶所在水平面高度。
-若要得出是否被遮挡，可以直接联立直线方程和中心塔圆柱方程，查看是否有解。
+已知定日镜 A 上的一点 \(N_{A} = (x_{A}, y_{A})\)和入射光线 \(\vec {\lambda _{i}}\)。
+判断入射光线是否被中心塔遮挡，需将定日镜 A 坐标系之中的点 \(N_{A}\) 转化为相对于地面的坐标 \(N\)，随后根据 \(\vec {\lambda _{i}}\)，计算入射光线的反向延长线与中心塔是否有交点，
+为此，可以直接联立直线方程和中心塔圆柱方程，查看是否有解。
 
-由于直接联立方程计算量过大，本文根据得出的 \(N_{h}\) 点坐标，通过几何关系判断入射是否被遮挡。
-\begin{itemize}
-\item 若是入射光线水平方向的夹角过大，则不会被遮挡；
-\item 若是 \(N_{h}\) 更加靠近定日镜一侧，则不会被遮挡；
-\item 否则入射光线会被遮挡。
-\end{itemize}
-下面给出详细解释。过 \(N\) 作平面和中心塔圆柱相切，设相切作成的直线和中心塔塔顶所在平面的交点为 \(R\)。设中心塔在塔顶所在平面的圆的圆心为 \(O\)，\(A\) 为\(N\)在中心塔塔顶所在平面投影，\(\vec \lambda _{i} '\)为 \(\vec \lambda _{i}\) 在平面内的投影。如下图所示
+由于直接联立方程计算量大，为了简化计算，本文根据入射光线和中心塔塔顶所在水平面的交点 \(N_{h} = (x _{h} , y_{h}, h)\)判断是否有遮挡。
+
+下面给出几何模型。过点 \(N\) 作平面和中心塔圆柱相切，设相切作成的直线和中心塔塔顶所在平面的交点为 \(R\)。设中心塔在塔顶所在平面的圆的圆心为 \(O\)，\(A\) 为\(N\)在中心塔塔顶所在平面内的投影，\(\vec \lambda _{i} '\)为 \(\vec \lambda _{i}\) 在平面内的投影。如下图所示
 \input fig_ta.tex
-若有
+\begin{enumerate}
+\item 若是入射光线水平方向的夹角过大，也即
 \begin{equation}
 \cos \langle \overrightarrow {OA}, \vec {\lambda _{i} '} \rangle \le \frac{\vert AR \vert }{\vert OA \vert }
 \end{equation}
-则入射光线和在水平方向上和 \(OA\)的夹角过大，无论入射光线的高度角如何，其都不会和中心塔有相交。
-
-否则需要根据 \(N_{h}\) 进行判断，若有
+则不会被遮挡；
+\item 若是 \(N_{h}\) 更加靠近定日镜一侧，也即
 \begin{equation}
 \vert {\it A N}_{h}\vert \le \vert {\it AR\,} \vert
-\end{equation}
-且 \( N_{h}\) 不在中心塔圆内，则说明入射光线不会被中心塔遮挡。否则被中心塔遮挡。
+\end{equation}并且 \(N_{h}\) 不在圆内，则不会被遮挡；
+\item 否则入射光线会被遮挡。
+\end{enumerate}
 \paragraph{光锥}
 因为太阳光并不是平行光，在定日镜上的每个点发出的反射光实际是一个光锥，其半角展宽为 \(4.65 \, \mathrm{m}\mathrm{rad}\)，在太阳发散角内均匀追迹若干光线作为入射光。因为定日镜是平面镜，于是入射光和反射光完全对称。
 
-以太阳中心发出的光线的反射光 \(\vec\lambda _{o} \) 为轴心，建立关于 \(\vec \lambda _{o}\) 的光锥坐标系
+以太阳中心发出的光线的反射光 \(\vec\lambda _{o} \) 为 \(z\) 轴，以镜面上的反射点 \(N\) 为远点，建立关于 \(\vec \lambda _{o}\) 的三维直角坐标系
 % TODO
 
 对于光锥内的一束光线 \(\vec S _{0}\)，记 \(\tau\) 为光线和 \(\vec\lambda _{o}\) 所成的角，其取值范围为 \([0, 4.65]\)，\(\sigma\) 为光线和 \(X\) 轴所成的角，其取值范围为 \([0 , 2\pi ]\)，于是光线的坐标可以表示为：
 \[
-(\sin \sigma \cos \tau, \sin \sigma \sin \tau, \cos \sigma)
+\vec S _{0} = (\sin \sigma \cos \tau, \sin \sigma \sin \tau, \cos \sigma)
 \]
 通过变换矩阵，可以将光线在光锥坐标系下的坐标转换为地面坐标系下的坐标 \(\vec S\)。
 % TODO
 \paragraph{截断效率的计算}
 计算截断效率，需要确定光锥之中的某光线是否有截断损失，若是其没有打在集热器上，则该光线发生了截断损失。为了判断截断损失，采取的思路和上文确定中心塔造成的阴影损失的思路类似。
 
-已知反射点 \(N\) 和 反射光线 \(S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
+已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\input fig_trunc.tex
+\caption{竖直面示意图}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\input fig_trunc2.tex
+\caption{水平面示意图}
+\end{subfigure}
+\caption{判断截断损失的示意图}
+\end{figure}
 
 分三个步骤进行截断损失的判断：
 \begin{enumerate}
@@ -111,19 +124,4 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \item 若是 \(\vert AN'\vert \le \vert AR \vert\)且 \(N'\) 不在圆内，则发生截断损失
 \item 若是 \(N''\) 在圆 \(O\) 内，或是 \(\vert AN'' \vert \ge \vert AR \vert\)
 \end{enumerate}
-
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}[b]{0.4\textwidth}
-\centering
-\input fig_trunc.tex
-\caption{nihao}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\centering
-\input fig_trunc2.tex
-\caption{xiaolongbao}
-\end{subfigure}
-\end{figure}
 \end{document}
