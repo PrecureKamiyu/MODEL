@@ -29,8 +29,6 @@
 %% Loading Class
 %%% we change the require document class to ctexart
 \LoadClass[a4paper,10pt]{ctexart}
-%% define the font of section
-
 \ctexset{
 appendix={name={附录}},
 section={

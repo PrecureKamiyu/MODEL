@@ -1,0 +1,25 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw (0,0) circle (1cm);
+
+\node[anchor = east] (N) at (-3, -1) {\(A\)};
+\node (N') at (-3, -1) {};
+\node[anchor = south] (O) at (0,0) {\(O\)};
+\node (O') at (0,0) {};
+\node[anchor = north] (R) at (0,-1) {\(R\)};
+\node (R') at (0,-1) {};
+\node[anchor = north] (Nh) at (-1.6, -0.4) {\(N_{h}\)};
+\node (Nh') at (-1.6, -0.35) {};
+
+\filldraw (O') circle (1pt);
+\filldraw (N') circle (1pt);
+\filldraw (R') circle (1pt);
+\filldraw (Nh') circle (1pt);
+\draw (N) -- (2, -1);
+\draw[dotted] (N') -- (-1, 1.5) node [anchor = south] {\(\vec \lambda_{i}'\)};
+\draw[dotted] (N') -- (O');
+\draw[dotted] (R') -- (O');
+\end{tikzpicture}
+\caption{示意图}\label{fig:ta}
+\end{figure}

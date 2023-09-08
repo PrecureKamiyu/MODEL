@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+\draw (0,0) circle (1cm);
+
+\node[anchor = east] (N) at (-3, -1) {\(A\)};
+\node (N') at (-3, -1) {};
+\node[anchor = south] (O) at (0,0) {\(O\)};
+\node (O') at (0,0) {};
+\node[anchor = north] (R) at (0,-1) {\(R\)};
+\node (R') at (0,-1) {};
+\node[anchor = north] (N1) at (-1.6, -0.4) {\(N'\)};
+\node (Nh') at (-1.6, -0.3) {};
+\node[anchor = north west] (N2) at (1, 1) {\(N''\)};
+\node (N2') at (1, 1) {};
+
+\filldraw (O') circle (1pt);
+\filldraw (N') circle (1pt);
+\filldraw (R') circle (1pt);
+\filldraw (Nh') circle (1pt);
+\filldraw (N2') circle (1pt);
+\draw (N) -- (2, -1);
+
+\draw[->] (N') -- (N2') node [anchor = south] {\(\vec S\)};
+\draw[dotted] (N') -- (O');
+\draw[dotted] (R') -- (O');
+\end{tikzpicture}
