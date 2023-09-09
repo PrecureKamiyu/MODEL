@@ -22,6 +22,10 @@ D_O = 7
 mid = 80
 h = mid + h_collect / 2
 xR = 0
+
+"""
+new param: yR
+"""
 yR = 0
 a = 6
 b = 6
@@ -159,16 +163,16 @@ for Day in Day_list:
 
                 # 先计算入射光线与中心线AO在xOy维度内的夹角
                 # 最小余弦值计算
-                min = ((x**2 + y**2) - (D_O/2)**2)**0.5 / (x**2 + y**2)**0.5
+                min = ((x**2 + (y - yR)**2) - (D_O/2)**2)**0.5 / (x**2 + (y-yR)**2)**0.5
 
-                cos_theta = (x * lambdai[0] + y * lambdai[1]) / ((x**2 + y**2)**0.5 * (lambdai[0]**2 + lambdai[1]**2)**0.5)
+                cos_theta = (x * lambdai[0] + (y-yR) * lambdai[1]) / ((x**2 + (y-yR)**2)**0.5 * (lambdai[0]**2 + lambdai[1]**2)**0.5)
 
                 # flag 为是否计算trunc和其他效率的标志变量
                 flag = 1
                 if cos_theta < min:
                     flag = 1
                 else:
-                    if x_h**2 + y_h**2 >= (D_O/2)**2 and (x - x_h)**2 + (y - y_h)**2 <= (x**2 + y**2) - (D_O/2)**2:
+                    if x_h**2 + (y_h-yR)**2 >= (D_O/2)**2 and (x - x_h)**2 + (y - y_h)**2 <= (x**2 + (y-yR)**2) - (D_O/2)**2:
                         flag = 1
                     else:
                         blocked_times += 1
@@ -288,10 +292,10 @@ for Day in Day_list:
                         if cos_theta < min:
                             out_times += 1
                         else:
-                            if x_h84**2 + y_h84**2 >= (D_O/2)**2 and (x - x_h84)**2 + (y - y_h84)**2 <= (x**2 + y**2) - (D_O/2)**2:
+                            if x_h84**2 + (y_h84-yR)**2 >= (D_O/2)**2 and (x - x_h84)**2 + (y - y_h84)**2 <= (x**2 + (y-yR)**2) - (D_O/2)**2:
                                 out_times += 1
                             else:
-                                if x_h76**2 + y_h76**2 >= (D_O/2)**2 and (x - x_h76)**2 + (y - y_h76)**2 <= (x**2 + y**2) - (D_O/2)**2:
+                                if x_h76**2 + (y_h76-yR)**2 >= (D_O/2)**2 and (x - x_h76)**2 + (y - y_h76)**2 <= (x**2 + (y-yR)**2) - (D_O/2)**2:
                                     in_times += 1
                                 else:
                                     out_times += 1

@@ -65,8 +65,8 @@ ST_list = [9, 10.5, 12, 13.5, 15]
 # 以下写某两组个循环
 # 先以1.21的9点为例
 
-D = 0
-ST = 10.5
+D = 274
+ST = 9
 
 phi = np.deg2rad(39.4)
 omega = np.pi / 12 * (ST - 12)
@@ -160,7 +160,7 @@ for i in range(0, len(x0)):
         if cos_theta < min:
             flag = 1
         else:
-            if x**2 + y**2 >= (D_O/2)**2 and (x - x_h)**2 + (y - y_h)**2 <= (x**2 + y**2) - (D_O/2)**2:
+            if x_h**2 + y_h**2 >= (D_O/2)**2 and (x - x_h)**2 + (y - y_h)**2 <= (x**2 + y**2) - (D_O/2)**2:
                 flag = 1
             else:
                 blocked_times += 1
@@ -280,10 +280,10 @@ for i in range(0, len(x0)):
                 if cos_theta < min:
                     out_times += 1
                 else:
-                    if x**2 + y**2 >= (D_O/2)**2 and (x - x_h84)**2 + (y - y_h84)**2 <= (x**2 + y**2) - (D_O/2)**2:
+                    if x_h84**2 + y_h84**2 >= (D_O/2)**2 and (x - x_h84)**2 + (y - y_h84)**2 <= (x**2 + y**2) - (D_O/2)**2:
                         out_times += 1
                     else:
-                        if x**2 + y**2 >= (D_O/2)**2 and (x - x_h76)**2 + (y - y_h76)**2 <= (x**2 + y**2) - (D_O/2)**2:
+                        if x_h76**2 + y_h76**2 >= (D_O/2)**2 and (x - x_h76)**2 + (y - y_h76)**2 <= (x**2 + y**2) - (D_O/2)**2:
                             in_times += 1
                         else:
                             out_times += 1
