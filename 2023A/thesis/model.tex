@@ -191,33 +191,33 @@ N_{B} = M (N' - O)
 \end{equation}
 
 %%
-\paragraph{截断效率的计算}
-% TODO 补充 require
-计算截断效率，需要确定光锥之中的某光线是否有截断损失，若是其没有打在集热器上，则该光线发生了截断损失。为了判断截断损失，采取的思路和上文确定中心塔造成的阴影损失的思路类似。
-
-已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}[b]{0.4\textwidth}
-\centering
-\input fig_trunc.tex
-\caption{竖直面示意图}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\centering
-\input fig_trunc2.tex
-\caption{水平面示意图}
-\end{subfigure}
-\caption{判断截断损失的示意图}
-\end{figure}
-
-分三个步骤进行截断损失的判断：
-\begin{enumerate}
-\item 若是 \( \displaystyle\cos \langle \overrightarrow{OA}, \vec S' \rangle\le \frac{\vert AR \vert}{\vert OA \vert}\)，则发生截断损失
-\item 若是 \(\vert AN'\vert \le \vert AR \vert\)且 \(N'\) 不在圆内，则发生截断损失
-\item 若是 \(N''\) 在圆 \(O\) 内，或是 \(\vert AN'' \vert \ge \vert AR \vert\)
-\end{enumerate}
+% \paragraph{截断效率的计算}
+% % TODO 补充 require
+% 计算截断效率，需要确定光锥之中的某光线是否有截断损失，若是其没有打在集热器上，则该光线发生了截断损失。为了判断截断损失，采取的思路和上文确定中心塔造成的阴影损失的思路类似。
+%
+% 已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
+%
+% \begin{figure}[H]
+% \centering
+% \begin{subfigure}[b]{0.4\textwidth}
+% \centering
+% \input fig_trunc.tex
+% \caption{竖直面示意图}
+% \end{subfigure}
+% \begin{subfigure}[b]{0.4\textwidth}
+% \centering
+% \input fig_trunc2.tex
+% \caption{水平面示意图}
+% \end{subfigure}
+% \caption{判断截断损失的示意图}
+% \end{figure}
+%
+% 分三个步骤进行截断损失的判断：
+% \begin{enumerate}
+% \item 若是 \( \displaystyle\cos \langle \overrightarrow{OA}, \vec S' \rangle\le \frac{\vert AR \vert}{\vert OA \vert}\)，则发生截断损失
+% \item 若是 \(\vert AN'\vert \le \vert AR \vert\)且 \(N'\) 不在圆内，则发生截断损失
+% \item 若是 \(N''\) 在圆 \(O\) 内，或是 \(\vert AN'' \vert \ge \vert AR \vert\)
+% \end{enumerate}
 
 
 \subsubsection{模型建立}
@@ -237,6 +237,7 @@ N_{B} = M (N' - O)
 即可确定每个定日镜镜面的法向量 \(\vec n (x_{n}, y_{n}, z_{n})\)
 
 %%
+\paragraph{蒙特卡罗模拟生成随机点}
 蒙特卡罗模拟生成随机点
 
 定日镜场光学效率是所有单个定日镜的光学效率的均值，所以本文先对所有单个定日镜的光学效率进行遍历求解。
@@ -244,7 +245,8 @@ N_{B} = M (N' - O)
 由于是否受到遮挡的情况比较复杂，遮挡部分的阴影面积较难求解，本文在此处使用蒙特卡罗模拟方法，在定日镜内以定日镜中心为原点，水平方向为\(x\)轴的二维直角坐标系中随机生成一个反射点\(N(x_A,y_A)\)
 
 %%
-计算阴影遮挡效率\(\eta_{\mathrm{s b}}\)\par
+\paragraph{计算阴影遮挡效率\(\eta_{\mathrm{s b}}\)}
+计算阴影遮挡效率\(\eta_{\mathrm{s b}}\)
 入射方向\(\vec \lambda _{i}\) 以及反射点的法向量\(\vec n\)已知，根据前后定日镜的位置，以及吸收塔的位置和高度，从而可以确定反射点是否被其他物件遮挡住，进一步确定该点是否是阴影。根据蒙特卡罗原理，通过大量的随机点的试验，阴影遮挡效率就是未被挡住的点的数量与试验点总数的比值。
 
 对于\(\eta _{\mathrm{s b}}\)的具体计算过程，本文对阴影遮挡损失的三种情况进行如下分类：
@@ -381,9 +383,34 @@ z_{A} + kz_{n} - d
 % guangzhui require
 
 %%
+\paragraph{截断效率的计算}
 截断效率的计算: 此处继续使用蒙特卡罗模拟，在上述的以反射点为顶点，主反射光线为轴的光锥中随机生成具有偏移量为\(\tau\),\(\sigma\)的某一角度的试验反射光线(向量 \(\vec S\))，通过计算打在吸收塔集热器上的反射光线数与总试验次数的比例，最终获得该反射点对应的截断效率\(\eta _{\mathrm{dot}{-}\mathrm{trunc}}\)。
 
-为了。。。。类似。
+计算截断效率，需要确定光锥之中的某光线是否有截断损失，若是其没有打在集热器上，则该光线发生了截断损失。为了判断截断损失，采取的思路和上文确定中心塔造成的阴影损失的思路类似。
+
+已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\input fig_trunc.tex
+\caption{竖直面示意图}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\input fig_trunc2.tex
+\caption{水平面示意图}
+\end{subfigure}
+\caption{判断截断损失的示意图}
+\end{figure}
+
+分三个步骤进行截断损失的判断：
+\begin{enumerate}
+\item 若是 \( \displaystyle\cos \langle \overrightarrow{OA}, \vec S' \rangle\le \frac{\vert AR \vert}{\vert OA \vert}\)，则发生截断损失
+\item 若是 \(\vert AN'\vert \le \vert AR \vert\)且 \(N'\) 不在圆内，则发生截断损失
+\item 若是 \(N''\) 在圆 \(O\) 内，或是 \(\vert AN'' \vert \ge \vert AR \vert\)
+\end{enumerate}
 % TODO
 通过对于每个定日镜中所有试验点是否被遮挡和其截断效率（部分试验点位于阴影部分，没有这个系数），对于这个定日镜，
 其最终的阴影遮挡效率\(\eta _{\mathrm{s b}}\)计算就可以由以下公式得出：
@@ -393,6 +420,7 @@ z_{A} + kz_{n} - d
 \end{equation}
 
 %%
+\paragraph{其余各光学效率的计算}
 其余各光学效率的计算
 
 通过公式(8)(9)计算得到\(\eta _{\mathrm{at}}\)以及\(\eta _{\cos}\)
@@ -405,6 +433,7 @@ z_{A} + kz_{n} - d
 
 最终求得的结果展示如下：
 
+% TODO
 % Table1
 % Table2
 % Figure_A1picture
