@@ -242,6 +242,7 @@ for Day in Day_list:
                         # 蒙特卡罗点在阴影范围中
                         flag = 0
                         blocked_times += 1
+                        break
 
                 # 接下来计算trunc
 
