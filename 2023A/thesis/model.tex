@@ -51,6 +51,7 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \begin{equation}
 \eta _{\cos} = \cos \big(\arccos (\vec R \cdot \vec S) / 2\big)
 \end{equation}
+%%
 \paragraph{旋转矩阵}
 已知地面坐标系 \(x y z\)以圆形区域的圆心为原点，正北方向为 \(y\) 轴正方向，正东方向为 \(x\) 轴正方向，垂直地面向上的方向为 \(z\) 轴正方向。假设已知一个定日镜的镜面中心在地面坐标系的坐标 \(N = (x_0,  y_0 , d)\)，其中 \(d\) 是安装高度，现在以定日镜镜面中心为坐标原点，镜面法向为 \(z\) 轴，如图所示建立坐标系，记为 \(x'y'z'\)。
 
@@ -74,6 +75,10 @@ d
 \end{pmatrix}
 \end{equation}
 其中 \((x_2,y_2,z_2)\) 是镜面坐标系里点的坐标，\((x_1,y_1,z_1)\) 是地面坐标系里点的坐标，\(M\) 是旋转矩阵，其为
+\[
+M  = M_1 M_2
+\]
+其中
 \begin{equation}\label{equ:transM}
 M =
 % \begin{pmatrix}
@@ -116,7 +121,7 @@ y_{A} \sin \varphi + d
 计算法向量
 
 针对问题中的任意一个日期\(D\)和时间点\(ST\)，由公式(1)(2)(3)(4)(5)
-% equ require
+% todo equ require
 可以确定在此时刻的太阳高度角和太阳方位角，于是可以确定太阳中心发出的光线，也即定日镜的入射光线的方向向量\(\vec \lambda_i=(x_i,y_i,z_i)\)。
 
 接下来对所有定日镜进行遍历，根据定日镜中心
@@ -142,7 +147,6 @@ y_{A} \sin \varphi + d
 入射方向\(\vec \lambda _{i}\) 以及反射点的法向量\(\vec n\)已知，根据前后定日镜的位置，以及吸收塔的位置和高度，从而可以确定反射点是否被其他物件遮挡住，进一步确定该点是否是阴影。根据蒙特卡罗原理，通过大量的随机点的试验，阴影遮挡效率就是未被挡住的点的数量与试验点总数的比值。
 
 对于\(\eta _{\mathrm{s b}}\)的具体计算过程，本文对阴影遮挡损失的三种情况进行如下分类：
-% TODO cite require
 \begin{enumerate}
 \item 入射光线被塔挡住
 \item 入射光线被其他定日镜挡住（阴影）
@@ -294,18 +298,19 @@ z_{A} + kz_{n} - d
 为此，先确定光锥坐标系的轴线的单位向量在地面坐标系下的坐标表示，记为 \(\hat x, \hat y, \hat z\)，\(\hat z\) 为 \(\vec \lambda _{o}\)。可以联立
 \[
 \begin{cases}
+\hat z = \vec \lambda _{o}\\
 \hat x \cdot \hat z = 0\\
 \hat y = \hat z \times \hat x
 \end{cases}
 \]
-若是设 \(\hat x = (m , n , 0)\)，则有
+若是设 \(\hat x = (m , n , 0), \vec \lambda _{o} = (x_0, y_0,z_0)\)，则有
 \[
 \begin{cases}
 \displaystyle\hat x = \left(\frac{\vert y_{0} \vert}{\sqrt{x_{0}^{2}+ y _{0} ^{2}}}, {-}\frac{x_{0}\vert y_{0} \vert}{y_{0}\sqrt{x_{0}^{2}+y_{0}^{2}}}, 0\right)\\
 \displaystyle \hat y = ({-} n z_{0}, - m z_{0} , my_{0} - n x_{0})
 \end{cases}
 \]
-特别地，若是 \(y_{0} = 0\) 则 \(m = 0 \), \(n=1\)，也即 \(\hat x  = (0,1,0)\)
+特别地，当 \(y_{0} = 0\)时 \(m = 0 \), \(n=1\)，也即 \(\hat x  = (0,1,0)\)。
 若将 \(\vec S_{0}\) 记为 \((a,b ,c)\)，可得
 \begin{equation}
 \vec S = (am - b nz _{0}+ c x_{0}, an - bmz_{0} + cy_{0}, bmy_{0} - bnx _{0} + cz_{0})
