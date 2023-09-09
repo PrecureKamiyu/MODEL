@@ -173,76 +173,76 @@ for Day in Day_list:
                     else:
                         blocked_times += 1
                         flag = 0
-
-                # 根据A点坐标，确定反射主光线
-                k = -2 * (nA[0] * lambdai[0] + nA[1] * lambdai[1] + nA[2] * lambdai[2])
-                xo = lambdai[0] + k * nA[0]
-                yo = lambdai[1] + k * nA[1]
-                zo = lambdai[2] + k * nA[2]
-                lambdao = (xo, yo, zo)
-                
-                # 接下来判断是否被B板挡住（反射光）
-                # B板中心点坐标(xB, yB, d)
-                if B != -1:
-                    xB = x0[B]
-                    yB = y0[B]
-                    nB = n_dict[B]
-                    m = ((xB - x) * nB[0] + (yB - y) * nB[1] + (d - z) * nB[2]) / (lambdao[0] * nB[0] + lambdao[1] * nB[1] + lambdao[2] * nB[2])
-
-                    # 求得打在B板上反射光线的坐标(xb_earth, yb_earth, zb_earth)  平移了d
-                    xb_earth = x + m * lambdao[0] - xB
-                    yb_earth = y + m * lambdao[1] - yB
-                    zb_earth = z + m * lambdao[2] - d
+                if flag == 1:
+                    # 根据A点坐标，确定反射主光线
+                    k = -2 * (nA[0] * lambdai[0] + nA[1] * lambdai[1] + nA[2] * lambdai[2])
+                    xo = lambdai[0] + k * nA[0]
+                    yo = lambdai[1] + k * nA[1]
+                    zo = lambdai[2] + k * nA[2]
+                    lambdao = (xo, yo, zo)
                     
-                    # 求B板对应的theta和phi
-                    mid_theta = np.arctan(- nB[0] / nB[1])
-                    if (mid_theta == 0):
-                        mid_sinphi = - nB[1]
-                        mid_cosphi = nB[2]
-                    else:
-                        mid_sinphi = nB[0] / np.sin(mid_theta)
-                        mid_cosphi = nB[2]
+                    # 接下来判断是否被B板挡住（反射光）
+                    # B板中心点坐标(xB, yB, d)
+                    if B != -1:
+                        xB = x0[B]
+                        yB = y0[B]
+                        nB = n_dict[B]
+                        m = ((xB - x) * nB[0] + (yB - y) * nB[1] + (d - z) * nB[2]) / (lambdao[0] * nB[0] + lambdao[1] * nB[1] + lambdao[2] * nB[2])
 
-                    x_Bboard = np.cos(mid_theta) * xb_earth + np.sin(mid_theta) * yb_earth
-                    y_Bboard = - mid_cosphi * np.sin(mid_theta) * xb_earth + mid_cosphi * np.cos(mid_theta) * yb_earth + mid_sinphi * zb_earth
-                    z_Bboard = mid_sinphi * np.sin(mid_theta) * xb_earth - mid_sinphi * np.cos(mid_theta) * yb_earth + mid_cosphi * zb_earth
+                        # 求得打在B板上反射光线的坐标(xb_earth, yb_earth, zb_earth)  平移了d
+                        xb_earth = x + m * lambdao[0] - xB
+                        yb_earth = y + m * lambdao[1] - yB
+                        zb_earth = z + m * lambdao[2] - d
+                        
+                        # 求B板对应的theta和phi
+                        mid_theta = np.arctan(- nB[0] / nB[1])
+                        if (mid_theta == 0):
+                            mid_sinphi = - nB[1]
+                            mid_cosphi = nB[2]
+                        else:
+                            mid_sinphi = nB[0] / np.sin(mid_theta)
+                            mid_cosphi = nB[2]
 
-                    if x_Bboard >= -3 and x_Bboard <= 3 and y_Bboard >= -3 and y_Bboard <= 3:
-                        flag = 0
-                        blocked_times += 1
+                        x_Bboard = np.cos(mid_theta) * xb_earth + np.sin(mid_theta) * yb_earth
+                        y_Bboard = - mid_cosphi * np.sin(mid_theta) * xb_earth + mid_cosphi * np.cos(mid_theta) * yb_earth + mid_sinphi * zb_earth
+                        z_Bboard = mid_sinphi * np.sin(mid_theta) * xb_earth - mid_sinphi * np.cos(mid_theta) * yb_earth + mid_cosphi * zb_earth
 
-                """
-                判断入射光是否被挡住
-                """
-                # 首先找出临近的点(且这些点的位置比i板位置还南)
-                around_list = []
-                for r in range(0, len(x0)):
-                    if (x0[i]-x0[r]) **2 + (y0[i] - y0[r])**2 <= 20**2 and y0[i] > y0[r]: 
-                        around_list.append(r)
-                for r in around_list:
-                    m = ((x0[i] - x0[r]) * nA[0] + (y0[i] - y0[r]) * nA[1]) / (lambdai[0] * nA[0] + lambdai[1] * nA[1] + lambdai[2] * nA[2])
-                    xb_ear = x0[r] + m * lambdai[0] - x0[i]
-                    yb_ear = y0[r] + m * lambdai[1] - y0[i]
-                    zb_ear = d + m * lambdai[2] - d
+                        if x_Bboard >= -3 and x_Bboard <= 3 and y_Bboard >= -3 and y_Bboard <= 3:
+                            flag = 0
+                            blocked_times += 1
+                if flag == 1:
+                    """
+                    判断入射光是否被挡住
+                    """
+                    # 首先找出临近的点(且这些点的位置比i板位置还南)
+                    around_list = []
+                    for r in range(0, len(x0)):
+                        if (x0[i]-x0[r]) **2 + (y0[i] - y0[r])**2 <= 20**2 and y0[i] > y0[r]: 
+                            around_list.append(r)
+                    for r in around_list:
+                        m = ((x0[i] - x0[r]) * nA[0] + (y0[i] - y0[r]) * nA[1]) / (lambdai[0] * nA[0] + lambdai[1] * nA[1] + lambdai[2] * nA[2])
+                        xb_ear = x0[r] + m * lambdai[0] - x0[i]
+                        yb_ear = y0[r] + m * lambdai[1] - y0[i]
+                        zb_ear = d + m * lambdai[2] - d
 
-                    mid_theta = np.arctan(- nA[0] / nA[1])
-                    if (mid_theta == 0):
-                        mid_sinphi = - nA[1]
-                        mid_cosphi = nA[2]
-                    else:
-                        mid_sinphi = nA[0] / np.sin(mid_theta)
-                        mid_cosphi = nA[2]
+                        mid_theta = np.arctan(- nA[0] / nA[1])
+                        if (mid_theta == 0):
+                            mid_sinphi = - nA[1]
+                            mid_cosphi = nA[2]
+                        else:
+                            mid_sinphi = nA[0] / np.sin(mid_theta)
+                            mid_cosphi = nA[2]
 
-                    # 计算前板中心在后板上的投影点（在后板坐标系中）
-                    x_Aboard = np.cos(mid_theta) * xb_ear + np.sin(mid_theta) * yb_ear
-                    y_Aboard = - mid_cosphi * np.sin(mid_theta) * xb_ear + mid_cosphi * np.cos(mid_theta) * yb_ear + mid_sinphi * zb_ear
-                    z_Aboard = mid_sinphi * np.sin(mid_theta) * xb_ear - mid_sinphi * np.cos(mid_theta) * yb_ear + mid_cosphi * zb_ear
+                        # 计算前板中心在后板上的投影点（在后板坐标系中）
+                        x_Aboard = np.cos(mid_theta) * xb_ear + np.sin(mid_theta) * yb_ear
+                        y_Aboard = - mid_cosphi * np.sin(mid_theta) * xb_ear + mid_cosphi * np.cos(mid_theta) * yb_ear + mid_sinphi * zb_ear
+                        z_Aboard = mid_sinphi * np.sin(mid_theta) * xb_ear - mid_sinphi * np.cos(mid_theta) * yb_ear + mid_cosphi * zb_ear
 
-                    if xA <= x_Aboard + a/2 and xA >= x_Aboard - a/2 and yA <= y_Aboard + b/2 and yA >= y_Aboard - b/2:
-                        # 蒙特卡罗点在阴影范围中
-                        flag = 0
-                        blocked_times += 1
-                        break
+                        if xA <= x_Aboard + a/2 and xA >= x_Aboard - a/2 and yA <= y_Aboard + b/2 and yA >= y_Aboard - b/2:
+                            # 蒙特卡罗点在阴影范围中
+                            flag = 0
+                            blocked_times += 1
+                            break
 
                 # 接下来计算trunc
 
