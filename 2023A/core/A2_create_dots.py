@@ -1,8 +1,8 @@
 import numpy as np
 import pylab as plt
 import random
-# yR in (-np.inf, 0)
 
+# yR in (-350, 0)
 def return_dot_list(yR, delta_r, a):
     r = 108
     dot_list = []
