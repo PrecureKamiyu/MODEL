@@ -358,21 +358,19 @@ z_{A} + kz_{n} - d
 
 %%
 \paragraph{光学效率的得出和热输出功率的得出}
-大气透射率 \(\eta _{\mathrm{at}}\) 由下面公式确定：
-\begin{equation}
-\eta _{\mathrm{at}} = 0.99321 - 0.0001176 d _{\mathrm{HR}} + 1.97 \times 10 ^{-8} \times d _{\mathrm{HR}} ^{2}
-\end{equation}
-其中 \(d _{\mathrm{HR}}\)是镜面中心到集热器中心的距离。
-设入射光线为 \(\vec S\)，反射光线为 \(\vec R\)，余弦效率使用下面公式计算：
-\begin{equation}
-\eta _{\cos} = \cos \big(\arccos (\vec R \cdot \vec S) / 2\big)
-\end{equation}
-根据上式计算得到 \(\eta _{\mathrm{at}}\) 和 \(\eta _{\cos}\)
-于是能够根据
+可以根据
 \begin{equation}
 \eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}}
 \end{equation}
-得到定日镜的光学效率 \(\eta\)，而定日镜场平均光学效率\(\bar \eta\)是所有定日镜光学效率的均值
+得到定日镜的光学效率 \(\eta\)，其中大气透射率 \(\eta _{\mathrm{at}}\) 由下面公式确定：
+\begin{equation}
+\eta _{\mathrm{at}} = 0.99321 - 0.0001176 d _{\mathrm{HR}} + 1.97 \times 10 ^{-8} \times d _{\mathrm{HR}} ^{2}
+\end{equation}
+而余弦效率\(\eta _{\cos}\)使用下式计算：
+\begin{equation}
+\eta _{\cos} = \cos \big(\arccos (\vec \lambda_{i} \cdot \vec \lambda_{o}) / 2\big)
+\end{equation}
+定日镜场平均光学效率\(\bar \eta\)是所有定日镜光学效率的均值，于是有
 \begin{equation}
 \bar \eta = \frac{\sum \eta_{i}}{N_{\text{定日镜数量}}}
 \end{equation}
@@ -380,7 +378,7 @@ z_{A} + kz_{n} - d
 \begin{equation}
 E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \end{equation}
-其中 \(\mathrm{DNI}\) 通过下面式子计算：
+其中 \(\mathrm{DNI}\) 通过下式计算：
 \begin{equation}
 \begin{aligned}
 & \mathrm{DNI} = G_{0} \bigg[ a + b \cdot \exp\Big\{{-}\frac{c}{\sin \alpha_{s}}\Big\}\bigg]\\
