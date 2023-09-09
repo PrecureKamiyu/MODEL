@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import random
-import openpyxl as op
+
 """
 STEP1
 """
@@ -65,7 +65,6 @@ ST_list = [9, 10.5, 12, 13.5, 15]
 # 以下写某两组个循环
 # 先以1.21的9点为例
 
-
 D = 0
 ST = 10.5
 
@@ -110,7 +109,7 @@ eta_trunc_list = []
 
 
 # 面板进行循环计算其各种效率
-for i in range(0,len(x0)):
+for i in range(0, len(x0)):
     print(i)
     blocked_times = 0
     eta_dot_trunc_list = []
@@ -123,11 +122,11 @@ for i in range(0,len(x0)):
         # 求最近前板编号B
         front_list = check_and_return_front(i)
         dAB = np.inf
-        B = 0
+        B = -1
         for k in front_list:
             dAB_temp = ((x0[i] - x0[k])**2 + (y0[i] - y0[k])**2)**0.5
             if dAB_temp <= dAB:
-                dAB_temp = dAB
+                dAB = dAB_temp
                 B = k
         
         # 转换A点的坐标
@@ -176,32 +175,33 @@ for i in range(0,len(x0)):
         
         # 接下来判断是否被B板挡住（反射光）
         # B板中心点坐标(xB, yB, d)
-        xB = x0[B]
-        yB = y0[B]
-        nB = n_dict[B]
-        m = ((xB - x) * nB[0] + (yB - y) * nB[1] + (d - z) * nB[2]) / (lambdao[0] * nB[0] + lambdao[1] * nB[1] + lambdao[2] * nB[2])
+        if B != -1:
+            xB = x0[B]
+            yB = y0[B]
+            nB = n_dict[B]
+            m = ((xB - x) * nB[0] + (yB - y) * nB[1] + (d - z) * nB[2]) / (lambdao[0] * nB[0] + lambdao[1] * nB[1] + lambdao[2] * nB[2])
 
-        # 求得打在B板上反射光线的坐标(xb_earth, yb_earth, zb_earth)  平移了d
-        xb_earth = x + m * lambdao[0] - xB
-        yb_earth = y + m * lambdao[1] - yB
-        zb_earth = z + m * lambdao[2] - d
-        
-        # 求B板对应的theta和phi
-        mid_theta = np.arctan(- nB[0] / nB[1])
-        if (mid_theta == 0):
-            mid_sinphi = - nB[1]
-            mid_cosphi = nB[2]
-        else:
-            mid_sinphi = nB[0] / np.sin(mid_theta)
-            mid_cosphi = nB[2]
+            # 求得打在B板上反射光线的坐标(xb_earth, yb_earth, zb_earth)  平移了d
+            xb_earth = x + m * lambdao[0] - xB
+            yb_earth = y + m * lambdao[1] - yB
+            zb_earth = z + m * lambdao[2] - d
+            
+            # 求B板对应的theta和phi
+            mid_theta = np.arctan(- nB[0] / nB[1])
+            if (mid_theta == 0):
+                mid_sinphi = - nB[1]
+                mid_cosphi = nB[2]
+            else:
+                mid_sinphi = nB[0] / np.sin(mid_theta)
+                mid_cosphi = nB[2]
 
-        x_Bboard = np.cos(mid_theta) * xb_earth + np.sin(mid_theta) * yb_earth
-        y_Bboard = - mid_cosphi * np.sin(mid_theta) * xb_earth + mid_cosphi * np.cos(mid_theta) * yb_earth + mid_sinphi * zb_earth
-        z_Bboard = mid_sinphi * np.sin(mid_theta) * xb_earth - mid_sinphi * np.cos(mid_theta) * yb_earth + mid_cosphi * zb_earth
+            x_Bboard = np.cos(mid_theta) * xb_earth + np.sin(mid_theta) * yb_earth
+            y_Bboard = - mid_cosphi * np.sin(mid_theta) * xb_earth + mid_cosphi * np.cos(mid_theta) * yb_earth + mid_sinphi * zb_earth
+            z_Bboard = mid_sinphi * np.sin(mid_theta) * xb_earth - mid_sinphi * np.cos(mid_theta) * yb_earth + mid_cosphi * zb_earth
 
-        if x_Bboard >= -3 and x_Bboard <= 3 and y_Bboard >= -3 and y_Bboard <= 3:
-            flag = 0
-            blocked_times += 1
+            if x_Bboard >= -3 and x_Bboard <= 3 and y_Bboard >= -3 and y_Bboard <= 3:
+                flag = 0
+                blocked_times += 1
 
         """
         判断入射光是否被挡住
@@ -313,7 +313,7 @@ for i in range(0,len(x0)):
     eta_cos_list.append(eta_cos)
     eta_sb_list.append(eta_sb)
     eta_trunc_list.append(eta_trunc)
-
+    print(eta, eta_cos,eta_sb, eta_trunc)
 
 avg_eta = sum(eta_list) / len(eta_list)
 avg_eta_cos = sum(eta_cos_list)  / len(eta_cos_list)
@@ -332,6 +332,5 @@ DNI = G0 * (a + b * np.exp(-c / sinalphas))
 # 这里因为所有定日镜面积一致   简略写为  a * b
 E_field = DNI * a * b * sum(eta_list)
 sum_S = a * b * len(x0)
-
 
 print(avg_eta, avg_eta_cos, avg_eta_sb, avg_eta_trunc, E_field/sum_S)
