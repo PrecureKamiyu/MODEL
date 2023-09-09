@@ -269,6 +269,7 @@ for i in range(0, len(x0)):
                 # 蒙特卡罗点在阴影范围中
                 flag = 0
                 blocked_times += 1
+                break
 
         # 接下来计算trunc
 
@@ -309,8 +310,8 @@ for i in range(0, len(x0)):
 
                 # 先计算So与中心线AO在xOy维度内的夹角
                 # 最小余弦值计算
-                min = ((x**2 + y**2) - (D_O/2)**2)**0.5 / (x**2 + y**2)**0.5
-                cos_theta = - (x * S[0] + y * S[1]) / ((x**2 + y**2)**0.5 * (S[0]**2 + S[1]**2)**0.5)
+                min = ((x**2 + (y-yR)**2) - (D_O/2)**2)**0.5 / (x**2 + (y-yR)**2)**0.5
+                cos_theta = - (x * S[0] + (y-yR) * S[1]) / ((x**2 + (y-yR)**2)**0.5 * (S[0]**2 + S[1]**2)**0.5)
 
                 if cos_theta < min:
                     out_times += 1
@@ -348,7 +349,8 @@ for i in range(0, len(x0)):
     eta_cos_list.append(eta_cos)
     eta_sb_list.append(eta_sb)
     eta_trunc_list.append(eta_trunc)
-    print(eta, eta_cos,eta_sb, eta_trunc)
+
+    print(eta_sb, eta_trunc)
 
 avg_eta = sum(eta_list) / len(eta_list)
 avg_eta_cos = sum(eta_cos_list)  / len(eta_cos_list)
