@@ -58,7 +58,7 @@ format+=\sffamily\zihao{-4},},
 \RequirePackage{bigstrut}
 \RequirePackage{bigdelim}
 \RequirePackage{cprotect}
-%\RequirePackage{listings}
+\RequirePackage{listings}
 \RequirePackage{xcolor}
 \RequirePackage{url}
 \RequirePackage{subcaption}
