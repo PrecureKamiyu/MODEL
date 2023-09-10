@@ -59,7 +59,7 @@ Step C   确定适应度函数
 根据题意，为求单位镜面面积输出热功率最大，需要令镜面总面积最小，即
 即刻画了适应度函数 \(\min \mathrm{Fitness}(x) = S = a  b  N\)
 \item 
-Step D   转轮盘赌法确定优秀个体
+STEP D   转轮盘赌法确定优秀个体
 在优秀筛选的过程中采用的是转轮盘赌法。其理论根据是：染色体的适应度越高，则它具有更大的概率被遗传到新一代种群中。
 	
 在这个轮盘上，有着从0到1的不均匀刻度，其中每两个刻度间的分度值由适应度函数来确定，轮盘最终停在某个刻度中，该刻度对应的染色体就遗传给后代种群。因此当计算出的总面积值越小时，刻度的分度值就越大，在轮盘上就越容易被选中，即被遗传的概率也越大。即在这种方法中，每一组基因序列被遗传的概率与其适应度函数的值成正比。
@@ -120,28 +120,48 @@ Prob\_mut，交叉概率crossoverfraction，最大迭代次数max\_iter。本文
 \caption{\kaishu 问题2设计参数表}
 \end{table}
 %
+
+\subsubsection{模型分析}
+本文发现在问题2的模型求解过程之中，决策变量会收敛到两类不同的取值。对于第一种，吸收塔的坐标位于最南端，没有定日镜位于吸收塔的正南部；对于第二种，仍有定日镜位于吸收塔的正南端，如下图所示
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[scale = 0.3]{north_field.pdf}
+\caption{\kaishu {\rm north field} 布局}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[scale = 0.3]{circular.pdf}
+\caption{\kaishu {\rm circular} 布局}
+\end{subfigure}
+\caption{两种布局的示意图}
+\end{figure}
+查阅资料可知，上述两种布局分别称为 north field 和 circular 布局 \cite{zhangML}，north field 布局并不常用于圆形镜场的布局之中，故本文采用 circular 布局。
+下图是将各个指标随月份变化的现对该结果进行分析。
+%
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{zhexiantu2.pdf}
 \caption{\kaishu 问题2设计之中各个指标随月份变化折线图}\label{fig:zhexiantu2}
 \end{figure}
-
-现对该结果进行分析。
-
+%
 首先，在问题二的设计布局下，定日镜场的截断效率保持在0.996，左右，周围仅有微小扰动；阴影遮挡效率仅在冬季（即11，12，1月份）出现小幅度的下降，其他月份均接近1，与实际情况相符；
 
 对于余弦效率为什么在冬至取得最大，从冬至到夏至的过程中不断减小，本文给出的合理性分析是：由于定日镜场在南北方向上呈不对称分布，在北面的定日镜数目远大于南面的定日镜。根据图(\ref{summer_winter})可以看出，在夏季由于正午太阳高度角更高，导致其入射光与反射光所成的角度越大，这样造成的余弦损失就越大。
+%
 \begin{figure}[H]
 \centering
 \input summer_winter.tex
 \caption{\kaishu 冬季夏季的余弦效率示意图}\label{summer_winter}
 \end{figure}
-
+%
 % 在上述两个因素，即\(\eta _{\mathrm{s b}}\)和\(\eta _{\cos}\)的同时作用下，
-而定日镜的光学效率 \(\eta\)，受余弦效率影响较大，于是
+而定日镜的光学效率 \(\eta\)，受余弦效率影响较大 \cite{zhangML}，于是
 \(\eta\)和单位面积年平均输出热功率\(E_{\mathrm{field}}/S\)就呈现如图的关于夏至对称的变化折线形状。
 
-下图是春分15:00时定日镜场可视化的结果。春分15:00时，太阳入射光线是由西南射向东北，于是位于东北方向的定日镜的光学效率高，可知下图所示结果和实际相符。
+下图是春分15:00时定日镜场可视化的结果。由图可以看出，在模拟结果之中位于东北侧的定日镜的光学效率显著高于西南侧的，这是因为春分日下午15:00时，太阳光入射方向为由西南到东北；位于内圈有一定日镜的光学效率特别低，这是因为该定日镜被吸收塔的阴影遮挡了大部分镜面。由上分析可知该结果和实际相符。
+%
 \begin{figure}[H]
 \centering
 \includegraphics[scale = 0.7]{rainbow2.pdf}

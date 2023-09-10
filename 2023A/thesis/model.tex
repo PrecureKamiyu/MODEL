@@ -7,10 +7,10 @@
 \paragraph{太阳高度角和太阳方位角}
 记 \(\alpha _{s}\) 为太阳高度角，\(\gamma _{s}\)为太阳方位角。已知：
 \begin{equation}
-\sin \alpha _{s} = \cos \delta \cos \varphi \cos \omega + \sin \delta \sin \varphi
+\sin \alpha _{s} = \cos \delta \cos \varphi \cos \omega + \sin \delta \sin \varphi\label{equ:alpha}
 \end{equation}
 \begin{equation}
-\cos \gamma _{s} = \frac{\sin \delta -\sin \alpha_{s} \sin \varphi}{\cos \alpha _{s} \cos \varphi}
+\cos \gamma _{s} = \frac{\sin \delta -\sin \alpha_{s} \sin \varphi}{\cos \alpha _{s} \cos \varphi}\label{equ:gamma}
 \end{equation}
 记 \( \varphi\) 为纬度，\(\omega\) 为太阳时角，\(ST\) 为当地时间， \(\delta\) 为太阳赤纬角，有
 \begin{equation}
@@ -147,8 +147,7 @@ y_{A} \sin \varphi + d
 问题1中所给的镜面是在以吸收塔为圆心的多个同心圆上，且在每一个圆呈均匀排布的。通过进一步分析可以得出相邻两个同心圆之间的半径差值也是相等的，其值为13.484\(\,\mathrm{m}\)，记为 \(\Delta r\)。
 %%
 \paragraph{计算法向量}
-% TODO ref require
-针对问题中的任意一个日期\(D\)和时间点\(ST\)，由模型准备之中太阳高度角、方位角的相关公式可以确定在此时刻的太阳高度角和太阳方位角，于是可以确定太阳中心发出的光线，也即定日镜的入射光线的方向向量\(\vec \lambda_i=(x_i,y_i,z_i)\)。
+针对问题中的任意一个日期\(D\)和时间点\(ST\)，由模型准备之中太阳高度角、方位角的相关公式(\ref{equ:alpha}) (\ref{equ:gamma})可以确定在此时刻的太阳高度角和太阳方位角，于是可以确定太阳中心发出的光线，也即定日镜的入射光线的方向向量\(\vec \lambda_i=(x_i,y_i,z_i)\)。
 
 接下来对所有定日镜进行遍历，根据定日镜中心
 \(M(x_0,y_0,d)\)以及吸收塔集热器中心的坐标\((0,0,h)\)可以确定入射光线经定日镜反射后的反射光线的方向向量
