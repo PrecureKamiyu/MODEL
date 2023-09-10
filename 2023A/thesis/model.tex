@@ -1,25 +1,25 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 \section{模型建立和求解}
-\subsection{问题1}
+\subsection{问题1的模型建立和求解}
 \subsubsection{模型准备}
 %%
 \paragraph{太阳高度角和太阳方位角}
 记 \(\alpha _{s}\) 为太阳高度角，\(\gamma _{s}\)为太阳方位角。已知：
 \begin{equation}
-\sin \alpha _{s} = \cos \delta \cos \varphi \cos \omega + \sin \delta \sin \varphi\label{equ:alpha}
+\sin \alpha _{s} = \cos \delta \cos \varphi \cos \omega + \sin \delta \sin \varphi\label{equ:alpha},
 \end{equation}
 \begin{equation}
 \cos \gamma _{s} = \frac{\sin \delta -\sin \alpha_{s} \sin \varphi}{\cos \alpha _{s} \cos \varphi}\label{equ:gamma}
 \end{equation}
 记 \( \varphi\) 为纬度，\(\omega\) 为太阳时角，\(ST\) 为当地时间， \(\delta\) 为太阳赤纬角，有
 \begin{equation}
-\omega = \frac{\pi}{12} ( ST - 12)
+\omega = \frac{\pi}{12} ( ST - 12),
 \end{equation}
 \begin{equation}
-\sin \delta = \sin \frac{2 \pi D}{365} \sin \big(\frac{2\pi}{360} \cdot 23.45\big)
+\sin \delta = \sin \frac{2 \pi D}{365} \sin \big(\frac{2\pi}{360} \cdot 23.45\big),
 \end{equation}
-设太阳中心发出的光线的方向向量为 \(\vec\lambda _{i} = (x,  y , z)\)。若将\(\vec \lambda_{i}\)单位化，容易知道
+设太阳中心发出的光线的方向向量为 \(\vec\lambda _{i} = (x,  y , z)\)。若将\(\vec \lambda_{i}\)单位化，有
 \begin{equation}
 \vec \lambda _{i} = ({-} \cos \alpha _{s} \sin \gamma_{s} ,{-} \cos \alpha_{s} \cos \gamma_{s}, {-} \sin \alpha_{s})
 \end{equation}
@@ -37,32 +37,33 @@
 \begin{equation}
 \sin \alpha_{h} = \frac{R_{2}}{R_1 - R_3}
 \end{equation}
-经查阅资料可知，\(R_1 = 1.496\times 10 ^{8} \, \mathrm{km}\)，\(R_2 = 6.963\times 10 ^{5}\,\mathrm{km}\)，\(R_3 = 3.959\times 10^{3}\, \mathrm{km}\)，代入上式计算得
+经查阅资料\cite{abook}可知
+，\(R_1 = 1.496\times 10 ^{8} \, \mathrm{km}\)，\(R_2 = 6.963\times 10 ^{5}\,\mathrm{km}\)，\(R_3 = 3.959\times 10^{3}\, \mathrm{km}\)，代入上式计算得
 \begin{equation}
 \alpha_{h} \approx 4.65 \mathrm{mrad} \approx 0.5 ^{\circ}
 \end{equation}
 %%
 \paragraph{相关公式}
 法向直接辐射照度 DNI 按照下面公式近似计算：
-\[
+\begin{equation}
 \begin{aligned}
 \mathrm{DNI} = G_{0} \bigg[ a + b \cdot \exp\Big\{{-}\frac{c}{\sin \alpha_{s}}\Big\}\bigg]\\
 a = 0.4237 + 0.00821 (6 - H) ^{2} \\
 b = 0.5055 + 0.00595(6.5 - H) ^{2} \\
 c = 0.2711 + 0.01858 (2.5 - H) ^{2}
 \end{aligned}
-\]
+\end{equation}
 其中 \(G_{0}\) 是太阳常数。镜场的输出热功率为 \(E_{\mathrm{field}}\) 为
 \begin{equation}
 E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \end{equation}
 定日镜光学效率\(\eta\)为
 \begin{equation}
-\eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}}
+\eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}},
 \end{equation}
 其中 \(\eta _{\mathrm{s b}}\) 为阴影遮挡效率。阴影遮挡损失是指由于阴影或者是遮挡导致的效率损失，\(\eta _{\cos}\) 是余弦效率，大气透射率 \(\eta _{\mathrm{at}}\) 由下面公式确定：
 \begin{equation}
-\eta _{\mathrm{at}} = 0.99321 - 0.0001176 d _{\mathrm{HR}} + 1.97 \times 10 ^{-8} \times d _{\mathrm{HR}} ^{2}
+\eta _{\mathrm{at}} = 0.99321 - 0.0001176 d _{\mathrm{HR}} + 1.97 \times 10 ^{-8} \times d _{\mathrm{HR}} ^{2},
 \end{equation}
 其中 \(d _{\mathrm{HR}}\)是镜面中心到集热器中心的距离。截断效率为\(\eta _{\mathrm{trunc}}\) 。因为部分反射光束没有照射到中心塔塔顶的集热器导致效率损失。
 
@@ -91,13 +92,34 @@ z_2
 x_0\\
 y_0\\
 d
-\end{pmatrix}
+\end{pmatrix},
 \end{equation}
 其中 \((x_2,y_2,z_2)\) 是镜面坐标系里点的坐标，\((x_1,y_1,z_1)\) 是地面坐标系里点的坐标，\(M\) 是旋转矩阵，其为
 \[
-M  = M_1 M_2
+M  = M_1 M_2,
 \]
-其中
+\begin{figure}
+\centering
+\input trans.tex
+\caption{\kaishu 坐标系变换示意图}
+\end{figure}
+其中沿纵向转轴旋转角$\theta$对应的旋转矩阵为
+\[M_1 = 
+\begin{pmatrix}
+\cos\theta & -\sin \theta & 0\\
+\sin\theta& \cos\theta & 0\\
+0&0&1
+\end{pmatrix},
+\]
+沿水平转轴旋转角$\varphi$对应的旋转矩阵为
+\[M_2 = 
+\begin{pmatrix}
+1 & 0 & 0\\
+0&\cos\varphi & -\sin\varphi\\
+0&\sin\varphi&\cos\varphi
+\end{pmatrix},
+\]
+于是
 \begin{equation}\label{equ:transM}
 M =
 % \begin{pmatrix}
@@ -153,7 +175,7 @@ y_{A} \sin \varphi + d
 \(M(x_0,y_0,d)\)以及吸收塔集热器中心的坐标\((0,0,h)\)可以确定入射光线经定日镜反射后的反射光线的方向向量
 为 \(\vec \lambda_o  = (−x_0,−y_0, d −h)\)，因为镜面法向量 \(\vec n\)是入射光线 \(\vec \lambda _{i}\)和反射光线 \(\vec \lambda _{o}\)的角平分线，于是
 \begin{equation}
-\vec n = \big(\frac{\vec \lambda_{i}}{\vert \lambda_{i} \vert} + \frac{\vec \lambda_{o}}{\vert \lambda_{o} \vert}\big)
+\vec n = \big(\frac{\vec \lambda_{i}}{\vert \lambda_{i} \vert} + \frac{\vec \lambda_{o}}{\vert \lambda_{o} \vert}\big),
 \end{equation}
 即可确定每个定日镜镜面的法向量 \(\vec n (x_{n}, y_{n}, z_{n})\)。
 
@@ -187,25 +209,25 @@ y_{A} \sin \varphi + d
 \begin{figure}[H]
 \centering
 \input fig_ta.tex
-\caption{\kaishu 示意图}\label{fig:ta}
+\caption{\kaishu 判断吸收塔是否遮挡入射光线的示意图}\label{fig:ta}
 \end{figure}
 %
 \begin{enumerate}
 \item 若是入射光线水平方向的夹角过大，也即
 \begin{equation}
-\cos \langle \overrightarrow {OA}, \vec {\lambda _{i} '} \rangle \le \frac{\vert AR \vert }{\vert OA \vert }
+\cos \langle \overrightarrow {OA}, \vec {\lambda _{i} '} \rangle \le \frac{\vert AR \vert }{\vert OA \vert },
 \end{equation}
 则不会被遮挡；
 \item 若是 \(N_{h}\) 更加靠近定日镜一侧，也即
 \begin{equation}
-\vert {\it A N}_{h}\vert \le \vert {\it AR\,} \vert
+\vert {\it A N}_{h}\vert \le \vert {\it AR\,} \vert,
 \end{equation}并且 \(N_{h}\) 不在圆内，则不会被遮挡；
 \item 否则入射光线会被遮挡。
 \end{enumerate}
 \item \textbf{Step 2} 判断入射光线是否被相邻定日镜挡住
 
-由于定日镜场的地理位置位于北纬\(39.4^{\circ}\)，太阳光线在一年中的沿南北方向的分量一定是由南向北的，因此在地面坐标系\(xyz\)下定日镜\(A\)只能被南面的定日镜挡住光线。本文通过分析定日镜场每一圈之间的间隙长度\(\Delta r\)，以及图~(\ref{arange_1})中场内定日镜的分布和相邻定日镜之间的排布间隙要比镜面宽度\(a\)至少大\(5 \, \mathrm{m}\)的要求，
-确定了一个定日镜\(A\)的邻域:\((x_B - x_A)^2 + (y_B - y_A)^2 \le \epsilon^2\)，其中\(\varepsilon^2=\Delta r^2+(a+5)^2\)。
+由于定日镜场的地理位置位于北纬\(39.4^{\circ}\)，太阳光线在一年中的沿南北方向的分量一定是由南向北的，因此在地面坐标系\(xyz\)下定日镜\(A\)只能被南面的定日镜挡住光线。本文通过分析定日镜场每一圈之间的间隙长度\(\Delta r\)，以及图~\ref{arange_1} 中场内定日镜的分布和相邻定日镜之间的排布间隙要比镜面宽度\(a\)至少大\(5 \, \mathrm{m}\)的要求，
+确定了一个定日镜\(A\)的邻域：\((x_B - x_A)^2 + (y_B - y_A)^2 \le \epsilon^2\)，其中\(\varepsilon^2=\Delta r^2+(a+5)^2\)。
 
 通过上述邻域筛选得到可能挡住定日镜\(A\)入射光线的定日镜群，接下来对群中的定日镜进行如下分析：
 
@@ -223,13 +245,13 @@ y_{A} \sin \varphi + d
 x = x _{B} + m x_{i}\\
 y = y _{B} + my_{i} \\
 z = z_{B} + m z_{i}
-\end{cases}
+\end{cases},
 \]
 定日镜 \(A\) 镜面的平面方程为
 \[
-(x - x_{A} , y- y _{A} , z - d) \cdot \vec n = 0
+(x - x_{A} , y- y _{A} , z - d) \cdot \vec n = 0,
 \]
-联立上面直线方程和平面方程即可得到定日镜\(B\)的端点在定日镜A镜面上的投影点 \(B' (x_{B}' , y_{B} ' , z _{B} ')\)。由于得到的坐标是地面坐标系下的坐标，还需使用 equ~(\ref{transM}) 将其转化为\(A\)镜面系下的坐标：
+联立上面直线方程和平面方程即可得到定日镜\(B\)的端点在定日镜A镜面上的投影点 \(B' (x_{B}' , y_{B} ' , z _{B} ')\)。由于得到的坐标是地面坐标系下的坐标，还需使用公式~(\ref{transM}) 将其转化为\(A\)镜面系下的坐标：
 \[
 \begin{pmatrix}
 x_{B} ''\\
@@ -251,13 +273,13 @@ z_{B} ' - d
 \]
 得到了交点在 \(A\) 镜面坐标系的坐标表示 \(B'' = ( x_{B} '' , y_{B} '' , z _{B} '')\) 之后，就能够判断是否发生阴影，若是
 \begin{equation}
-\vert x_{B}'' \vert \le \frac{a}{2}\quad \text{and} \quad \vert y_{B}'' \vert \le \frac{b}{2}
+\vert x_{B}'' \vert \le \frac{a}{2}\quad \text{and} \quad \vert y_{B}'' \vert \le \frac{b}{2},
 \end{equation}
 则镜面 \(B\) 会将阴影投射到 \(A\) 镜面上。
 
-\item \textbf{Step3} 判断反射光线是否被相邻定日镜挡住
+\item \textbf{Step 3} 判断反射光线是否被相邻定日镜挡住
 
-通过分析图~(\ref{arange_1})的排布，可以在判断反射光线是否被挡住时，只需要考虑定日镜\(A\)向内一圈的、距离\(A\)最近的若干定日镜\(B\)判断其是否挡住\(A\)的反射光线。
+通过分析图~\ref{arange_1} 的排布，可以在判断反射光线是否被挡住时，只需要考虑定日镜\(A\)向内一圈的、距离\(A\)最近的若干定日镜\(B\)判断其是否挡住\(A\)的反射光线。
 
 已知反射光线 \(\vec \lambda _{o} = (x_0,y_0,z_0)\)和镜面 \(A\) 上反射点在地面坐标系的坐标 \(N'\)\((x_1, y_1, z_1)\)，以及镜面 \(B\) 的镜面法向量\(\vec n = (x_{n} , y_{n} ,z_{n})\)。要得到反射光线的反向延长线和\(B\) 镜面的交点 \(N''\)。为此，类似的，可以联立反射光线的直线方程和\(B\)镜面的平面方程。
 反射光线的直线方程为
@@ -266,19 +288,19 @@ z_{B} ' - d
 x = x_1 + m x_0\\
 y = y_1 + m y_0\\
 z = z_1 + m z_0
-\end{cases}
+\end{cases},
 \]
 定日镜 \(B\)镜面的平面方程为
 \[
-(x - x_{B} , y - y_{B} , z-z_{B}) \cdot \vec n = 0
+(x - x_{B} , y - y_{B} , z-z_{B}) \cdot \vec n = 0,
 \]
 可以解得光线和 \(B\) 的交点在地面坐标系下的坐标 \(N''\)为
 \[
-(x_2 , y_2, z_2) = (x_{A} + k x_0, y_{A} + ky_{0} , z_{A} + kz_{0})
+(x_2 , y_2, z_2) = (x_{A} + k x_0, y_{A} + ky_{0} , z_{A} + kz_{0}),
 \]
 其中\(k = \displaystyle \frac{(x_{B} - x_{A}) x_{n} + (y_{B} - y_{A}) y_{n} + (d- z_{A}) z_{n}}{x_0 x_{n} + y_{0} y_{n} + z_{0} z _{n}}\)。
 
-随后运用 equ~(\ref{equ:transM}) 将 \(N''\) 坐标转换为 \(B\) 镜面系下的坐标 \(N_{B}\):
+随后运用公式~(\ref{equ:transM}) 将 \(N''\) 坐标转换为 \(B\) 镜面系下的坐标 \(N_{B}\):
 \[
 \begin{pmatrix}
 x_{B} '\\
@@ -330,7 +352,7 @@ z_{A} + kz_{n} - d
 
 对于光锥内的一束光线 \(\vec S _{0}\)，记 \(\tau\) 为光线和 \(\vec\lambda _{o}\) 所成的角，取值范围为 \([0, 4.65\, \mathrm{m}\mathrm{rad}]\)，记 \(\sigma\) 为光线在 \(xOy\) 平面和 \(X\) 轴所成的角，其取值范围为 \([0 , 2\pi]\)，于是光线在光锥坐标系下的坐标可以表示为：
 \[
-\vec S _{0} = ( \sin \tau \cos \sigma, \sin \tau \sin \sigma, \cos \tau)
+\vec S _{0} = ( \sin \tau \cos \sigma, \sin \tau \sin \sigma, \cos \tau),
 \]
 通过变换矩阵，可以将光线在光锥坐标系下的坐标转换为地面坐标系下的坐标 \(\vec S\)。
 
@@ -347,7 +369,7 @@ z_{A} + kz_{n} - d
 \begin{cases}
 \displaystyle\hat x = \left(\frac{\vert y_{0} \vert}{\sqrt{x_{0}^{2}+ y _{0} ^{2}}}, {-}\frac{x_{0}\vert y_{0} \vert}{y_{0}\sqrt{x_{0}^{2}+y_{0}^{2}}}, 0\right)\\
 \displaystyle \hat y = ({-} n z_{0}, - m z_{0} , my_{0} - n x_{0})
-\end{cases}
+\end{cases},
 \]
 特别地，当 \(y_{0} = 0\)时 \(m = 0 \), \(n=1\)，也即 \(\hat x  = (0,1,0)\)。
 若将 \(\vec S_{0}\) 记为 \((a,b ,c)\)，可得
@@ -360,7 +382,7 @@ z_{A} + kz_{n} - d
 
 为了计算截断效率\(\eta _{\mathrm{dot-trunc}}\)，需要确定光锥之中的某光线是否有截断损失，若是其没有打在集热器上，则该光线发生了截断损失。为了判断截断损失，采取的思路和上文确定中心塔造成的阴影损失的思路类似。
 
-已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如下图所示：
+已知反射点 \(N\) 和 反射光线 \(\vec S\)，确定光线 1) 和中心塔塔顶所在平面的交点 \(N'\)；2) 和集热器底部所在的平面的交点 \(N''\)。剩余符号沿用上文，如图~\ref{fig:trunc} 所示：
 %
 \begin{figure}[H]
 \centering
@@ -375,6 +397,7 @@ z_{A} + kz_{n} - d
 \caption{\kaishu 水平面示意图}
 \end{subfigure}
 \caption{\kaishu 判断截断损失的示意图}
+\label{fig:trunc}
 \end{figure}
 %
 分三个步骤进行截断损失的判断：
@@ -386,7 +409,7 @@ z_{A} + kz_{n} - d
 通过对于每个定日镜中所有试验点是否被遮挡和其截断效率（部分试验点位于阴影部分，没有这个系数），对于当前定日镜，
 其最终的阴影遮挡效率\(\eta _{\mathrm{s b}}\)和截断效率 \(\eta _{\mathrm{trunc}}\)的计算就可以由以下公式得出：
 \begin{equation}
-\eta _{\mathrm{s b}} = \frac{N_{\text{试验总次数}}- N_{\text{被挡次数}}}{N_{\text{试验总次数}}}
+\eta _{\mathrm{s b}} = \frac{N_{\text{试验总次数}}- N_{\text{被挡次数}}}{N_{\text{试验总次数}}},
 \end{equation}
 \begin{equation}
 \eta _{\mathrm{trunc}} =\frac{\sum\eta _{\mathrm{dot}{-}\mathrm{trunc}}{}_i}{N_{\text{试验总次数}}- N_{\text{被挡次数}}}
@@ -395,7 +418,7 @@ z_{A} + kz_{n} - d
 \paragraph{光学效率的得出和热输出功率的得出}
 可以根据
 \begin{equation}
-\eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}}
+\eta = \eta _{\mathrm{s b}} \eta _{\cos} \eta _{\mathrm{at}} \eta _{\mathrm{trunc}} \eta _{\mathrm{ref}},
 \end{equation}
 得到定日镜的光学效率 \(\eta\)，其中大气透射率 \(\eta _{\mathrm{at}}\) 由下面公式确定：
 \begin{equation}
@@ -427,14 +450,14 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 %
 \begin{table}[H]
 \centering
-\input tab_1_1.tex
 \caption{\kaishu 问题1每月21日平均光学效率及输出功率}
+\input tab_1_1.tex
 \end{table}
 %
 \begin{table}[H]
 \centering
-\input tab_1_2.tex
 \caption{\kaishu 问题1年平均光学效率及输出功率表}
+\input tab_1_2.tex
 \end{table}
 %
 \begin{figure}[H]
@@ -449,7 +472,7 @@ E_{\mathrm{field}} = \mathrm{DNI} \cdot \sum _{i} ^{N} A_{i} \eta _{i}
 \caption{\kaishu 春分{\rm 12:00}时分镜场内各个定日镜光学效率可视化结果}\label{rainbow}
 \end{figure}
 对于上述建立的模型，本文给出了在春分这一天的正午时刻下，计算定日镜场各个定日镜所对应的光学效率的分布。并做以下的合理性分析：
-由图~(\ref{rainbow})可以看出，由于正午太阳光线在\(x\)轴方向上的分量为\(0\)，所以此时定日场的左右两半的光学效率几乎是呈对称排布的，与实际情况相符；另外，对于这张分布图从南向北分析，可以看出，\(\eta\)大致呈现逐渐增大的变化趋势，这是由于对于吸收塔北面的定日镜而言，其法向量与太阳入射光线的法向量的夹角较小（如图~(\ref{north_south})），致使其余弦效率\(\eta_{\cos}\)相比南面的定日镜大，最终这种差异通过乘算作用于光学效率\(\eta\)上，与实际情况相符。综上，模型的合理性可以粗略地得证。
+由图~\ref{rainbow} 可以看出，由于正午太阳光线在\(x\)轴方向上的分量为\(0\)，所以此时定日场的左右两半的光学效率几乎是呈对称排布的，与实际情况相符；另外，对于这张分布图从南向北分析，可以看出，\(\eta\)大致呈现逐渐增大的变化趋势，这是由于对于吸收塔北面的定日镜而言，其法向量与太阳入射光线的法向量的夹角较小（如图~\ref{north_south} ），致使其余弦效率\(\eta_{\cos}\)相比南面的定日镜大，最终这种差异通过乘算作用于光学效率\(\eta\)上，与实际情况相符。综上，模型的合理性可以粗略地得证。
 %
 \begin{figure}[H]
 \centering

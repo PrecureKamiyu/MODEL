@@ -58,7 +58,7 @@ format+=\sffamily\zihao{-4},},
 \RequirePackage{bigstrut}
 \RequirePackage{bigdelim}
 \RequirePackage{cprotect}
-\RequirePackage{listings}
+%\RequirePackage{listings}
 \RequirePackage{xcolor}
 \RequirePackage{url}
 \RequirePackage{subcaption}
@@ -261,131 +261,6 @@ format+=\sffamily\zihao{-4},},
 %% Document Markup
 
 % 生成封面, 使用\maketitle
-\renewcommand{\maketitle}{\par
-  \begingroup
-  \newpage
-  \global\@topnum\z@   % Prevents figures from going at top of page.
-  \@maketitle
-  \endgroup
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-}
-\def\@maketitle{%
-  \newpage
-  \if@mcm@preface
-  \null
- % 承诺书
- \vskip2ex
-  \thispagestyle{empty}
-  {\zihao{4}\noindent\mcm@commit@string@headname\\[-8pt]
-  \noindent\rule[5pt]{\textwidth-1.34em}{.5pt}\par}
-  \begin{center}%
-    {\zihao{-3}\bfseries\heiti \mcm@commit@string@titlea \par}%
-    {\vskip1ex\zihao{3}\bfseries\songti \mcm@commit@string@titleb \par}
-  \end{center}
-    {\zihao{-4} \mcm@commit@string@contents \par}
-    {\vskip1ex\zihao{-4}
-    \renewcommand{\ULthickness}{0.4pt}\setlength{\ULdepth}{2pt}
-    \hspace*{2em}\mcm@commit@string@problemnum\uline{\mbox{\kern1em}\mcm@tokens@tihao\hfill}\makebox[0.66em]{}\par
-    \mcm@commit@string@signupnum\uline{\mbox{\kern1em}\mcm@tokens@baominghao\hfill}\makebox[0.66em]{}\par
-    \mcm@commit@string@schoolname\uline{\hfill\mcm@tokens@schoolname\hfill}\makebox[0.66em]{}\par
-    \newlength{\mcm@lenB}
-    \settowidth{\mcm@lenB}{\mcm@commit@string@membername\mbox{\hspace{1em}}1.}
-    \setlength{\mcm@lenB}{\textwidth-\mcm@lenB}
-    % 不这样做右边难以对齐!
-    \mcm@commit@string@membername
-    \begin{minipage}[t]{\mcm@lenB}
-		1.\uline{\mbox{\kern1em}\mcm@tokens@membera\hfill} \makebox[0.46em]{}\par
-		2.\uline{\mbox{\kern1em}\mcm@tokens@memberb\hfill} \makebox[0.46em]{}\par
-		3.\uline{\mbox{\kern1em}\mcm@tokens@memberc\hfill} \makebox[0.46em]{}\par
-   \end{minipage}\par\vskip1ex
-    \mcm@commit@string@supervisorname\uline{\mbox{\hspace{1em}}\mcm@tokens@supervisor\hfill}\makebox[0.66em]{}\par
-    \hspace{0.1cm} （{\kaishu 指导教师签名意味着对参赛队的行为和论文的真实性负责}）
-    %{\kaishu\mcm@commit@string@inform\par}
-    \vskip2ex
-    \newlength{\mcm@lenA}
-    \settowidth{\mcm@lenA}{请仔细核对，提交后将不再允许做任何修改。如}% 虽然"日期"刚好在"错误"下面, 但注意"日期"还会缩进, 所以要省去"填写""两字
-    \hspace*{\mcm@lenA}\mcm@commit@string@date\hspace{0.5em}\uline{\hfill\mbox{\kern1em}\mcm@tokens@yearinput\mbox{\kern1em}\hfill}%
-    \mcm@commit@string@year\uline{\hfill\mcm@tokens@monthinput\hfill}\mcm@commit@string@month%
-    \uline{\hfill\mcm@tokens@dayinput\hfill}\mcm@commit@string@day\makebox[1em]{}\par}
-    \vskip1ex
-    {\kaishu\bfseries\mcm@commit@string@inform\par}
-	\vfill
-	\null
-% 编号专用页
-	\else
-	\fi
-	\makeothertitle
-	}
-
-%% 定义 编号专用页
-\def\makeothertitle{%
-  \if@mcm@preface
-  \par
-\newpage
-\null
-\thispagestyle{empty}
-{\zihao{4}\noindent\begin{tabularx}{\textwidth}{cXcX@{}}
-\mcm@numberpage@string@headname & & \mcm@numberpage@string@allcountrynum&\\[-5pt]
-\mcm@numberpage@string@headnameb & &\mcm@numberpage@string@allcountrynumb&\\
-\cline{2-2}\cline{4-4}
-\end{tabularx}
-
-\vspace*{1.2em}
-
-\noindent\rule{\textwidth}{1pt}\par}
-\begin{center}
-{\zihao{4}\bfseries\heiti \mcm@numberpage@string@titlea\par}
-{\vskip1ex\zihao{3}\songti \bfseries\mcm@numberpage@string@titleb\par}
-\end{center}\par
-{%
-\zihao{4}
-\vskip3em
-\hspace*{2em}\mcm@numberpage@string@appraiselog
-\par
-\newlength{\mcm@lenC}
-\setlength{\mcm@lenC}{\textwidth-8.72em}
-\setlength{\mcm@lenC}{\mcm@lenC/6}
-\newlength{\mcm@lenD}
-\settoheight{\mcm@lenD}{\mcm@numberpage@string@reviewer}
-\setlength{\mcm@lenD}{\mcm@lenD+2em}
-\newlength{\mcm@lenF}
-\settoheight{\mcm@lenF}{\mcm@numberpage@string@remarks}
-\setlength{\mcm@lenF}{\mcm@lenF+2em}
-\newcolumntype{P}{@{}p{\mcm@lenC}@{}}
-\hspace*{1.5em}\begin{tabular}{|!{\hspace{4pt}}c!{\hspace{4pt}}|*{6}{P|}}
- \hline
- \rule{0pt}{\mcm@lenD}\raisebox{0.6em}[0pt][0pt]{\mcm@numberpage@string@reviewer} & & & & & &  \\\cline{1-7}
- \rule{0pt}{\mcm@lenF}\raisebox{0.6em}[0pt][0pt]{\mcm@numberpage@string@remarks} & & & & & &  \\
- \hline
-\end{tabular}\par
-\vskip5em
-\hspace*{2em}\mcm@numberpage@string@countrynum}
-
-\vfill
-{\zihao{-4}\kaishu\bfseries\mcm@numberpage@string@inform\par}
-
-\null
-\newpage
-\null
-\setcounter{page}{1}
-{\centering \zihao{3}\bfseries \@title\par}
-\vskip1ex
-\else
-\setcounter{page}{1}
-{\centering \zihao{3}\bfseries \@title\par}
-\vskip1ex
-\fi
-}
 
 % 中文标题名称设置
 \renewcommand\contentsname{\mcm@cap@contentsname}

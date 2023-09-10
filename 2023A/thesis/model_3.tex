@@ -1,4 +1,4 @@
-\subsection{问题3}
+\subsection{问题3的模型建立和求解}
 \subsubsection{模型建立}
 对于定日镜场的布局，本文采用与问题二相同的布局策略。因此，为确定定日镜场的布局，需要将\(y_{R}\),\(a\),\(\Delta r\)作为决策变量。根据问题二中的分析，参数取值同样应满足\(x_{R} = 0\),\(y_{R} \in [-350, 0]\)，且相邻定日镜圈层之间的半径差设定为\(\Delta r\)，同一圈上相邻定日镜中心的距离设定为\(a+5\) m，最内圈层的点距离中心塔的距离大于100m
 
@@ -37,11 +37,11 @@ b_{k} = b + \Delta b\cdot (k-1)
 
 综上，问题三的优化目标函数为
 \begin{equation}
-\min S = ab N
+\min S = ab N,
 \end{equation}
 决策变量为
 \begin{equation}
-\{ y_{R} , a, b , d, \Delta r, \Delta b , \Delta d\}	
+\{ y_{R} , a, b , d, \Delta r, \Delta b , \Delta d\},
 \end{equation}
 约束条件为
 \begin{equation}
@@ -57,5 +57,30 @@ P_{\mathrm{out}} = 60 \mathrm{MW}\\
 \end{equation}
 
 \subsubsection{模型求解}
-
-% TODO result require
+使用遗传算法求得最优参数如下：
+\[
+\begin{cases}
+a        = 6.365\\
+y_{R}    = -197.03\\
+\Delta r = 12.96\\
+\Delta b = -0.002\\
+\Delta d = 0.0012\\
+b_{0}    = 4.386\\
+d_{0}    = 4.314
+\end{cases}
+\]
+\begin{table}[H]
+\caption{\kaishu 问题3每月21日平均光学效率及输出功率}
+\input tab_3_1.tex
+\end{table}
+%
+\begin{table}[H]
+\caption{\kaishu 问题3年均光学效率及输出功率表}
+\input tab_3_2.tex
+\end{table}
+%
+\begin{table}[H]
+\caption{\kaishu 问题{\rm 3}设计参数表}
+\input tab_3_3.tex
+\label{tab_3_3}
+\end{table}
