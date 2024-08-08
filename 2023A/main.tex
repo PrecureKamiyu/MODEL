@@ -1,0 +1,45 @@
+\documentclass{myclass}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{subfiles}
+\usepackage{listing}
+\pagestyle{plain}
+\begin{document}
+\centerline{\LARGE \bf 定日镜场的优化设计}
+\bigskip
+\begin{abstract}
+本文基于塔式太阳能光热发电站的工作原理，通过几何关系、坐标变换、蒙特卡洛模拟计算定日镜场光学效率，
+构建了均匀布局下的定日镜场的优化模型，
+并利用遗传算法搜索得出不同约束条件下的最大单位镜面面积输出热功率。
+
+\textbf{针对问题1}，本文建立了基于蒙特卡洛模拟的\textbf{几何关系}模型。首先根据时间确定太阳高度角和方位角，调整镜面的朝向使得反射光线落在吸收塔集热器中心，得出镜面法向量。
+遍历所有的定日镜，在每个定日镜上运用\textbf{蒙特卡洛原理}模拟生成大量随机点，运用\textbf{旋转矩阵}实现坐标变换，分为三种情况判断该点是否造成阴影遮挡损失：入射光线是否被塔挡住；入射光线是否被其他定日镜挡住；反射光线是否被其他定日镜挡住。
+若无阴影遮挡损失，则进一步用\textbf{蒙特卡洛}光线追迹法求解该点的截断效率，在以反射点为顶点、主反射光线为轴的光锥内生成大量随机光线，判断其是否落在吸收塔集热器上。通过上述步骤求得定日镜的阴影遮挡效率和截断效率，在计算大气透射率和余弦效率之后，可得出各个定日镜的光学效率。最后求得定日镜场的年平均光学效率为 \textbf{64.93\%}，年平均热功率为 \textbf{39.71\kern 1ptMW}，单位面积镜面年平均输出热功率为 \textbf{0.6322\kern 1ptkW\kern -1.8pt/m}\({}^{\mathbf{2}}\)。
+
+\textbf{针对问题2}，
+本文确定定日镜镜场的排布为\textbf{均匀布局}，即以吸收塔作为圆心，在一定半径的圆周上等距地排列定日镜，并且相邻定日镜圈上之间的半径之差相等。
+基于上述布局，建立了如下单目标\textbf{优化模型}：
+将题目所需要的单位镜面面积年均输出热功率最大，转化为以镜场总镜面面积最小为优化目标，吸收塔位置坐标、镜面尺寸、安装高度、相邻定日镜圈半径增量为决策变量，以题中镜面尺寸、安装高度以及相邻定日镜底座中心距离要求，额定年平均输出热功率60\kern 1ptMW为约束条件，采用\textbf{遗传算法}进行最优解的搜索，最终得到镜场镜面总面积最小值为 \textbf{77758}\kern 1.3pt\(\mathbf{m}^{\mathbf{2}}\)，单位面积年平均输出热功率最大值为
+\textbf{0.767}\kern 1.3pt\(\mathbf{k\kern -0.4ptW\kern -1.3pt/m^{2}}\)。
+
+\textbf{针对问题3}，本文基于问题2的排布方式，对各个定日镜的安装高度和镜面尺寸，使用线性增长模型进行修正，即各个定日镜的安装高度和镜面尺寸与其到吸收塔的距离成正比。
+%
+基于问题2的优化模型，额外引入决策变量：定日镜安装高度、镜面尺寸沿径向的增长率，用以描述各定日镜的尺寸与安装高度的变化规律，
+并沿用问题2中的遗传算法搜索最优解，
+最终得到镜场镜面总面积最小值为 \textbf{58476}\kern 1.3pt\(\mathbf{m}^{\mathbf{2}}\)，单位面积年平均输出热功率最大值为
+\textbf{0.7147}\kern 1.3pt\(\mathbf{k\kern -0.4ptW\kern -1.3pt/m^{2}}\)。
+
+\bigskip
+\noindent {\bf 关键词：几何关系\quad 蒙特卡洛原理\quad 旋转矩阵\quad 单变量优化模型\quad 遗传算法}
+\end{abstract}
+\subfile{prob_retell.tex}
+\subfile{prob_anal.tex}
+\subfile{symb.tex}
+\subfile{assump.tex}
+\subfile{model.tex}
+\subfile{model_2.tex}
+\subfile{model_3.tex}
+\subfile{comment.tex}
+\subfile{appendix.tex}
+%\subfile{code.tex}
+\end{document}

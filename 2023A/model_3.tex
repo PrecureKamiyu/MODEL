@@ -1,0 +1,86 @@
+\subsection{问题3的模型建立和求解}
+\subsubsection{模型建立}
+对于定日镜场的布局，本文采用与问题二相同的布局策略。因此，为确定定日镜场的布局，需要将\(y_{R}\),\(a\),\(\Delta r\)作为决策变量。根据问题二中的分析，参数取值同样应满足\(x_{R} = 0\),\(y_{R} \in [-350, 0]\)，且相邻定日镜圈层之间的半径差设定为\(\Delta r\)，同一圈上相邻定日镜中心的距离设定为\(a+5\) m，最内圈层的点距离中心塔的距离大于100m
+
+由于创建定日镜场的函数{\it getNumHelio}接收的\(a\)参数唯一，因此不同定日镜的镜面宽度必须相同，即所有定日镜的\(a\)参数均为同一个决策变量。
+
+由于定日镜数量庞大，难以将每一个定日镜的安装高度、镜面高度均作为决策变量进行优化，因此本文采用线性分布模型，即仅将最内层的定日镜安装高度、镜面高度作为决策变量，其余位置定日镜的安装高度、镜面高度、沿圆的径向作线性分布。若记最内层定日镜的安装高度为\(d\)、镜面高度为\(b\)，根据线性分布模型，相邻两层之间的安装高度差为\(\Delta d\)、镜面高度差为\(\Delta b\)，则定日镜的安装高度、镜面高度随层数\(k\)的分布如下：
+\begin{equation}
+d_{k} = d + \Delta d\cdot (k-1)\\
+b_{k} = b + \Delta b\cdot (k-1)
+\end{equation}
+
+针对吸收塔北侧的多数定日镜进行分析：本文通过调整\(\Delta d > 0\)来确保外圈定日镜的反射光线不被内圈的挡住，
+以及内圈定日镜不会挡住外圈定日镜的入射光线，使得阴影遮挡损失最小。在此基础上，就可以相应地增加每一圈定日镜的面积。对于每一圈定日镜面积所增加的幅度，本文根据当地一年中正午太阳高度角 \(\alpha_{s}\)的变化情况，再结合定日镜场的排布，得到如下分析图
+\begin{figure}[H]
+\centering
+\input 30_70.tex
+\caption{太阳高度角最大最小时塔顶投射的距离示意图}\label{30_70}
+\end{figure}
+
+由上图可知，对于位于塔顶投射点的一圈定日镜，余弦效率达到极大值，由于大部分时间内，该定日镜圈都在吸收塔100m内，于是假设内圈的定日镜的余弦效率比外圈的大，因此本文通过调整\(\Delta b \le 0\) 来确保内圈定日镜的面积更大，使得对于同一个的定日镜场布局，定日镜场的
+\(E_{\mathrm{field}} / S\)
+最大。
+
+
+设定日镜场的总层数为\(N_{\text{层数}}\)，根据题目中给出的定日镜尺寸的限制条件，应满足
+\[
+\begin{cases}
+\min d_{k} = d \ge 2\\
+\max d_{k} = d + (N_{\text{层数}}-1) \cdot \Delta d \le 6\\
+\min b_{k} = b + (N_{\text{层数}}-1) \cdot \Delta b \ge 2\\
+\max b_{k} = b \le a \le 8
+\end{cases}
+\]
+
+根据题目信息，定日镜镜场的额定年平均输出热功率 \(P_{\mathrm{out}} \) 为 60MW，而优化目标为单位镜面面积年平均输出热功率，问题可以转化为在额定功率下定日镜镜场的总镜面面积\(S\)最小。
+
+综上，问题三的优化目标函数为
+\begin{equation}
+\min S = ab N,
+\end{equation}
+决策变量为
+\begin{equation}
+\{ y_{R} , a, b , d, \Delta r, \Delta b , \Delta d\},
+\end{equation}
+约束条件为
+\begin{equation}
+s.t.
+\begin{cases}
+N = {\it getNumHelio} (y_{R} , a, \Delta r)\\
+P_{\mathrm{out}} = 60 \mathrm{MW}\\
+2 \le d \le 6 - \Delta d \cdot (N_{\text{层数}}-1)\\
+2 - \Delta d \cdot (N_{\text{层数}}-1) \le b \le a \le 8\\
+\displaystyle\frac{b_{k}}{2} \sin (\max \varphi_{\text{水平转角}k})
+\le d_{k},\quad k \in [1, N]
+\end{cases}
+\end{equation}
+
+\subsubsection{模型求解}
+使用遗传算法求得最优参数如下：
+\[
+\begin{cases}
+a        = 6.365\\
+y_{R}    = -197.03\\
+\Delta r = 12.96\\
+\Delta b = -0.002\\
+\Delta d = 0.0012\\
+b_{0}    = 4.386\\
+d_{0}    = 4.314
+\end{cases}
+\]
+\begin{table}[H]
+\caption{\kaishu 问题3每月21日平均光学效率及输出功率}
+\input tab_3_1.tex
+\end{table}
+%
+\begin{table}[H]
+\caption{\kaishu 问题3年均光学效率及输出功率表}
+\input tab_3_2.tex
+\end{table}
+%
+\begin{table}[H]
+\caption{\kaishu 问题{\rm 3}设计参数表}
+\input tab_3_3.tex
+\label{tab_3_3}
+\end{table}
